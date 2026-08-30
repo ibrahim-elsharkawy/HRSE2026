@@ -1,0 +1,2589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>From Obligation to Investment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap">
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+
+:root{
+  --ground:#082C20;
+  --ground-2:#0B3626;
+  --panel:#10402F;
+  --panel-2:#154A37;
+  --line:#2A6B52;
+  --cream:#FFFAE9;
+  --sage:#C6D5CE;
+  --sage-dim:#A3B7AD;
+  --gold:#D6B481;
+  --gold-deep:#C09A62;
+  --clay:#E08A70;
+  --f-serif:"Newsreader",Georgia,"Times New Roman",Times,serif;
+  --f-sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
+body{
+  background:#04150F;
+  color:var(--cream);
+  font-family:var(--f-sans);
+  font-weight:300;
+  overflow:hidden;
+  height:100vh;
+  height:100dvh;
+  overscroll-behavior:none;
+}
+
+/* ---------- stage ---------- */
+#viewport{
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(120% 90% at 50% -10%, #0A3527 0%, #04150F 70%);
+}
+#stage{
+  width:1280px; height:720px;
+  flex:0 0 auto;
+  position:relative; transform-origin:center center;
+  background:var(--ground);
+  box-shadow:0 40px 120px rgba(0,0,0,.55), 0 0 0 1px rgba(201,164,110,.18);
+  overflow:hidden;
+}
+.slide{
+  position:absolute; inset:0;
+  padding:64px 56px 54px;
+  display:none; flex-direction:column;
+  background:var(--ground);
+}
+.slide.on{display:flex; animation:fade .3s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* ---------- focal reveals ---------- */
+@keyframes rise {from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+@keyframes riseq{from{opacity:0; transform:translateY(8px)}  to{opacity:1; transform:none}}
+@keyframes inL  {from{opacity:0; transform:translateX(-30px)} to{opacity:1; transform:none}}
+@keyframes inR  {from{opacity:0; transform:translateX(30px)}  to{opacity:1; transform:none}}
+@keyframes pop  {from{opacity:0; transform:scale(.86)} to{opacity:1; transform:none}}
+@keyframes grow {from{opacity:0; transform:scaleY(.24)} to{opacity:1; transform:none}}
+@keyframes wipe {from{opacity:0; clip-path:inset(0 100% 0 0)} to{opacity:1; clip-path:inset(0 0 0 0)}}
+@keyframes drop {from{opacity:0; transform:translateY(-16px)} to{opacity:1; transform:none}}
+@keyframes zoom {from{opacity:0; transform:scale(1.14); letter-spacing:.06em} to{opacity:1; transform:none}}
+@keyframes railgrow{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+@keyframes spark{
+  0%  {text-shadow:0 0 0 rgba(214,180,129,0);   transform:scale(1)}
+  42% {text-shadow:0 0 38px rgba(214,180,129,.60); transform:scale(1.05)}
+  100%{text-shadow:0 0 20px rgba(214,180,129,.24); transform:scale(1)}
+}
+@keyframes sweep{from{transform:translateX(-110%)} to{transform:translateX(110%)}}
+@keyframes fadein{from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:none}}
+
+/* differentiating words bloom after their line lands */
+h2.title em, .claim .tx b, .close .big em, .cover h1 em, .tcta .r em,
+.offer .ot strong, .pull, .rpc, .kicker em{display:inline-block}
+.slide.on .spark{animation:spark 1.15s cubic-bezier(.3,.7,.4,1) both}
+
+/* items inside a revealed block arrive one at a time */
+.fxi{opacity:0}
+.slide.on .fxi{animation:fadein .44s cubic-bezier(.2,.72,.28,1) both}
+
+/* one soft pass of light on every slide change */
+#stage::after{
+  content:""; position:absolute; inset:0; z-index:5; pointer-events:none;
+  background:linear-gradient(102deg, transparent 32%, rgba(214,180,129,.075) 47%, transparent 62%);
+  transform:translateX(-110%);
+}
+#stage.sweep::after{animation:sweep 1s cubic-bezier(.3,.5,.4,1) both}
+
+.cover h1 .ln{display:block}
+
+.fx{opacity:0}
+.slide.on .fx        {animation:rise .52s cubic-bezier(.2,.72,.28,1) both}
+.slide.on .fx-left   {animation:inL  .58s cubic-bezier(.2,.72,.28,1) both}
+.slide.on .fx-right  {animation:inR  .58s cubic-bezier(.2,.72,.28,1) both}
+.slide.on .fx-pop    {animation:pop  .5s  cubic-bezier(.22,1.05,.36,1) both}
+.slide.on .fx-grow   {animation:grow .62s cubic-bezier(.22,.9,.3,1) both; transform-origin:bottom center}
+.slide.on .fx-wipe   {animation:wipe .68s cubic-bezier(.25,.7,.25,1) both}
+.slide.on .fx-drop   {animation:drop .5s  cubic-bezier(.2,.72,.28,1) both}
+.slide.on .fx-zoom   {animation:zoom .72s cubic-bezier(.2,.78,.25,1) both}
+.rail5::before{transform-origin:left center}
+.slide.on .rail5.go::before{animation:railgrow .85s cubic-bezier(.25,.75,.3,1) both; animation-delay:.18s}
+.slide.on .kicker{animation:riseq .6s cubic-bezier(.2,.72,.28,1) both}
+.bar .fl{transition:width .95s cubic-bezier(.22,.7,.25,1)}
+.pcase .r.big .v, .hero1 .hn, .hero .num{
+  text-shadow:0 0 0 rgba(201,164,110,0); transition:text-shadow 1.1s ease .5s;
+}
+.slide.on .pcase .r.big .v, .slide.on .hero1 .hn, .slide.on .hero .num{
+  text-shadow:0 0 42px rgba(201,164,110,.30);
+}
+.offer{transition:box-shadow 1.2s ease .7s, border-color 1.2s ease .7s}
+.slide.on .offer{box-shadow:0 0 46px rgba(201,164,110,.16)}
+h2.title em{position:relative}
+@media (prefers-reduced-motion:reduce){
+  .slide.on,.slide.on .fx,.slide.on .fx-left,.slide.on .fx-right,.slide.on .fx-pop,
+  .slide.on .fx-grow,.slide.on .fx-wipe,.slide.on .fx-drop,.slide.on .fx-zoom,
+  .slide.on .rail5.go::before,.slide.on .kicker,.slide.on .spark,
+  .slide.on .fxi,#stage.sweep::after{animation:none}
+  .fxi{opacity:1}
+  .fx{opacity:1}
+  .bar .fl{transition:none}
+  .slide.on .pcase .r.big .v,.slide.on .hero1 .hn,.slide.on .hero .num,.slide.on .offer{
+    text-shadow:none; box-shadow:none;
+  }
+}
+
+/* ---------- chrome ---------- */
+.act{
+  position:absolute; top:22px; left:56px;
+  font-family:var(--f-mono); font-size:12px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold-deep);
+}
+.mark{
+  position:absolute; top:20px; right:56px; text-align:right;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sage-dim);
+}
+.pageno{
+  position:absolute; bottom:18px; right:56px;
+  font-family:var(--f-mono); font-size:12.5px; color:var(--sage-dim);
+  font-variant-numeric:tabular-nums;
+}
+.kicker{
+  position:absolute; left:56px; right:56px; bottom:18px;
+  border-top:1px solid var(--line); padding-top:11px;
+  font-family:var(--f-serif); font-style:italic;
+  font-size:24px; line-height:1.28; color:var(--gold); max-width:1040px;
+}
+#rail{position:fixed; left:0; right:0; bottom:0; height:2px; background:rgba(201,164,110,.14); z-index:20}
+#rail>div{height:100%; background:var(--gold); width:0; transition:width .3s ease}
+
+/* ---------- type ---------- */
+h1,h2,h3{margin:0; font-weight:400; text-wrap:balance}
+.eyebrow{
+  font-family:var(--f-mono); font-size:13.5px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:18px;
+}
+h2.title{
+  font-family:var(--f-serif); font-weight:300;
+  font-size:53px; line-height:1.05; letter-spacing:-.015em; max-width:22ch;
+}
+h2.title em{font-style:italic; color:var(--gold)}
+.src{
+  font-family:var(--f-mono); font-size:13.5px; letter-spacing:.04em;
+  color:var(--sage-dim); line-height:1.45;
+}
+/* inline attribution that sits directly under a figure */
+.att{
+  font-family:var(--f-mono); font-size:13.5px; letter-spacing:.04em;
+  color:var(--gold-deep); line-height:1.45; margin-top:8px;
+}
+
+/* ---------- cover ---------- */
+.cover{justify-content:center; padding-left:88px;
+  background:radial-gradient(80% 120% at 88% 15%, rgba(201,164,110,.10) 0%, rgba(8,44,32,0) 60%), var(--ground);
+}
+.cover .wordmark{
+  font-family:var(--f-mono); font-size:14px; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:16px;
+}
+.cover h1{
+  font-family:var(--f-serif); font-weight:300;
+  font-size:70px; line-height:1.0; letter-spacing:-.022em; margin:10px 0 0; max-width:16ch;
+}
+.cover h1 em{font-style:italic; color:var(--gold)}
+.cover .sub{font-size:21px; line-height:1.4; color:var(--sage); max-width:46ch; margin-top:20px}
+.cover .sub em{font-style:normal; color:var(--gold)}
+.cover .rule{width:72px; height:2px; background:var(--gold); margin:26px 0 20px}
+.cover .presenter{
+  font-family:var(--f-serif); font-size:34px; line-height:1.1;
+  color:var(--cream); letter-spacing:-.01em;
+}
+.cover .presenter .by{
+  font-family:var(--f-mono); font-size:13px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--gold-deep); margin-right:8px;
+  vertical-align:middle;
+}
+.cover .creds{font-size:16.5px; line-height:1.5; color:var(--sage); margin-top:10px; max-width:52ch}
+.cover .certs{font-family:var(--f-mono); font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gold); margin-top:10px}
+.cover .meta{
+  font-family:var(--f-mono); font-size:13px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sage-dim); line-height:2; margin-top:14px;
+}
+
+/* ---------- blocks ---------- */
+.body{flex:1; display:flex; flex-direction:column; justify-content:center}
+.slide:has(.kicker){padding-bottom:132px}
+.cols{display:grid; gap:34px}
+.c2{grid-template-columns:1fr 1fr}
+.c3{grid-template-columns:repeat(3,1fr)}
+.c2-6535{grid-template-columns:1.05fr .95fr}
+
+.card{background:var(--panel); border:1px solid var(--line); padding:22px 24px;
+  display:flex; flex-direction:column; gap:10px}
+.card .h{font-family:var(--f-mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold)}
+.card .t{font-family:var(--f-serif); font-size:29px; line-height:1.14}
+.card p{margin:0; font-size:19px; line-height:1.48; color:var(--sage)}
+
+.claims{display:flex; flex-direction:column; margin-top:6px}
+.claim{display:grid; grid-template-columns:54px 1fr; gap:20px; padding:15px 0; border-top:1px solid var(--line)}
+.claim:last-child{border-bottom:1px solid var(--line)}
+.claim .n{font-family:var(--f-mono); font-size:14px; color:var(--gold); padding-top:5px; letter-spacing:.08em}
+.claim .tx{font-family:var(--f-serif); font-size:30px; line-height:1.2; font-weight:300}
+.claim .tx b{font-weight:400; color:var(--gold); font-style:italic}
+.claim .sb{font-size:17px; color:var(--sage); line-height:1.45; margin-top:6px}
+
+.facts{display:flex; flex-direction:column; gap:15px}
+.facts.tight{gap:13px}
+.facts.tight .fig{font-size:44px}
+.facts.tight .tx{font-size:19.5px; line-height:1.38}
+.facts.tight .tx span{font-size:16px; line-height:1.4; margin-top:4px}
+.facts.tight .att{font-size:12.5px; margin-top:5px}
+.facts.tight .fact{grid-template-columns:160px 1fr; gap:22px}
+.fact{display:grid; grid-template-columns:180px 1fr; gap:26px; align-items:baseline;
+  border-left:2px solid var(--gold-deep); padding:2px 0 2px 20px}
+.fact .fig{font-family:var(--f-serif); font-size:50px; line-height:1; color:var(--gold);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.fact .fig small{font-size:20px; letter-spacing:0}
+.fact .tx{font-size:23px; line-height:1.4; color:var(--cream)}
+.fact .tx span{color:var(--sage); display:block; margin-top:6px; font-size:18.5px; line-height:1.45}
+
+.hero{display:flex; align-items:center; gap:64px}
+.hero .num{font-family:var(--f-serif); font-weight:300; font-size:200px; line-height:.82;
+  color:var(--gold); letter-spacing:-.045em}
+.hero .num i{font-style:italic; font-size:70px; display:block; letter-spacing:-.01em; color:var(--cream)}
+
+.bars{display:flex; flex-direction:column; gap:15px; margin-top:4px}
+.bar{display:grid; grid-template-columns:150px 1fr 108px; gap:18px; align-items:center}
+.bar .lb{font-size:17px; color:var(--sage); text-align:right; line-height:1.22}
+.bar .tr{height:24px; background:rgba(255,250,233,.12)}
+.bar .fl{height:100%; background:var(--gold); border-radius:0 4px 4px 0}
+.bar.mut .fl{background:var(--sage-dim)}
+.bar .vl{font-family:var(--f-mono); font-size:17px; color:var(--cream); font-variant-numeric:tabular-nums}
+
+/* ---------- the five-stage model ---------- */
+.arc{display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:34px}
+.arc .pill{
+  border:1px solid var(--gold-deep); border-radius:999px; padding:9px 24px;
+  font-family:var(--f-mono); font-size:13px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold); background:rgba(201,164,110,.07);
+}
+.arc .pill.mid{background:var(--gold); color:#082C20; border-color:var(--gold)}
+.arc .ar{color:var(--gold-deep); font-size:13px}
+
+.rail5{position:relative; display:grid; grid-template-columns:repeat(5,1fr); gap:0}
+.rail5::before{content:""; position:absolute; top:26px; left:10%; right:10%; height:1px; background:var(--line)}
+.st{position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 12px}
+.st .node{
+  width:52px; height:52px; border-radius:50%; background:var(--ground);
+  border:1px solid var(--gold-deep); display:flex; align-items:center; justify-content:center;
+  font-family:var(--f-mono); font-size:14px; color:var(--gold); position:relative; z-index:1;
+  font-variant-numeric:tabular-nums;
+}
+.st.hi .node{background:var(--gold); color:#082C20; border-color:var(--gold)}
+.st .nm{font-family:var(--f-serif); font-size:25px; line-height:1.14; margin-top:16px; color:var(--cream)}
+.st .ds{font-size:16.5px; line-height:1.38; color:var(--sage); margin-top:9px}
+.phase{display:grid; grid-template-columns:3fr 1fr 1fr; gap:0; margin-top:26px}
+.phase div{
+  border-top:1px solid var(--gold-deep); padding-top:10px; margin-right:2px;
+  font-family:var(--f-mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--gold-deep); text-align:center;
+}
+
+/* ---------- journey ---------- */
+.journey{display:grid; grid-template-columns:1fr 1fr 1fr; margin-top:10px}
+.leg{padding:24px 24px 22px; border:1px solid var(--line); border-right:none;
+  background:linear-gradient(180deg, var(--panel) 0%, var(--ground-2) 100%)}
+.leg:last-child{border-right:1px solid var(--line)}
+.leg.mid{background:linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%)}
+.leg .ph{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:9px}
+.leg .nm{font-family:var(--f-serif); font-size:31px; line-height:1.08; margin-bottom:5px}
+.leg .dur{font-family:var(--f-mono); font-size:13.5px; color:var(--clay); margin-bottom:15px; letter-spacing:.06em}
+.leg ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px}
+.leg li{font-size:16px; line-height:1.35; color:var(--sage); padding-left:15px; position:relative}
+.leg li::before{content:""; position:absolute; left:0; top:10px; width:5px; height:1.5px; background:var(--gold-deep)}
+.leg strong{color:var(--cream); font-weight:400}
+
+/* ---------- 70:20:10 rings ---------- */
+.rings{display:grid; grid-template-columns:repeat(3,1fr); gap:34px; margin-top:8px}
+.rc{display:flex; flex-direction:column; align-items:center; text-align:center; position:relative}
+.ring{width:132px; height:132px; transform:rotate(-90deg)}
+.ring .trk{fill:none; stroke:rgba(255,250,233,.14); stroke-width:10}
+.ring .arc{fill:none; stroke:var(--gold); stroke-width:10; stroke-linecap:round;
+  stroke-dashoffset:0; transition:stroke-dasharray 1.1s cubic-bezier(.22,.7,.25,1)}
+.rings{--x:0}
+.rpc i{font-style:normal; font-size:22px}
+.rpc{position:absolute; top:52px; font-family:var(--f-serif); font-size:34px; color:var(--gold);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.rt{font-family:var(--f-serif); font-size:27px; line-height:1.15; color:var(--cream); margin-top:20px}
+.rd{font-size:16.5px; line-height:1.42; color:var(--sage); margin-top:10px; max-width:34ch}
+
+.progs{font-family:var(--f-mono); font-size:13px; letter-spacing:.03em; color:var(--sage-dim);
+  line-height:1.6; margin-top:14px; border-left:2px solid var(--gold-deep); padding-left:16px}
+
+/* ---------- single-client hero result ---------- */
+.hero1{display:grid; grid-template-columns:1.1fr .9fr; gap:34px; align-items:center; margin-top:22px}
+.hero1 .hn{font-family:var(--f-serif); font-size:112px; line-height:.9; color:var(--gold);
+  font-variant-numeric:tabular-nums; letter-spacing:-.04em}
+.hero1 .hn i{font-style:normal; font-size:48px}
+.hero1 .hk{font-family:var(--f-serif); font-size:30px; line-height:1.2; color:var(--cream); margin-top:12px; max-width:16ch}
+.hero1 .hl{font-family:var(--f-mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold-deep); margin-top:14px}
+.sub2{display:flex; flex-direction:column; gap:16px}
+.sub2>div{border-left:2px solid var(--gold-deep); padding-left:20px}
+.sub2 .v{font-family:var(--f-serif); font-size:40px; line-height:1; color:var(--gold); font-variant-numeric:tabular-nums}
+.sub2 .v i{font-style:normal; font-size:20px}
+.sub2 .k{font-size:15px; line-height:1.35; color:var(--sage); margin-top:6px}
+
+/* ---------- two-client proof ---------- */
+.proof2{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.pcase{border:1px solid var(--line); background:var(--panel); padding:20px 22px;
+  display:flex; flex-direction:column; gap:14px}
+.pcase.hi{border-color:var(--gold-deep); background:var(--panel-2)}
+.pcase .cn{font-family:var(--f-serif); font-size:25px; line-height:1.12; color:var(--cream)}
+.pcase .cm{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.06em; color:var(--gold-deep); line-height:1.6}
+.pcase .rows{display:flex; flex-direction:column; gap:11px; margin-top:2px}
+.pcase .r{display:grid; grid-template-columns:104px 1fr; gap:14px; align-items:baseline}
+.pcase .r .v{font-family:var(--f-serif); font-size:36px; line-height:1; color:var(--gold);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.pcase .r .v i{font-style:normal; font-size:19px}
+.pcase .r .k{font-size:14px; line-height:1.35; color:var(--sage)}
+.pcase .r.big .v{font-size:50px; color:var(--gold)}
+.pcase .r.big .k{color:var(--cream); font-size:15px}
+.pcase .lvl{font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--sage-dim); border-top:1px solid var(--line); padding-top:11px; margin-top:auto}
+.pcase .lvl.gold{color:var(--gold)}
+
+/* ---------- case study ---------- */
+.client{
+  border:1px solid var(--gold-deep); background:rgba(201,164,110,.07);
+  padding:16px 24px; display:flex; align-items:baseline; gap:22px; flex-wrap:wrap;
+}
+.client .cn{font-family:var(--f-serif); font-size:28px; line-height:1.1; color:var(--cream)}
+.client .cm{font-family:var(--f-mono); font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gold); margin-left:auto; text-align:right; line-height:1.7}
+.runfacts{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); margin-top:20px}
+.runfacts>div{background:var(--ground); padding:14px 16px; display:flex; flex-direction:column; gap:5px}
+.runfacts .v{font-family:var(--f-serif); font-size:32px; line-height:1; color:var(--cream);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.runfacts .k{font-size:15px; line-height:1.28; color:var(--sage)}
+.kp{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px}
+.kp>div{border-left:2px solid var(--gold); padding-left:18px; display:flex; flex-direction:column; gap:6px}
+.kp .lv{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-deep)}
+.kp .v{font-family:var(--f-serif); font-size:46px; line-height:1; color:var(--gold);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.kp .k{font-size:16px; line-height:1.32; color:var(--sage)}
+
+/* ---------- the offer ---------- */
+.offer{
+  border:1px solid var(--gold); background:rgba(201,164,110,.09);
+  padding:24px 30px; display:flex; flex-direction:column; gap:12px;
+}
+.offer .ol{font-family:var(--f-mono); font-size:12px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold-deep)}
+.offer .ot{font-family:var(--f-serif); font-size:31px; line-height:1.28; color:var(--cream); max-width:44ch}
+.offer .ot strong{font-weight:400; color:var(--gold)}
+
+/* ---------- national pull quote + gap cards ---------- */
+.pull{
+  font-family:var(--f-serif); font-style:italic; font-size:36px; line-height:1.28;
+  color:var(--gold); max-width:30ch; border-left:3px solid var(--gold-deep); padding-left:26px;
+}
+.gaps{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); margin-top:26px}
+.gp{background:var(--ground); padding:18px 20px; display:flex; flex-direction:column; gap:8px}
+.gp .k{font-size:15.5px; line-height:1.28; color:var(--sage); min-height:36px}
+.gp .v{font-family:var(--f-serif); font-size:44px; line-height:1; color:var(--clay);
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.gp .t{font-family:var(--f-mono); font-size:13.5px; color:var(--sage-dim); line-height:1.6}
+.gp .t b{color:var(--gold); font-weight:400}
+
+/* ---------- deliverables list (slide 10) ---------- */
+.deliv{display:flex; flex-direction:column}
+.dv{display:grid; grid-template-columns:56px 260px 1fr; gap:26px; align-items:baseline;
+  padding:19px 0; border-top:1px solid var(--line)}
+.dv:last-child{border-bottom:1px solid var(--line)}
+.dv .s{font-family:var(--f-mono); font-size:15px; color:var(--gold); letter-spacing:.06em;
+  font-variant-numeric:tabular-nums}
+.dv .n{font-family:var(--f-serif); font-size:25px; line-height:1.15; color:var(--cream)}
+.dv .g{font-size:18.5px; line-height:1.42; color:var(--sage)}
+
+/* ---------- the ladder (slide 13) ---------- */
+.ladder{display:grid; grid-template-columns:repeat(6,1fr); gap:6px; align-items:end}
+.rung{
+  border:1px solid var(--line); border-bottom:3px solid var(--gold-deep);
+  padding:16px 15px 15px; display:flex; flex-direction:column; gap:7px; justify-content:flex-end;
+}
+.rung .lv{font-family:var(--f-mono); font-size:13px; letter-spacing:.16em; color:var(--gold-deep)}
+.rung .nm{font-family:var(--f-serif); font-size:24px; line-height:1.1; color:var(--cream)}
+.rung .ds{font-size:15.5px; line-height:1.32; color:var(--sage)}
+.r1{min-height:126px; background:rgba(201,164,110,.04)}
+.r2{min-height:150px; background:rgba(201,164,110,.07)}
+.r3{min-height:174px; background:rgba(201,164,110,.10)}
+.r4{min-height:198px; background:rgba(201,164,110,.13)}
+.r5{min-height:222px; background:rgba(201,164,110,.16)}
+.r6{min-height:246px; background:rgba(201,164,110,.20); border-bottom-color:var(--gold)}
+.r6 .lv{color:var(--gold)}
+.note{font-size:18.5px; line-height:1.42; color:var(--sage); border-left:2px solid var(--line); padding-left:20px}
+.note.gold{border-left-color:var(--gold-deep); color:var(--cream)}
+.note strong{font-weight:400; color:var(--gold)}
+
+/* ---------- table ---------- */
+table{width:100%; border-collapse:collapse; font-size:16px}
+th{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+   color:var(--gold); text-align:left; padding:0 14px 10px 0; border-bottom:1px solid var(--gold-deep); font-weight:500}
+td{padding:13px 16px 13px 0; border-bottom:1px solid var(--line); vertical-align:top; color:var(--sage); line-height:1.4}
+td.st5{font-family:var(--f-mono); color:var(--gold); width:6%; font-size:14px}
+td.nm{color:var(--cream); font-weight:400; width:20%}
+td.gv{color:var(--cream); width:34%}
+
+/* ---------- vs ---------- */
+.vs{display:grid; grid-template-columns:1fr 1fr; margin-top:8px}
+.vs>div{padding:26px 28px; border:1px solid var(--line)}
+.vs>div:first-child{border-right:none; background:var(--ground-2)}
+.vs>div:last-child{background:var(--panel)}
+.vs h3{font-family:var(--f-serif); font-size:32px; margin-bottom:18px; font-weight:300}
+.vs .a h3{color:var(--clay)}
+.vs .b h3{color:var(--gold)}
+.vs ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:13px}
+.vs li{font-size:19px; line-height:1.38; color:var(--sage); padding-left:20px; position:relative}
+.vs li::before{content:"\2022"; position:absolute; left:0; color:var(--gold-deep)}
+
+/* ---------- timeline ---------- */
+.tl{display:flex; flex-direction:column; margin-top:4px}
+.tl .row{display:grid; grid-template-columns:130px 1fr; gap:26px; padding:13px 0; border-top:1px solid var(--line); align-items:baseline}
+.tl .row:last-child{border-bottom:1px solid var(--line)}
+.tl .d{font-family:var(--f-mono); font-size:14px; color:var(--gold); letter-spacing:.06em; font-variant-numeric:tabular-nums}
+.tl .w{font-size:18px; line-height:1.4; color:var(--cream)}
+.tl .w span{color:var(--sage); font-size:15px; display:block; margin-top:4px}
+
+/* ---------- stat grid ---------- */
+.sg{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line)}
+.sg>div{background:var(--ground); padding:13px 18px; display:flex; flex-direction:column; gap:5px;
+  min-height:96px; justify-content:center}
+.sg .v{font-family:var(--f-serif); font-size:40px; line-height:1; color:var(--gold);
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.sg .v.dn{color:var(--clay)}
+.sg .k{font-size:16px; line-height:1.28; color:var(--sage)}
+
+/* ---------- thank you ---------- */
+.thanks{justify-content:center;
+  background:radial-gradient(70% 105% at 25% 45%, rgba(214,180,129,.12) 0%, rgba(8,44,32,0) 62%), var(--ground)}
+.tq{font-family:var(--f-serif); font-weight:300; font-size:88px; line-height:.95;
+  letter-spacing:-.035em; color:var(--cream)}
+.tsub{font-size:20px; line-height:1.5; color:var(--sage); max-width:52ch}
+.tcta{margin-top:26px; border:1px solid var(--gold); background:rgba(214,180,129,.09);
+  padding:20px 28px; display:inline-flex; flex-direction:column; gap:7px; align-self:flex-start}
+.tcta .l{font-family:var(--f-mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep)}
+.tcta .r{font-family:var(--f-serif); font-size:30px; line-height:1.2; color:var(--cream)}
+.tcta .r em{font-style:normal; color:var(--gold)}
+.tname{margin-top:26px; font-family:var(--f-mono); font-size:14px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--sage-dim)}
+
+/* ---------- close ---------- */
+.close{justify-content:center;
+  background:radial-gradient(75% 110% at 20% 40%, rgba(201,164,110,.11) 0%, rgba(8,44,32,0) 62%), var(--ground)}
+.close .big{font-family:var(--f-serif); font-weight:300; font-size:50px; line-height:1.18; max-width:24ch; letter-spacing:-.015em}
+.close .big em{font-style:italic; color:var(--gold)}
+.close .cta{
+  margin-top:42px; border:1px solid var(--gold-deep); background:rgba(201,164,110,.07);
+  padding:22px 30px; display:inline-flex; flex-direction:column; gap:8px; align-self:flex-start;
+}
+.close .cta .l{
+  font-family:var(--f-mono); font-size:12px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold-deep);
+}
+.close .cta .r{font-family:var(--f-serif); font-size:32px; line-height:1.2; color:var(--cream)}
+.close .cta .r strong{font-weight:400; color:var(--gold)}
+.close .cta .r em{font-style:normal; color:var(--gold); letter-spacing:.02em}
+.closewrap{display:grid; grid-template-columns:1fr 210px; gap:48px; align-items:center}
+.qrbox{display:flex; flex-direction:column; align-items:center; gap:11px;
+  border:1px solid var(--gold-deep); background:rgba(214,180,129,.07); padding:16px}
+.qr{width:150px; height:150px; display:block; background:var(--cream); padding:7px}
+.qcap{font-family:var(--f-serif); font-size:19px; color:var(--cream); line-height:1.2}
+.qsub{font-family:var(--f-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--gold); text-align:center; line-height:1.7}
+.tqr{display:grid; grid-template-columns:1fr 200px; gap:44px; align-items:center; margin-top:30px}
+.close .signoff{
+  margin-top:26px; font-family:var(--f-mono); font-size:12px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--sage-dim);
+}
+
+.srcwrap{display:grid; grid-template-columns:1fr 208px; gap:36px; align-items:start}
+.qrbox{display:flex; flex-direction:column; align-items:center; gap:12px;
+  border:1px solid var(--gold-deep); background:rgba(214,180,129,.07); padding:16px}
+.qr{width:152px; height:152px; display:block; background:var(--cream); padding:7px}
+.qcap{font-family:var(--f-serif); font-size:19px; color:var(--cream); line-height:1.1}
+.qsub{font-family:var(--f-mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold); text-align:center; line-height:1.6}
+.srcgrid{display:grid; grid-template-columns:1fr 1fr; gap:9px 44px; font-size:15px; color:var(--sage); line-height:1.4}
+.srcgrid b{color:var(--cream); font-weight:400}
+
+/* ---------- notes + help ---------- */
+#notes{
+  position:fixed; left:0; right:0; bottom:0; max-height:36vh; overflow:auto;
+  background:#03110C; border-top:1px solid var(--gold-deep);
+  padding:18px 28px 22px; z-index:30; display:none;
+  font-size:14px; line-height:1.6; color:var(--sage);
+}
+#notes.on{display:block}
+#notes h4{margin:0 0 8px; font-family:var(--f-mono); font-size:10px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold); font-weight:500}
+#notes .time{color:var(--clay); font-family:var(--f-mono); font-size:11px; margin-left:10px}
+#bar{
+  position:fixed; bottom:10px; left:20px; z-index:26;
+  display:flex; align-items:center; gap:22px;
+  font-family:var(--f-mono);
+}
+#timer{display:flex; align-items:baseline; gap:10px; cursor:pointer; user-select:none;
+  border:0; background:transparent; padding:0}
+#timer .clk{
+  font-size:26px; letter-spacing:.03em; color:var(--sage-dim);
+  font-variant-numeric:tabular-nums; transition:color .3s ease;
+}
+#timer.run .clk{color:var(--gold)}
+#timer.warn .clk{color:var(--clay)}
+#timer.over .clk{color:var(--clay)}
+#timer .st{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--sage-dim)}
+#timer.run .st{color:var(--gold-deep)}
+#timer.hid{display:none}
+#help{
+  font-size:10px; letter-spacing:.12em;
+  color:var(--sage-dim); text-transform:uppercase;
+}
+#help b{color:var(--gold); font-weight:500}
+#hitL,#hitR{position:fixed; top:0; bottom:0; width:22%; z-index:10; cursor:pointer; background:transparent; border:0}
+
+/* ---------- presenter tools ---------- */
+#black{position:fixed; inset:0; background:#000; z-index:60; display:none}
+#black.on{display:block}
+#grid{
+  position:fixed; inset:0; z-index:55; display:none; overflow:auto;
+  background:rgba(4,21,15,.995); padding:46px 54px;
+}
+#grid.on{display:block}
+#grid h3{font-family:var(--f-mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 22px; font-weight:500}
+#gwrap{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+#gwrap button{
+  text-align:left; background:var(--panel); border:1px solid var(--line); color:var(--cream);
+  padding:14px 16px; cursor:pointer; font-family:var(--f-sans); display:flex; flex-direction:column; gap:6px;
+  transition:border-color .15s, background .15s;
+}
+#gwrap button:hover{border-color:var(--gold); background:var(--panel-2)}
+#gwrap button.cur{border-color:var(--gold); background:var(--panel-2)}
+#gwrap .gn{font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; color:var(--gold)}
+#gwrap .gt{font-size:15px; line-height:1.3}
+body.hidecur, body.hidecur *{cursor:none}
+#rotate{
+  position:fixed; left:50%; bottom:54px; transform:translateX(-50%); z-index:28;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); background:rgba(4,21,15,.9); border:1px solid var(--gold-deep);
+  padding:9px 16px; display:none; white-space:nowrap;
+}
+@media (max-width:820px) and (orientation:portrait){ #rotate{display:block} }
+@media (max-width:900px){
+  #help{display:none}
+  #bar{left:14px; bottom:8px}
+  #timer .clk{font-size:20px}
+}
+@media print{
+  @page{size:1280px 720px; margin:0}
+  html,body{height:auto; overflow:visible; background:#fff}
+  #viewport{position:static; display:block; background:none; inset:auto}
+  #stage{transform:none!important; width:1280px; height:auto; box-shadow:none; overflow:visible}
+  .slide{display:flex!important; position:relative; inset:auto; width:1280px; height:720px;
+    page-break-after:always; break-after:page; animation:none}
+  #rail,#bar,#notes,#hitL,#hitR,#rotate{display:none!important}
+}
+#hitL{left:0} #hitR{right:0}
+button:focus-visible{outline:2px solid var(--gold); outline-offset:-4px}
+
+/* ============================================================
+   ARABIAN ACADEMY BRAND SYSTEM
+   Charcoal 60-70%  ·  Arabian White 25-35%  ·  Arabian Green 5-10%
+   Green is controlled emphasis only: hero figures, one
+   differentiating word per line, active states, key highlights.
+   Structure (rules, labels, borders) is white and grey.
+   ============================================================ */
+:root{
+  --ground:#232527;      /* Charcoal 1 */
+  --ground-2:#252728;    /* Charcoal 2 */
+  --panel:#2E3133;
+  --panel-2:#303335;     /* Charcoal 3 */
+  --line:#474B4D;
+  --cream:#FAFAFA;       /* Arabian White */
+  --sage:#C3C7C9;
+  --sage-dim:#8F9497;
+  --gold:#1DB874;        /* Arabian Green, lifted for contrast on charcoal */
+  --gold-deep:#149660;   /* Arabian Green */
+  --clay:#FAFAFA;
+  --green:#149660;
+  --green-lift:#1DB874;
+  --warn:#E2705A;        /* presenter chrome only, never on a slide */
+}
+body{background:#1A1C1E}
+#viewport{background:radial-gradient(120% 90% at 50% -10%, #2A2D2F 0%, #1A1C1E 70%)}
+#stage{box-shadow:0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(250,250,250,.07)}
+#stage::after{background:linear-gradient(102deg, transparent 32%, rgba(250,250,250,.05) 47%, transparent 62%)}
+
+/* green glow, used sparingly */
+@keyframes spark{
+  0%  {text-shadow:0 0 0 rgba(29,184,116,0);   transform:scale(1)}
+  42% {text-shadow:0 0 34px rgba(29,184,116,.55); transform:scale(1.05)}
+  100%{text-shadow:0 0 18px rgba(29,184,116,.22); transform:scale(1)}
+}
+.slide.on .pcase .r.big .v, .slide.on .hero1 .hn, .slide.on .hero .num{text-shadow:0 0 44px rgba(29,184,116,.28)}
+.slide.on .offer{box-shadow:0 0 44px rgba(29,184,116,.15)}
+#rail{background:rgba(250,250,250,.10)}
+
+/* ---- demote structure to neutral so green stays scarce ---- */
+.act{color:var(--sage-dim)}
+.mark{color:#6E7376}
+.pageno{color:#6E7376}
+.kicker{color:var(--cream); border-top-color:var(--line)}
+.kicker em{color:var(--green-lift); font-style:italic}
+.card .h{color:var(--sage-dim)}
+.att{color:var(--sage-dim)}
+.src{color:var(--sage-dim)}
+.arc .pill{border-color:var(--line); color:var(--sage); background:rgba(250,250,250,.03)}
+.arc .pill.mid{background:var(--green); color:#FAFAFA; border-color:var(--green)}
+.arc .ar{color:var(--sage-dim)}
+.st .node{border-color:var(--line); color:var(--sage)}
+.st.hi .node{background:var(--green); color:#FAFAFA; border-color:var(--green)}
+.phase div{border-top-color:var(--line); color:var(--sage-dim)}
+.fact{border-left-color:var(--green)}
+.sub2>div{border-left-color:var(--line)}
+.leg li::before{background:var(--sage-dim)}
+.leg .dur{color:var(--sage-dim)}
+.leg .ph{color:var(--sage-dim)}
+.leg.mid{background:rgba(20,150,96,.20); border-color:var(--green)}
+.leg.mid .ph{color:var(--green-lift)}
+.leg.mid .nm{color:#FFFFFF}
+.leg.mid .dur{color:#BFE7D3}
+.leg.mid li{color:#DCEFE5}
+.leg.mid li::before{background:var(--green-lift)}
+.leg.mid strong{color:#FFFFFF}
+.leg{min-height:250px}
+.bar .tr{background:rgba(250,250,250,.10)}
+.bar .fl{background:var(--green)}
+.bar.mut .fl{background:#5A5F62}
+.ring .trk{stroke:rgba(250,250,250,.12)}
+.ring .arc{stroke:var(--green-lift)}
+.progs{border-left-color:var(--line); color:var(--sage-dim)}
+.gp .v{color:var(--cream)}
+.gp .t{color:var(--sage-dim)}
+.sg>div{background:var(--ground-2)}
+.runfacts>div{background:var(--ground-2)}
+.gp{background:var(--ground-2)}
+.gp .t b{color:var(--green-lift)}
+.runfacts .v{color:var(--cream)}
+.kp>div{border-left-color:var(--green)}
+.kp .lv{color:var(--sage-dim)}
+.client{border-color:var(--line); background:var(--panel)}
+.client .cm{color:var(--sage-dim)}
+.rung{border-color:var(--line); border-bottom-color:#4A4F51}
+.rung .lv{color:var(--sage-dim)}
+.r1{background:rgba(250,250,250,.02)} .r2{background:rgba(250,250,250,.035)}
+.r3{background:rgba(250,250,250,.05)} .r4{background:rgba(250,250,250,.065)}
+.r5{background:rgba(250,250,250,.08)} .r6{background:rgba(20,150,96,.16); border-bottom-color:var(--green)}
+.r6 .lv{color:var(--green-lift)}
+.note{border-left-color:var(--line)}
+.note.gold{border-left-color:var(--green)}
+.note strong{color:var(--green-lift)}
+th{color:var(--sage-dim); border-bottom-color:var(--line)}
+.vs>div:first-child{background:var(--ground-2)}
+.vs .a h3{color:var(--sage)}
+.vs .b h3{color:var(--green-lift)}
+.vs li::before{color:var(--sage-dim)}
+.tl .d{color:var(--sage-dim)}
+.sg .v.dn{color:var(--cream)}
+.pull{color:var(--cream); border-left-color:var(--green)}
+.offer{border-color:var(--green); background:rgba(20,150,96,.10)}
+.offer .ol{color:var(--sage-dim)}
+.offer .ot strong{color:var(--green-lift)}
+.close .cta{border-color:var(--line); background:rgba(250,250,250,.03)}
+.close .cta .l{color:var(--sage-dim)}
+.close .cta .r strong,.close .cta .r em{color:var(--green-lift)}
+.close .signoff{color:var(--sage-dim)}
+.tcta{border-color:var(--green); background:rgba(20,150,96,.10)}
+.tcta .l{color:var(--sage-dim)}
+.tcta .r em{color:var(--green-lift)}
+.tname{color:var(--sage-dim)}
+.qrbox{border-color:var(--line); background:rgba(250,250,250,.03)}
+.qr{background:var(--cream)}
+.qsub{color:var(--sage-dim)}
+.srcgrid b{color:var(--cream)}
+.cover{background:radial-gradient(80% 120% at 86% 18%, rgba(20,150,96,.16) 0%, rgba(35,37,39,0) 62%), var(--ground)}
+.cover .wordmark{color:var(--green-lift)}
+.cover .rule{background:var(--green)}
+.cover .creds{color:var(--sage)}
+.cover .certs{color:var(--sage-dim)}
+.cover .meta{color:var(--sage-dim)}
+.cover .presenter .by{color:var(--sage-dim)}
+.close{background:radial-gradient(75% 110% at 18% 42%, rgba(20,150,96,.15) 0%, rgba(35,37,39,0) 62%), var(--ground)}
+.thanks{background:radial-gradient(70% 105% at 24% 46%, rgba(20,150,96,.18) 0%, rgba(35,37,39,0) 62%), var(--ground)}
+#notes{background:#141618; border-top-color:var(--line); color:var(--sage)}
+#notes h4{color:var(--green-lift)}
+#notes .time{color:var(--sage-dim)}
+#timer.run .clk{color:var(--green-lift)}
+#timer.run .st{color:var(--sage-dim)}
+#timer.warn .clk,#timer.over .clk{color:var(--warn)}
+#help b{color:var(--green-lift)}
+#grid{background:rgba(26,28,30,.995)}
+#grid h3{color:var(--green-lift)}
+#gwrap button:hover,#gwrap button.cur{border-color:var(--green); background:var(--panel-2)}
+#gwrap .gn{color:var(--sage-dim)}
+#rotate{background:rgba(26,28,30,.94); border-color:var(--line); color:var(--sage)}
+button:focus-visible{outline-color:var(--green-lift)}
+
+/* ============================================================
+   COMPONENTS ADDED FOR THE MERGED NARRATIVE
+   ============================================================ */
+
+/* the diagnostic dialogue */
+.dlg{display:flex; flex-direction:column; gap:2px; margin-top:6px}
+.dlg .ln{display:grid; grid-template-columns:96px 1fr; gap:24px; align-items:baseline; padding:11px 0}
+.dlg .who{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--sage-dim); padding-top:8px}
+.dlg .sp{font-family:var(--f-serif); font-size:29px; line-height:1.26; color:var(--cream)}
+.dlg .me .sp{color:var(--green-lift)}
+.dlg .me .who{color:var(--green-lift)}
+.dlg .last .sp{font-style:italic}
+
+/* the admission, a full-bleed quotation */
+.bigq{font-family:var(--f-serif); font-weight:300; font-size:66px; line-height:1.08;
+  letter-spacing:-.02em; max-width:19ch; color:var(--cream)}
+.bigq em{font-style:normal; color:var(--green-lift)}
+.said{font-size:22px; line-height:1.5; color:var(--sage); max-width:56ch; margin-top:30px}
+.said strong{font-weight:400; color:var(--cream)}
+
+/* the positioning statement */
+.lede{font-size:24px; line-height:1.5; color:var(--sage); max-width:58ch; margin-top:24px}
+.lede strong{font-weight:400; color:var(--cream)}
+.hr{height:1px; background:var(--line); margin:34px 0 20px; max-width:820px}
+.stamp{font-family:var(--f-mono); font-size:13px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--sage-dim); line-height:1.8; max-width:64ch}
+.stamp b{color:var(--green-lift); font-weight:500}
+
+/* the confounders we removed */
+.chips{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:6px}
+.chip{border:1px solid var(--line); padding:14px 18px; font-family:var(--f-mono);
+  font-size:16px; letter-spacing:.02em; color:#6E7376; text-decoration:line-through;
+  text-decoration-thickness:1px; background:rgba(250,250,250,.02)}
+
+/* the net-cost equation */
+.eq{border-left:3px solid var(--green); padding:18px 0 18px 26px; margin:24px 0 22px;
+  font-family:var(--f-mono); font-size:21px; line-height:1.75; color:var(--sage);
+  white-space:pre; letter-spacing:.01em}
+.eq b{color:var(--green-lift); font-weight:500}
+.eq strong{color:var(--cream); font-weight:400}
+
+/* the ROE definition block */
+.roe{border:1px solid var(--green); background:rgba(20,150,96,.10); padding:20px 24px; margin-top:26px}
+.roe .rl{font-family:var(--f-mono); font-size:12px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--green-lift); margin-bottom:9px}
+.roe .rt{font-family:var(--f-serif); font-size:23px; line-height:1.34; color:var(--cream)}
+.roe .rt em{font-style:italic; color:var(--green-lift)}
+
+/* two-axis diagnostic list */
+.axes{display:flex; flex-direction:column; gap:14px; margin-top:4px}
+.ax{display:grid; grid-template-columns:112px 1fr; gap:20px; align-items:baseline;
+  border-top:1px solid var(--line); padding-top:13px}
+.ax .al{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sage-dim); padding-top:4px}
+.ax .at{font-size:19.5px; line-height:1.42; color:var(--sage)}
+.ax .at b{color:var(--cream); font-weight:400}
+.ax .at em{font-style:normal; color:var(--green-lift)}
+
+
+/* green on the running identifiers */
+.act{color:var(--sage-dim); opacity:1}
+.pageno{color:#7C8184}
+
+/* cover: live subtitle */
+.cover h1 em{font-style:italic; color:var(--green-lift)}
+.cover .sub{color:var(--cream); font-size:23px}
+.cover .sub em{font-style:italic; color:var(--green-lift)}
+
+/* stress words inside fact rows */
+.fact .tx em{font-style:normal; color:var(--green-lift)}
+.facts.tight .tx em{font-style:normal; color:var(--green-lift)}
+
+/* dialogue slide: quote icon, subtitle, per-line reveal */
+.qi{font-family:var(--f-serif); color:var(--green-lift); font-style:normal;
+    font-size:1.35em; line-height:0; margin-right:.06em; vertical-align:-.06em}
+.dsub{font-family:var(--f-mono); font-size:13px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--sage-dim); margin:0 0 14px}
+.dlg .ln{opacity:0}
+.slide.on .dlg .ln{opacity:1}
+
+/* vs columns: header label */
+.vh{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--sage-dim); margin-bottom:10px}
+.vs .b .vh{color:var(--green-lift)}
+.vs li strong{color:var(--cream); font-weight:400}
+.vs .b li strong{color:var(--green-lift)}
+
+
+/* case studies: bring the green back to the client bar and the table */
+.client{border:1px solid var(--green); border-left:4px solid var(--green);
+        background:rgba(20,150,96,.12)}
+.client .cn{color:var(--cream)}
+.client .cm{color:var(--green-lift)}
+.runfacts{background:rgba(20,150,96,.55); border:1px solid var(--green)}
+.runfacts>div{background:var(--ground-2)}
+.runfacts .k{color:var(--sage)}
+.kp>div{border-left:3px solid var(--green)}
+.kp .lv{color:var(--green-lift)}
+.hero1 .hl{color:var(--green-lift)}
+.sub2>div{border-left:3px solid var(--green)}
+
+/* ============================================================
+   STAGE LEGIBILITY PASS
+   Everything the back row must read goes up.
+   Source lines (.att / .src / .srcgrid) deliberately stay small.
+   ============================================================ */
+.eyebrow{font-size:15px}
+.act{font-size:13.5px}
+.lede{font-size:25.5px}
+.stamp{font-size:15px}
+.said{font-size:23.5px}
+.card .h{font-size:14.5px}
+.card p{font-size:21px}
+.fact .tx{font-size:25px}
+.fact .tx span{font-size:20px}
+.facts.tight .tx{font-size:22px}
+.facts.tight .tx span{font-size:18px}
+.claim .sb{font-size:19px}
+.sg .k{font-size:18px}
+.note{font-size:20.5px}
+.gp .k{font-size:17.5px}
+.gp .t{font-size:15px}
+.vh{font-size:14px}
+.vs li{font-size:21px}
+.st .ds{font-size:18.5px}
+.phase div{font-size:13.5px}
+.rt{font-size:29px}
+.rd{font-size:18.5px; max-width:36ch}
+.ax .al{font-size:14px}
+.ax .at{font-size:21.5px}
+.roe .rl{font-size:13.5px}
+.roe .rt{font-size:25px}
+.chip{font-size:17px}
+.eq{font-size:22px}
+.client .cm{font-size:13.5px}
+.runfacts .k{font-size:17px}
+.kp .lv{font-size:14px}
+.kp .k{font-size:18px}
+.hero1 .hk{font-size:32px}
+.hero1 .hl{font-size:13.5px}
+.sub2 .k{font-size:17px}
+.bar .lb{font-size:19px}
+.bar .vl{font-size:19px}
+.offer .ol{font-size:13.5px}
+.dsub{font-size:14px}
+.dlg .who{font-size:14px}
+.dlg .sp{font-size:30px}
+.tsub{font-size:22px}
+.close .cta .l{font-size:13.5px}
+.tcta .l{font-size:13.5px}
+.tname{font-size:15px}
+.close .signoff{font-size:13.5px}
+.qsub{font-size:13px}
+
+/* ---- slide 05: the national-gap slide had no green in it ---- */
+.pull{color:var(--cream)}
+.pull em{font-style:italic; color:var(--green-lift)}
+.gaps{background:rgba(20,150,96,.45); border:1px solid var(--green)}
+.gp .v{color:var(--green-lift)}
+.gp .t b{color:var(--cream)}
+
+
+/* ---- the two-axis diagnostic grid (restored from Ibrahim's deck) ---- */
+.dgwrap{display:grid; grid-template-columns:300px 1fr; gap:46px; align-items:center; margin-top:10px}
+.dgrid{position:relative; padding:0 0 30px 32px}
+.dg{display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+    gap:8px; width:100%; aspect-ratio:1/1}
+.dg>div{border:1px solid var(--line); background:var(--ground-2); position:relative}
+.dg .g1{background:rgba(20,150,96,.13)}
+.dg .g2{background:rgba(20,150,96,.26); border-color:var(--green)}
+.dg .mk{display:flex; align-items:center; justify-content:center}
+.dg .mk span{width:72px; height:72px; border-radius:50%; display:flex; align-items:center;
+  justify-content:center; font-family:var(--f-mono); font-size:12.5px; letter-spacing:.14em}
+.dg .aft span{background:var(--green); color:#0C1A12; font-weight:500}
+.dg .bef span{background:rgba(250,250,250,.15); color:var(--sage)}
+.ylab{position:absolute; left:0; top:0; bottom:30px; writing-mode:vertical-rl;
+  transform:rotate(180deg); display:flex; align-items:center; justify-content:center;
+  font-family:var(--f-mono); font-size:12.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sage-dim)}
+.xlab{position:absolute; left:32px; right:0; bottom:2px; text-align:center;
+  font-family:var(--f-mono); font-size:12.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sage-dim)}
+.dgwrap .axes{margin-top:0}
+.dgwrap .ax{font-size:20px}
+
+/* ---- 9-block grid: cells climb in, AFTER radiates on a loop ---- */
+.dg>div{opacity:0; transform:scale(.72)}
+.dg>div.in{opacity:1; transform:none;
+  transition:opacity .36s ease, transform .46s cubic-bezier(.22,1.06,.36,1)}
+.dg .mk span{opacity:0; transform:scale(.5)}
+.dg .mk span.go{opacity:1; transform:none;
+  transition:opacity .4s ease, transform .52s cubic-bezier(.22,1.12,.36,1)}
+@keyframes radiate{
+  0%  {box-shadow:0 0 0 0 rgba(29,184,116,.60)}
+  70% {box-shadow:0 0 0 32px rgba(29,184,116,0)}
+  100%{box-shadow:0 0 0 0 rgba(29,184,116,0)}
+}
+.dg .aft span.go{animation:radiate 2.3s cubic-bezier(.25,.6,.35,1) .4s infinite}
+@keyframes breathe{0%,100%{opacity:.8} 50%{opacity:1}}
+.dg .bef span.go{animation:breathe 3.4s ease-in-out infinite}
+@keyframes cellglow{
+  0%,100%{background:rgba(20,150,96,.12)}
+  50%    {background:rgba(20,150,96,.36)}
+}
+.dg>div.g1.live{animation:cellglow 2.8s ease-in-out infinite}
+@keyframes aftglow{
+  0%,100%{background:rgba(20,150,96,.24)}
+  50%    {background:rgba(20,150,96,.44)}
+}
+.dg>div.g2.live{animation:aftglow 2.8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .dg>div{opacity:1; transform:none}
+  .dg .mk span{opacity:1; transform:none}
+  .dg .aft span.go,.dg .bef span.go,.dg>div.g1.live,.dg>div.g2.live{animation:none}
+}
+
+.bigq,.said,.lede,.stamp,.note,.hr{will-change:opacity,transform}
+
+/* the ladder reads as a staircase: fixed treads, even rise */
+.ladder{align-items:end; gap:8px}
+.rung{justify-content:flex-end; padding:16px 16px 15px}
+.rung .ds{min-height:0}
+.ladder{grid-template-columns:repeat(4,1fr); gap:12px}
+.r1{height:196px} .r2{height:224px} .r3{height:252px} .r4{height:280px}
+.r1,.r2,.r3,.r4,.r5,.r6{min-height:0}
+
+/* ============================================================
+   ARABIC · RTL
+   Arabic has no italics and no letter case, and letter-spacing
+   breaks the joining of the script. All three are neutralised.
+   ============================================================ */
+[dir="rtl"]{
+  --f-serif:"IBM Plex Sans Arabic","Noto Naskh Arabic",Tahoma,Arial,sans-serif;
+  --f-sans:"IBM Plex Sans Arabic","Noto Sans Arabic",Tahoma,Arial,sans-serif;
+  --f-mono:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;
+}
+[dir="rtl"] *{letter-spacing:normal !important; font-style:normal !important;
+  text-transform:none !important}
+[dir="rtl"] .eyebrow,[dir="rtl"] .act,[dir="rtl"] .mark,[dir="rtl"] .vh,
+[dir="rtl"] .card .h,[dir="rtl"] .kp .lv,[dir="rtl"] .rung .lv,[dir="rtl"] .leg .ph,
+[dir="rtl"] .ax .al,[dir="rtl"] .dsub,[dir="rtl"] .dlg .who,[dir="rtl"] .roe .rl,
+[dir="rtl"] .offer .ol,[dir="rtl"] .phase div,[dir="rtl"] .arc .pill,
+[dir="rtl"] .close .cta .l,[dir="rtl"] .tcta .l,[dir="rtl"] .tname,
+[dir="rtl"] .close .signoff,[dir="rtl"] .qsub,[dir="rtl"] .cover .wordmark,
+[dir="rtl"] .cover .certs,[dir="rtl"] .cover .meta,[dir="rtl"] .cover .presenter .by,
+[dir="rtl"] .client .cm,[dir="rtl"] .hero1 .hl,[dir="rtl"] .stamp,[dir="rtl"] th{
+  font-weight:500;
+}
+/* headline weight instead of italic, since Arabic has no italic */
+[dir="rtl"] h2.title em,[dir="rtl"] .cover h1 em,[dir="rtl"] .kicker em,
+[dir="rtl"] .bigq em,[dir="rtl"] .close .big em,[dir="rtl"] .pull em,
+[dir="rtl"] .roe .rt em,[dir="rtl"] .cover .sub em,[dir="rtl"] .tcta .r em,
+[dir="rtl"] .close .cta .r em{color:var(--green-lift); font-weight:600}
+[dir="rtl"] .kicker,[dir="rtl"] .pull,[dir="rtl"] .dlg .last .sp{font-weight:400}
+
+/* mirror every directional rule and border */
+[dir="rtl"] .act{left:auto; right:56px}
+[dir="rtl"] .mark{right:auto; left:56px; text-align:left}
+[dir="rtl"] .pageno{right:auto; left:56px}
+[dir="rtl"] .cover{padding-left:56px; padding-right:88px;
+  background:radial-gradient(80% 120% at 14% 18%, rgba(20,150,96,.16) 0%, rgba(35,37,39,0) 62%), var(--ground)}
+[dir="rtl"] .close{background:radial-gradient(75% 110% at 82% 42%, rgba(20,150,96,.15) 0%, rgba(35,37,39,0) 62%), var(--ground)}
+[dir="rtl"] .thanks{background:radial-gradient(70% 105% at 76% 46%, rgba(20,150,96,.18) 0%, rgba(35,37,39,0) 62%), var(--ground)}
+[dir="rtl"] .fact{border-left:0; border-right:2px solid var(--green); padding:2px 20px 2px 0}
+[dir="rtl"] .kp>div{border-left:0; border-right:3px solid var(--green); padding-left:0; padding-right:18px}
+[dir="rtl"] .sub2>div{border-left:0; border-right:3px solid var(--green); padding-left:0; padding-right:20px}
+[dir="rtl"] .pull{border-left:0; border-right:3px solid var(--green); padding-left:0; padding-right:26px}
+[dir="rtl"] .note{border-left:0; border-right:2px solid var(--line); padding-left:0; padding-right:20px}
+[dir="rtl"] .note.gold{border-right-color:var(--green)}
+[dir="rtl"] .eq{border-left:0; border-right:3px solid var(--green); padding:18px 26px 18px 0}
+[dir="rtl"] .progs{border-left:0; border-right:2px solid var(--line); padding-left:0; padding-right:16px}
+[dir="rtl"] .client{border-left:1px solid var(--green); border-right:4px solid var(--green)}
+[dir="rtl"] .client .cm{margin-left:0; margin-right:auto; text-align:left}
+[dir="rtl"] .vs>div:first-child{border-right:1px solid var(--line); border-left:none}
+[dir="rtl"] .vs>div:last-child{border-left:1px solid var(--line)}
+[dir="rtl"] .vs li{padding-left:0; padding-right:20px}
+[dir="rtl"] .vs li::before{left:auto; right:0}
+[dir="rtl"] .leg li{padding-left:0; padding-right:15px}
+[dir="rtl"] .leg li::before{left:auto; right:0}
+[dir="rtl"] .leg{border-right:1px solid var(--line); border-left:none}
+[dir="rtl"] .leg:last-child{border-left:1px solid var(--line)}
+[dir="rtl"] .bar .lb{text-align:left}
+[dir="rtl"] .bar .fl{border-radius:4px 0 0 4px}
+[dir="rtl"] .ylab{left:auto; right:0; writing-mode:vertical-rl; transform:none}
+[dir="rtl"] .dgrid{padding:0 32px 30px 0}
+[dir="rtl"] .xlab{left:0; right:32px}
+[dir="rtl"] .dgwrap{grid-template-columns:300px 1fr}
+[dir="rtl"] .cover .presenter .by{margin-right:0; margin-left:8px}
+[dir="rtl"] .ring{transform:rotate(-90deg) scaleX(-1)}
+[dir="rtl"] th{text-align:right}
+[dir="rtl"] td{padding:13px 0 13px 16px}
+[dir="rtl"] .tqr,[dir="rtl"] .closewrap,[dir="rtl"] .srcwrap{direction:rtl}
+[dir="rtl"] .qi{margin-right:0; margin-left:.06em}
+/* numbers, formulas and Latin names stay left-to-right inside Arabic text */
+[dir="rtl"] span[dir="ltr"],[dir="rtl"] b[dir="ltr"]{unicode-bidi:isolate; display:inline}
+[dir="rtl"] div[dir="ltr"]{unicode-bidi:isolate; text-align:right}
+[dir="rtl"] .eq[dir="ltr"]{display:block}
+[dir="rtl"] .fact .fig[dir="ltr"],[dir="rtl"] .sg .v[dir="ltr"],
+[dir="rtl"] .gp .v[dir="ltr"],[dir="rtl"] .runfacts .v[dir="ltr"],
+[dir="rtl"] .kp .v[dir="ltr"],[dir="rtl"] .hero1 .hn[dir="ltr"],
+[dir="rtl"] .sub2 .v[dir="ltr"],[dir="rtl"] .hero .num[dir="ltr"],
+[dir="rtl"] .rpc[dir="ltr"]{text-align:right}
+
+/* language switch */
+#lang{
+  font-family:var(--f-mono); font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--sage-dim); background:transparent;
+  border:1px solid var(--line); padding:7px 14px; cursor:pointer;
+  transition:border-color .15s, color .15s;
+}
+#lang:hover{border-color:var(--green); color:var(--green-lift)}
+.slide[data-lang]{display:none}
+.slide[data-lang].on{display:flex}
+</style>
+
+</head>
+<body>
+<div id="viewport">
+  <div id="stage" dir="ltr" lang="en">
+
+<!-- 1 · COVER -->
+<section class="slide cover on" data-lang="en" data-act="" data-time="0:25" data-notes="Good morning. Let me take one thing off the table before I start. I am not here to ask you for a training budget. Every company in this room already has one. It may not carry that name in your accounts, but you are paying it. For the next twenty minutes I want to show you what that money is buying you today, and what it could buy you instead.  //  Do not introduce yourself. The program did it. Open on the reframe. The first fifteen seconds decide whether the finance people in this room put their phones down.">
+  <div class="wordmark">HRSE KSA 2026 &#183; 1 September 2026</div>
+  <h1><span class="ln">From Obligation</span><span class="ln">to <em>Investment</em></span></h1>
+  <div class="sub">Building the national talent pipeline behind Vision 2030, <em>at no cost.</em></div>
+  <div class="rule"></div>
+  <div class="presenter"><span class="by">By</span>Ibrahim Elsharkawy</div>
+  <div class="creds">General Manager, Arabian Academy &#183; Founder, Skill House<br>L&amp;D and Organizational Development Executive</div>
+  <div class="certs">Assoc. CIPD &#183; PHR &#183; Six Sigma Black Belt</div>
+</section>
+
+<!-- 2 · POSITIONING -->
+<section class="slide" data-lang="en" data-act="Positioning" data-time="0:40" data-notes="Before I start, let me tell you what this is not. I am not here to lecture a room of HR and finance leaders on how to design training. Everyone here already knows that behavior does not change in a classroom. That is not the disagreement. The disagreement is about what it costs to act on it, and who pays. I am going to show you both. And I will tell you my bias up front. I built one of these. That is a conflict of interest and it is also the only reason I have evidence to show you.  //  Say the bias line looking at the room, not the screen. Volunteering it in the first minute buys you the next nineteen.">
+  <div class="eyebrow">Before we start</div>
+  <div class="body">
+    <h2 class="title">I am not here to lecture you on <em>how to design training.</em></h2>
+    <div class="lede">We all already know that behavior does not change in a classroom. I am here to show you <strong>what it costs to act on that,</strong> and how the Kingdom is already paying for most of it.</div>
+    <div class="hr"></div>
+    <div class="stamp">I built one of these. That is my <b>bias</b>, and it is also my <b>evidence</b>.</div>
+  </div>
+</section>
+
+<!-- 3 · THE STAKES -->
+<section class="slide" data-lang="en" data-act="I &#183; The stakes" data-time="0:45" data-notes="Where the Kingdom actually is, in its own numbers. Saudi unemployment down from a twelve point three percent baseline to seven point two percent. The Vision 2030 target was seven. Effectively met, five years early. Two point four eight million Saudis have entered the private sector since 2020. And the Human Resources Development Fund spent eight point two nine billion riyals on training, empowerment and mentorship in a single year, reaching more than two million people and two hundred and twenty six thousand establishments, ninety four percent of which are small and medium businesses. [pause]  Read those three together. We counted people in. We funded the training. And every one of you in this room still has the same conversation with your board about whether any of it moved a number.  //  Do not editorialize on the tiles. Read them flat and let the kicker do the work. This slide exists to establish that the problem is not money and it is not headcount.">
+  <div class="eyebrow">Where the Kingdom actually is</div>
+  <div class="body">
+    <div class="sg">
+      <div>
+        <div class="v">12.3 &rarr; 7.2<i style="font-style:normal;font-size:24px">%</i></div>
+        <div class="k">Saudi unemployment, from baseline to 2025, against a 2030 target of 7%.</div>
+        <div class="att" style="font-size:12px">Vision 2030 Annual Report 2025</div>
+      </div>
+      <div>
+        <div class="v">2.48<i style="font-style:normal;font-size:24px">M</i></div>
+        <div class="k">Saudis who entered private-sector employment since 2020.</div>
+        <div class="att" style="font-size:12px">MHRSD, Progress in the Saudi Labor Market, Dec 2025</div>
+      </div>
+      <div>
+        <div class="v">SR 8.29<i style="font-style:normal;font-size:24px">bn</i></div>
+        <div class="k">National spend on training, empowerment and mentorship in 2025.</div>
+        <div class="att" style="font-size:12px">HRDF (Hadaf), announced February 2026</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:26px">More than <strong>2 million</strong> people and <strong>226,000</strong> establishments benefited, 94% of them small and medium businesses.</div>
+  </div>
+  <div class="kicker">We solved the count. We have not solved <em>the capability.</em></div>
+</section>
+
+<!-- 4 · THE OBLIGATION -->
+<section class="slide" data-lang="en" data-act="I &#183; The stakes" data-time="1:00" data-notes="And it is not optional. Article 43 of the Saudi Labor Law. If you employ fifty people or more, you are required to qualify or train not less than twelve percent of your Saudi workforce. Every year. Not once. Every year. A second obligation joined it this February. Two percent of your total workforce placed into on the job training annually, registered on Qiwa. And since 2023 you have had to file your training data and next year's training plan, eight training units per trainee minimum, disclosed annually, with penalties attached. [pause]  So the question in front of your executive committee was never whether to train.  //  Say twelve percent slowly. Most people in the room assume a far smaller number, and that surprise carries the rest of the talk. Point at the printed sources once and say every figure today has its source on the slide.">
+  <div class="eyebrow">And it is not optional</div>
+  <div class="body">
+    <h2 class="title" style="font-size:46px;margin-bottom:26px">The law already put a training line <em>in your budget.</em></h2>
+    <div class="facts tight">
+      <div class="fact">
+        <div class="fig">12<small>%</small></div>
+        <div class="tx">of your Saudi workforce must be qualified or trained <em>every year,</em> at 50 employees or more.
+          <div class="att">Saudi Labor Law, Article 43 &#183; Royal Decree M/46, 5/6/1436H</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig">2<small>%</small></div>
+        <div class="tx">of total workforce placed into <em>on-the-job training</em> annually, registered on Qiwa.
+          <div class="att">MHRSD on-the-job training mandate, in force February 2026</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig">8<small>units</small></div>
+        <div class="tx">per trainee, minimum, <em>filed annually</em> with next year&rsquo;s training plan.
+          <div class="att">MHRSD training data and plan filing requirement, since 2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">The question was never whether to train. It is whether the training you are already required to deliver <em>leaves anything behind.</em></div>
+</section>
+
+<!-- 5 · THE KINGDOM HAS NAMED THE GAP -->
+<section class="slide" data-lang="en" data-act="I &#183; The stakes" data-time="0:50" data-notes="And I am not the only one saying this. One sentence from the Vision 2030 Annual Report, published by the Kingdom. [read it from the screen, slowly]  The main challenge is alignment between training and employer needs. Skills do not always match available roles. [pause]  That is the national report, on the transition from technical education into employment. Look at what sits underneath it. Technical and vocational graduates in work within six months: forty seven point four percent, against a fifty six point two percent target for the year, and slightly lower than the year before. University graduates: forty three point three, against fifty four point one. Our position on the IMD World Talent ranking: thirty first, against an interim target of twenty fifth. Three indicators. All below target. One stated reason. Alignment. [beat]  So this is not my diagnosis of your market. It is the Kingdom&#x27;s diagnosis of the whole market. And alignment is not something that happens in a classroom. It happens before anyone walks into one.  //  The strongest credibility slide in the deck, and none of it is your opinion. Read the quote off the screen and name the document. This is the slide that stops a skeptic filing you under vendor pitch.">
+  <div class="eyebrow">The Kingdom has already named it</div>
+  <div class="body">
+    <div class="pull">&ldquo;The main challenge is <em>alignment between training and employer needs.</em> Skills do not always match available roles.&rdquo;</div>
+    <div class="att" style="margin-top:14px">Vision 2030 Annual Report 2025, on the transition from technical education to employment</div>
+    <div class="gaps">
+      <div class="gp">
+        <div class="k">Technical and vocational graduates employed within six months of graduation</div>
+        <div class="v">47.41<i style="font-style:normal;font-size:22px">%</i></div>
+        <div class="t">2025 target <b>56.2%</b> &#183; below target, and lower than the previous year</div>
+      </div>
+      <div class="gp">
+        <div class="k">University graduates employed within six months of graduation</div>
+        <div class="v">43.34<i style="font-style:normal;font-size:22px">%</i></div>
+        <div class="t">2025 target <b>54.1%</b> &#183; below target</div>
+      </div>
+      <div class="gp">
+        <div class="k">Ranking on the IMD World Talent Competitiveness Index</div>
+        <div class="v">31<i style="font-style:normal;font-size:22px">st</i></div>
+        <div class="t">2025 target <b>25th</b> &#183; up from 32nd, still below target</div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">Three indicators. All below target. One stated reason: <em>alignment.</em></div>
+</section>
+
+<!-- 5 · THE ROOM'S OWN WORDS -->
+<section class="slide" data-lang="en" data-act="II &#183; The diagnosis" data-time="0:55" data-stagger="300" data-notes="Every diagnostic I have ever run starts in the same place, with two questions. What does success look like for you, and how are you measuring it today. And the answer is always immediate, because they already know. Sales. Customer satisfaction. Customer experience. We measure all three. Then I ask the second question. What affects the performance of your people. And the list comes just as fast. Promotions. New products. Incentives. Opening hours. Shift patterns. Store location. [long pause]  And then I ask the third one. What about the training. [pause, say nothing]  Nobody has ever answered that one quickly.  //  Let the last line hang. Do not fill the silence. The whole talk turns on the audience noticing that training was not on their own list.">
+  <div class="eyebrow">Every diagnostic I have ever run starts here</div>
+  <div class="body">
+    <h2 class="title" style="font-size:40px;margin-bottom:8px;max-width:40ch"><span class="qi" aria-hidden="true">&#8220;</span>The same conversation, <em>every single time.</em></h2>
+    <div class="dsub">A real diagnostic, in the client&rsquo;s own words</div>
+    <div class="dlg">
+      <div class="ln me"><div class="who">Me</div><div class="sp">&ldquo;What does success look like for you, and how are you <em>measuring it today?</em>&rdquo;</div></div>
+      <div class="ln"><div class="who">Client</div><div class="sp">&ldquo;Sales. Customer satisfaction. Customer experience. We measure all three.&rdquo;</div></div>
+      <div class="ln me"><div class="who">Me</div><div class="sp">&ldquo;And what affects the performance of your people?&rdquo;</div></div>
+      <div class="ln"><div class="who">Client</div><div class="sp">&ldquo;Promotions. New products. Incentives. Opening hours. Shift patterns. Store location.&rdquo;</div></div>
+      <div class="ln me last"><div class="who">Me</div><div class="sp">&ldquo;What about <em>the training?</em>&rdquo;</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · THE ADMISSION -->
+<section class="slide" data-lang="en" data-act="II &#183; The diagnosis" data-time="0:45" data-notes="And the answer, every single time, is a version of the same sentence. We know it matters. We just cannot prove it. [pause]  That sentence is the whole reason we are having this conversation. It is why learning and development sits on your profit and loss as a cost line instead of an investment line. Not because the training is bad. Some of it is excellent. Because the proof is missing, and finance cannot fund what it cannot audit.  //  Deliver the quoted sentence as if you are repeating something a client said to you last week, because you are. Then slow down for the last clause.">
+  <div class="eyebrow">The answer, every single time</div>
+  <div class="body">
+    <div class="bigq">&ldquo;We know it matters. <em>We just can&rsquo;t prove it.</em>&rdquo;</div>
+    <div class="said">That sentence is why L&amp;D is a <strong>cost line</strong> on your P&amp;L instead of an <strong>investment line.</strong> Not because the training is bad. Because the proof is missing, and finance cannot fund what it cannot audit.</div>
+  </div>
+</section>
+
+<!-- 7 · THE THESIS -->
+<section class="slide" data-lang="en" data-act="II &#183; The diagnosis" data-time="0:55" data-notes="Here is the uncomfortable part, and I say it as someone who sells training. Nobody's behavior ever changed because they sat in a classroom. Knowledge transfer is cheap, it is measurable, and on its own it is almost useless. What moves a business metric is practice in the real environment. Under the real pressure. On the real system. In front of the real customer. [beat]  And that costs money. Building that environment is expensive, which is exactly why most programs never build it, and exactly why the Kingdom has decided to fund it.  //  This is the hinge of the talk. Everything before it is diagnosis. Everything after it is what it costs and who pays.">
+  <div class="eyebrow">The uncomfortable part</div>
+  <div class="body">
+    <h2 class="title">Nobody&rsquo;s behavior ever changed because they <em>sat in a classroom.</em></h2>
+    <div class="lede">Knowledge transfer is cheap, measurable, and almost useless on its own. What moves a business metric is <strong>practice in the real environment.</strong> Under the real pressure. On the real system. In front of the real customer.</div>
+    <div class="lede" style="margin-top:18px">That costs money. Which is exactly why the Kingdom funds it, and why <strong>only ten percent</strong> of what we design is classroom at all.</div>
+  </div>
+</section>
+
+<!-- 8 · SIX MONTHS -->
+<section class="slide" data-lang="en" data-act="III &#183; The unbudgeted line" data-time="1:00" data-notes="[let the number sit for two full seconds before you speak]  Six months. That is the median job tenure of a Saudi national in this labor market. Before anyone dismisses that as a Gulf HR anecdote: this is GOSI's own social insurance data, nine years of it, analyzed by the Growth Lab at Harvard, covering 2011 to 2016. Expatriates in the same market, eighteen months. In the United States the median is three point nine years. [pause]  On these numbers you are not building a workforce. You are renting one, repeatedly, at full price each time.  //  The most quotable moment in the talk. Do not rush into the next slide. Let renting one, repeatedly hang for a beat. Name the source out loud. It is what stops a skeptical CFO waving the figure away.">
+  <div class="eyebrow">The unbudgeted line</div>
+  <div class="body">
+    <div class="hero">
+      <div class="num">6<i>months</i></div>
+      <div style="flex:1">
+        <div class="bars">
+          <div class="bar"><div class="lb">Saudi nationals</div><div class="tr"><div class="fl" style="width:13%"></div></div><div class="vl">6 months</div></div>
+          <div class="bar mut"><div class="lb">Expatriates,<br>same market</div><div class="tr"><div class="fl" style="width:38%"></div></div><div class="vl">18 months</div></div>
+          <div class="bar mut"><div class="lb">United States</div><div class="tr"><div class="fl" style="width:100%"></div></div><div class="vl">3.9 years</div></div>
+        </div>
+        <div class="att" style="margin-top:16px">Median job tenure. GOSI social insurance records, 2011 to 2016, analyzed by the Growth Lab at Harvard University. US median from the Bureau of Labor Statistics.</div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">You are not building a workforce. You are <em>renting one,</em> repeatedly, at full price each time.</div>
+</section>
+
+<!-- 9 · EVERY EXIT IS AN INVOICE -->
+<section class="slide" data-lang="en" data-act="III &#183; The unbudgeted line" data-time="1:00" data-notes="So what does one of those exits actually cost you? Gallup puts replacement at around two hundred percent of salary for a leader or a manager, eighty percent for a technical professional, and forty percent for a frontline employee. I want to be precise: that is a Gallup estimate, not a measured result, and I am telling you that because you would find out anyway. Now the number that should concern you most. Forty two percent of the people who voluntarily left an employer in the past year say their manager or their organization could have done something to prevent it. That one is measured. Seven hundred and seventeen people, fielded November 2023. [beat]  And here is the local weather. Eighty percent of employees in Saudi Arabia are now willing to switch jobs for better pay, a twenty five percent increase on the year before. Seventy seven percent say it is a good time to find a job, against fifty two percent globally. [pause]  So an unusually mobile workforce, in an unusually open exit market, and nearly half of the leaving is preventable. That is not a market condition. That is a management defect, and defects are fixable at a known cost.  //  Saying the two hundred percent is an estimate is worth more than the number. Finance people trust a speaker who under-claims. Then move fast to forty two percent, which is the one with a sample size.">
+  <div class="eyebrow">What that costs you</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:22px">Every exit is <em>an invoice.</em></h2>
+    <div class="facts tight">
+      <div class="fact">
+        <div class="fig">200<small>%</small></div>
+        <div class="tx">of salary to <em>replace a leader or manager.</em> 80% for a technical professional, 40% for a frontline employee.
+          <div class="att">Gallup estimate &#183; 42% of Employee Turnover Is Preventable but Often Ignored, July 2024, updated February 2026</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig">42<small>%</small></div>
+        <div class="tx">of employees who <span style="display:inline;color:var(--cream)">voluntarily</span> left in the past year say their manager or organization <em>could have prevented it.</em>
+          <div class="att">Gallup, same study &#183; n=717 who voluntarily left an employer in the prior 12 months, fielded November 2023</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig">80<small>%</small></div>
+        <div class="tx">of employees in Saudi Arabia are now <em>willing to switch jobs</em> for better pay, a 25% increase on the prior year.
+          <div class="att">Korn Ferry, Workforce 2025, Saudi Arabia edition &#183; n=513, April 2025</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig">77<small>%</small></div>
+        <div class="tx">of employees in Saudi Arabia say it is a <em>good time to find a job,</em> against 52% globally.
+          <div class="att">Gallup, State of the Global Workplace 2026, Saudi Arabia country data, fielded 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG VS SYSTEM -->
+<section class="slide" data-lang="en" data-act="IV &#183; How it is run" data-time="0:50" data-notes="At this point somebody here is thinking: we have tried training, and nothing changed. You are right. Most training returns nothing, and you were right to be skeptical of the one you funded. Look at the left column. It starts from a catalog. One day in a room. Mixed starting knowledge. Attendance recorded as the outcome. No baseline, so no change can ever be proven. And nothing happens after the room empties. The right column is how Arabian Academy works. It starts from your strategy and your numbers. It separates a skill gap from a process gap. It prepares before, practices in the room, and applies after. Then it re-measures against the baseline it started from. [beat]  The difference between those two columns is not the quality of the content. It is where the work starts, and whether anyone closes the loop.  //  Conceding first is what earns you the next six minutes. Say you were right, and mean it. Do not defend the industry.">
+  <div class="eyebrow">Why you were right to be skeptical</div>
+  <div class="body">
+    <div class="vs">
+      <div class="a">
+        <div class="vh">Bought from a catalog</div>
+        <h3>An expense.</h3>
+        <ul>
+          <li>Starts from a catalog</li>
+          <li>One day in a room</li>
+          <li>Mixed starting knowledge</li>
+          <li>Attendance recorded as the outcome</li>
+          <li>No baseline, so no change can ever be proven</li>
+          <li>Nothing happens after the room empties</li>
+        </ul>
+      </div>
+      <div class="b">
+        <div class="vh">Built as a system</div>
+        <h3>An investment.</h3>
+        <ul>
+          <li>Starts from <strong>your strategy and your numbers</strong></li>
+          <li>Separates a skill gap from a process gap</li>
+          <li>Prepares before, practices in the room, applies after</li>
+          <li>Re-measures against <strong>the baseline it started from</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">The difference is not the quality of the content. It is where the work starts, and <em>whether anyone closes the loop.</em></div>
+</section>
+
+<!-- THE FIVE STAGES -->
+<section class="slide" data-lang="en" data-act="IV &#183; How it is run" data-time="1:30" data-stagger="200" data-notes="This is the Arabian Academy model. It is the one slide I would ask you to photograph. Three phases. We start from a business need. We build capability. We come back to a business result. Everything we do sits inside that arc. Underneath it, five stages. Strategic direction: we read your strategy and understand what you are actually trying to achieve. Business performance: we analyze what your numbers are doing today. Performance gaps: we find the distance between where you are and where you intend to be. Learning and development needs: only now do we define what training is required. Performance evaluation: we measure whether it moved. [point at the band underneath]  Notice where the line sits. Stages one, two and three happen before a single person is enrolled. That is diagnosis. Most providers start at stage four, because stage four is the part you can sell out of a catalog. [pause]  Now notice the last stage. Stage five returns to the numbers stage two established. Same metrics. Same units. After the cycle. That loop is the only reason a training program can be audited by a finance person at all.  //  The center of the talk. You have budgeted almost two minutes here, so use them. Two lines matter most: diagnosis happens before anyone is enrolled, and stage five returns to stage two. If you are running late, this is the last slide you cut.">
+  <div class="eyebrow">The model</div>
+  <div class="body">
+    <div class="arc">
+      <div class="pill">Business need</div><div class="ar">&rarr;</div>
+      <div class="pill mid">Capability</div><div class="ar">&rarr;</div>
+      <div class="pill">Business result</div>
+    </div>
+    <div class="rail5">
+      <div class="st"><div class="node">01</div><div class="nm">Strategic direction</div><div class="ds">We read your strategy and understand what you are trying to achieve</div></div>
+      <div class="st"><div class="node">02</div><div class="nm">Business performance</div><div class="ds">We analyze what your numbers are doing today</div></div>
+      <div class="st"><div class="node">03</div><div class="nm">Performance gaps</div><div class="ds">The distance between where you are and where you intend to be</div></div>
+      <div class="st"><div class="node">04</div><div class="nm">L&amp;D needs</div><div class="ds">Only now do we define what training is required</div></div>
+      <div class="st hi"><div class="node">05</div><div class="nm">Performance evaluation</div><div class="ds">We measure whether it moved, against stage 02</div></div>
+    </div>
+    <div class="phase"><div>Diagnosis, before anyone is enrolled</div><div>Delivery</div><div>Evaluation</div></div>
+  </div>
+  <div class="kicker">Stage five returns to the numbers stage two established. <em>That loop</em> is what makes a program auditable.</div>
+</section>
+
+<!-- WHO WE TRAIN -->
+<section class="slide" data-lang="en" data-act="IV &#183; How it is run" data-time="0:55" data-stagger="175" data-notes="Now let me correct an assumption, because most people hear training and picture a frontline classroom. We run this at every altitude. Individual contributors on the frontline. First line managers, which is the hardest transition anyone in a company ever makes, because on Monday you were the best salesperson and on Tuesday you are responsible for five of them. Managers and directors running a business unit and carrying its numbers. And vice presidents and the C suite, who own a P and L and set the strategy everyone below is asked to execute. [pause]  Frontline, supervisory, managerial, executive. One architecture, every altitude. The content changes completely at each one. The five stages you just saw do not change at all. [look at the room]  And here is the uncomfortable part. The people who commission these programs are on this ladder too. Development stops being something we do to junior staff the moment we accept that.  //  Deliver the commission these programs line looking directly at the audience, not the screen. It should land as an invitation, not an accusation. You are including yourself in it.">
+  <div class="eyebrow">And it is not just the frontline</div>
+  <div class="body">
+    <h2 class="title" style="font-size:42px;margin-bottom:22px;max-width:38ch">One architecture. <em>Every altitude.</em></h2>
+    <div class="ladder">
+      <div class="rung r1"><div class="lv">01 &#183; Frontline</div><div class="nm">Individual contributors</div><div class="ds">Standards, safety, and the customer conversation</div></div>
+      <div class="rung r2"><div class="lv">02 &#183; Supervisory</div><div class="nm">First-line managers</div><div class="ds">The hardest transition in any company: from doing the work to owning other people&rsquo;s</div></div>
+      <div class="rung r3"><div class="lv">03 &#183; Managerial</div><div class="nm">Managers and directors</div><div class="ds">Accountable for a business unit and the numbers it carries, then for the managers who run them</div></div>
+      <div class="rung r4"><div class="lv">04 &#183; Executive</div><div class="nm">VPs and the C-suite</div><div class="ds">A P&amp;L and the budget behind it, and the strategy the other three are asked to execute</div></div>
+    </div>
+  </div>
+  <div class="kicker">The content changes completely at every altitude. <em>The five stages do not change at all.</em></div>
+</section>
+
+<!-- 12 · 70:20:10 -->
+<section class="slide" data-lang="en" data-act="IV &#183; How it is built" data-time="0:50" data-notes="I told you earlier that nobody&#x27;s behavior changes in a classroom. So here is what we do about it, and it is the whole design ratio. Seventy, twenty, ten. Seventy percent of the learning is built through practice and application. Field experience, real work, skill and readiness. Twenty percent through guidance and interaction. Coaching, exchange of experience, tied to real situations in the workplace. And ten percent is structured theory. The organized content that gives people the core concepts to apply. [pause]  Ten percent of the design is theory. That is not a shortcut. It is the reason the other ninety percent has somewhere to land.  //  Point at the ten percent ring, not the seventy. The counterintuitive number is what people remember, and it kills the assumption that training means sitting in a room.">
+  <div class="eyebrow">So we build it the other way around</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:6px;max-width:30ch">If the classroom does not change behavior, <em>stop spending there.</em></h2>
+    <div class="dsub" style="margin-bottom:20px">The Arabian Academy design ratio</div>
+    <div class="rings">
+      <div class="rc">
+        <svg class="ring" viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="56"></circle><circle class="arc" cx="66" cy="66" r="56" style="stroke-dasharray:246 352"></circle></svg>
+        <div class="rpc">70<i>%</i></div>
+        <div class="rt">Practice and application</div>
+        <div class="rd">Field experience, real work, skill and readiness</div>
+      </div>
+      <div class="rc">
+        <svg class="ring" viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="56"></circle><circle class="arc" cx="66" cy="66" r="56" style="stroke-dasharray:70 352"></circle></svg>
+        <div class="rpc">20<i>%</i></div>
+        <div class="rt">Guidance and interaction</div>
+        <div class="rd">Coaching and exchange of experience, tied to real workplace situations</div>
+      </div>
+      <div class="rc">
+        <svg class="ring" viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="56"></circle><circle class="arc" cx="66" cy="66" r="56" style="stroke-dasharray:35 352"></circle></svg>
+        <div class="rpc">10<i>%</i></div>
+        <div class="rt">Structured theory</div>
+        <div class="rd">Organized content that gives people the core concepts to apply</div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">Ten percent of the design is theory. That is not a shortcut. It is the reason the <em>other ninety percent</em> has somewhere to land.</div>
+</section>
+
+<!-- HOW THE ACADEMY IS BUILT -->
+<section class="slide" data-lang="en" data-act="IV &#183; How it is run" data-time="0:55" data-notes="So if seventy percent is practice and application, the obvious question is: practice on what? And this is where we are set up differently from a training company, because a training company needs a room and a projector, and we need a floor. On the frontline side the investment goes into the environment. Store mockups with real fixtures and real merchandising. Live point of sale terminals on the training floor. A stockroom and replenishment simulation. Computer labs for systems and product mastery. And trainers who have stood on that floor themselves, because a trainer who has not will be found out in ninety seconds. On the leadership side it goes into the follow-through, not the workshop. On-floor support during live operating hours. Structured coaching against observed behavior. Mentoring cycles tied to a named business metric. People managers trained as the assessors, not us. And field coaches with protected, budgeted capacity, which is the line everybody cuts first and then wonders why nothing transferred. [beat]  You cannot buy the seventy percent out of a catalog. You have to build it.  //  Do not read every bullet. Take three from each column. The point is that the money goes into environment and follow-through, and both of those are capital, not catalog. This is the differentiation slide, so slow down.">
+  <div class="eyebrow">So where does the investment actually go?</div>
+  <div class="body">
+    <h2 class="title" style="font-size:42px;margin-bottom:18px;max-width:36ch">An academy, <em>not a training room.</em></h2>
+    <div class="vs">
+      <div class="a">
+        <div class="vh">Frontline</div>
+        <h3>Build the environment, not the slide deck.</h3>
+        <ul>
+          <li>Store mockups with <strong>real fixtures and real merchandising</strong></li>
+          <li>Live POS terminals on the training floor</li>
+          <li>Stockroom and replenishment simulation</li>
+          <li>Computer labs for systems and product mastery</li>
+          <li>Trainers who have stood on that floor themselves</li>
+        </ul>
+      </div>
+      <div class="b">
+        <div class="vh">Leadership</div>
+        <h3>Build the follow-through, not the workshop.</h3>
+        <ul>
+          <li>On-floor support during <strong>live operating hours</strong></li>
+          <li>Structured coaching against observed behavior</li>
+          <li>Mentoring cycles tied to a named business metric</li>
+          <li>People managers trained as the assessors</li>
+          <li>Field coaches with protected, budgeted capacity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">You cannot buy the seventy percent out of a catalog. <em>You have to build it.</em></div>
+</section>
+
+<!-- 13 · HOW WE PROVE IT -->
+<section class="slide" data-lang="en" data-act="V &#183; How it is proved" data-time="1:00" data-notes="Now the part that turns a training program into something your finance function can audit. Two axes, same cohort, same period. The horizontal axis is behavior change, scored by the employee's own manager against a defined competency. Not by the trainer. The trainer is the last person who should be marking their own homework. The vertical axis is the business metric the client already owns, cut by hour, by shift, by product. Both plotted before and after, so behavior and business sit on one chart. One cohort, one period, two axes, and you can see the movement. Designed on ADDIE. Structured on seventy twenty ten. Evaluated on the Kirkpatrick model, levels one through four. [pause]  And there is a term for what level four actually is, which I want to give you because it is the one most people get wrong. It is not return on investment. Kirkpatrick's own term is return on expectations. Level four is not a ratio we invent afterwards to justify the spend. It is defined in advance, by you, in your words, as what you consider success. Which is why every engagement starts with the two questions on that earlier slide.  //  This is the credibility slide for the finance people. Return on expectations is the phrase to land. It is not a softer ROI, it is a stricter one, because it is agreed before the money is spent.">
+  <div class="eyebrow">The performance diagnostic</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:22px;max-width:34ch">Two axes. Same cohort. <em>Same period.</em></h2>
+    <div class="dgwrap">
+      <div class="dgrid">
+        <div class="dg">
+          <div></div><div class="g1"></div><div class="g2 mk aft"><span>AFTER</span></div>
+          <div></div><div></div><div class="g1"></div>
+          <div class="mk bef"><span>BEFORE</span></div><div></div><div></div>
+        </div>
+        <div class="ylab">Business metric &#8593;</div>
+        <div class="xlab">Observed behavior &#8594;</div>
+      </div>
+      <div class="axes">
+        <div class="ax"><div class="al">Horizontal</div><div class="at">Behavior change, scored by <b>the employee&rsquo;s own manager</b> against a defined competency, <em>not by the trainer</em></div></div>
+        <div class="ax"><div class="al">Vertical</div><div class="at">The <b>business metric the client already owns,</b> cut by hour, by shift, by product</div></div>
+      </div>
+    </div>
+    <div class="roe">
+      <div class="rl">Level 4, in Kirkpatrick&rsquo;s own term</div>
+      <div class="rt"><em>Return on Expectations.</em> What the program delivers to the stakeholders who defined success, in their own words, in advance. <em>Then</em> we price it.</div>
+      <div class="att" style="margin-top:9px">Kirkpatrick Partners &#183; Foundational Principle 2. ROE does not isolate the effects of training. The next step does.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · PROOF 01 · COCA-COLA -->
+<section class="slide" data-lang="en" data-act="VI &#183; The proof" data-time="0:55" data-notes="Let me show you one. The Coca-Cola Bottling Company of Saudi Arabia. A leadership program delivered under the name People Manager, for managers, team leaders and supervisors. One hundred and one participants against a target of one hundred and one, across seven cohorts. Two hundred program hours per group, thirty of them in a classroom. Designed on ADDIE, structured on seventy twenty ten, measured against a pre-program baseline using the Kirkpatrick model, with review points in week four and week eight. [pause]  Satisfaction, ninety seven percent. Knowledge gain against the baseline, twenty eight percent. Behavior change across six core leadership practices, averaging seventy nine percent. Reported by the client. That is Kirkpatrick levels one, two and three. I want to be precise, because the report is precise. Level four is business results, and this one does not report them. [beat]  So let me show you two that do.  //  Ending on so let me show you two that do turns the limit of your own evidence into the setup for the next slide. Volunteering that boundary in front of finance people buys more trust than the numbers themselves.">
+  <div class="eyebrow">Proof &#183; 01 &#183; leadership</div>
+  <div class="body">
+    <div class="client">
+      <div class="cn">The Coca-Cola Bottling Company of Saudi Arabia</div>
+      <div class="cm">People Manager &#183; leadership<br>2025</div>
+    </div>
+    <div class="runfacts">
+      <div><div class="v">101</div><div class="k">Participants, against a target of 101</div></div>
+      <div><div class="v">7</div><div class="k">Cohorts</div></div>
+      <div><div class="v">200</div><div class="k">Program hours per group</div></div>
+      <div><div class="v">30</div><div class="k">Classroom hours, 15% of the total</div></div>
+    </div>
+    <div class="kp">
+      <div><div class="lv">Level 1 &#183; Reaction</div><div class="v">97<i style="font-style:normal;font-size:22px">%</i></div><div class="k">Overall satisfaction</div></div>
+      <div><div class="lv">Level 2 &#183; Learning</div><div class="v">+28<i style="font-style:normal;font-size:22px">%</i></div><div class="k">Knowledge gain against the pre-program baseline</div></div>
+      <div><div class="lv">Level 3 &#183; Behavior</div><div class="v">79<i style="font-style:normal;font-size:22px">%</i></div><div class="k">Behavior change across six core leadership practices</div></div>
+    </div>
+    <div class="att" style="margin-top:14px">Designed on ADDIE. Structured on 70:20:10. Measured against a pre-program baseline using the Kirkpatrick model.<br><span style="color:var(--cream)">Reported by The Coca-Cola Bottling Company of Saudi Arabia (CCBCSA).</span></div>
+  </div>
+</section>
+
+<!-- 14 · ISOLATION -->
+<section class="slide" data-lang="en" data-act="V &#183; How it is proved" data-time="0:45" data-notes="And before we claim a single riyal of that, we take out everything else. On the Arabian Oud program, we asked the business to name every factor they believed affects store performance. Their list, in their words, not ours. New store openings. Product launches. Sales and promotions. Incentive changes. Makkah and Madinah. Western region seasonality. Then we removed all of it. [pause]  What is left is attributable. That is the whole argument. Not that training works. Everybody says training works. That we can show what it moved once everything else is taken out.  //  Say their list, in their words, not ours twice if you have to. That is what stops this reading as a vendor claim. If someone challenges a case study later, this is the slide you go back to.">
+  <div class="eyebrow">Before we claim a single riyal &#183; Arabian Oud, 2023</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:24px">We removed everything they told us <em>affects performance.</em></h2>
+    <div class="chips">
+      <div class="chip">New store openings</div>
+      <div class="chip">Product launches</div>
+      <div class="chip">Sales and promotions</div>
+      <div class="chip">Incentive changes</div>
+      <div class="chip">Makkah and Madinah</div>
+      <div class="chip">Western region seasonality</div>
+    </div>
+    <div class="note gold" style="margin-top:26px">Their list, in <strong>their words.</strong> What is left is attributable. That is the whole argument: not that training works, but that we can show what it moved once everything else is taken out.</div>
+  </div>
+</section>
+
+<!-- 16 · PROOF 02 · ARABIAN OUD 2023, ISOLATED -->
+<section class="slide" data-lang="en" data-act="VI &#183; The proof" data-time="0:55" data-notes="Here is the first one. Arabian Oud, 2023. A four-month program. Ten percent uplift in overall sales performance, and more than eighty million riyals in attributable value from training and performance activity alone. [pause]  Now, the number is not the point. The word isolated is the point. That figure is measured per associate, and it is what was left after we removed every single confounder the business named on the previous slide. New store openings. Product launches. Promotions. Incentive changes. Makkah and Madinah. Western region seasonality. All of it taken out first, and taken out using their list, not ours. [beat]  This is Kirkpatrick level four with the attribution actually done. Most people in this industry report level four by pointing at a number that went up in the same quarter as their training. That is not the same thing, and everyone in this room who signs off on a business case already knows it.  //  Land the word isolated, not the word eighty million. If you lead with the riyals a CFO discounts it immediately. If you lead with what you took out before you counted, they lean in. Point back at the previous slide when you list the confounders.">
+  <div class="eyebrow">Proof &#183; 02</div>
+  <div class="body">
+    <div class="client">
+      <div class="cn">Arabian Oud</div>
+      <div class="cm">Four-month program<br>2023</div>
+    </div>
+    <div class="hero1">
+      <div>
+        <div class="hn">10<i>%</i></div>
+        <div class="hk">uplift in overall sales performance, <em style="font-style:italic;color:var(--green-lift)">isolated</em></div>
+        <div class="hl">Kirkpatrick level 4 &#183; results</div>
+      </div>
+      <div class="sub2">
+        <div>
+          <div class="v">SAR 80<i>M+</i></div>
+          <div class="k">in attributable value, from training and performance activity alone</div>
+        </div>
+        <div>
+          <div class="v">4<i> months</i></div>
+          <div class="k">Measured per associate, before and after, on the metrics the business already owned</div>
+        </div>
+      </div>
+    </div>
+    <div class="note gold" style="margin-top:26px">Controlled for <strong>every confounder the business named.</strong> What you are looking at is what was left after all of it was taken out.</div>
+    <div class="att" style="margin-top:14px">Designed on ADDIE. Structured on 70:20:10. Measured against a pre-program baseline using the Kirkpatrick model.<br><span style="color:var(--cream)">Reported by Arabian Oud.</span></div>
+  </div>
+</section>
+
+<!-- 17 · PROOF 03 · ARABIAN OUD 2025, AT SCALE -->
+<section class="slide" data-lang="en" data-act="VI &#183; The proof" data-time="0:50" data-notes="Now the frontline counterpart, and the one that reaches level four. Arabian Oud. Twelve hundred stores across thirty seven countries. In 2025 we designed and delivered six programs across their branch network. Onboarding and job orientation. Field training. Fragrance families and perfume classification. Retail selling skills. Sales fundamentals for oud and perfume. And perfume and oud in the retail sector. One thousand nine hundred and sixty seven trainees. Seventeen thousand five hundred and seventy six training hours. In one year. [pause]  Ninety seven percent satisfaction. Twenty two percent knowledge gain, measured pre and post. And a contribution to a forty three percent improvement in sales performance. [slow down on the last one]  I want to be careful with that verb, because the client is careful with it. The programs contributed to it. Nobody can claim training was the only cause of a sales movement in a business that size, which is exactly why we removed the confounders they named before we said anything at all. That is Kirkpatrick level four. Business results, reported, not claimed.  //  Do not upgrade contributed to into caused. The restraint is what makes the number land in a room of finance people. Be ready to define what sales performance measures, and over what period.">
+  <div class="eyebrow">Proof &#183; 03 &#183; the same client, two years later</div>
+  <div class="body">
+    <div class="client">
+      <div class="cn">Arabian Oud</div>
+      <div class="cm">1,200 stores &#183; 37 countries<br>2025</div>
+    </div>
+    <div class="runfacts">
+      <div><div class="v">6</div><div class="k">Programs across the branch network</div></div>
+      <div><div class="v">1,967</div><div class="k">Trainees</div></div>
+      <div><div class="v">17,576</div><div class="k">Training hours</div></div>
+      <div><div class="v">1</div><div class="k">Year</div></div>
+    </div>
+    <div class="kp">
+      <div><div class="lv">Level 1 &#183; Reaction</div><div class="v">97<i style="font-style:normal;font-size:22px">%</i></div><div class="k">Overall satisfaction</div></div>
+      <div><div class="lv">Level 2 &#183; Learning</div><div class="v">+22<i style="font-style:normal;font-size:22px">%</i></div><div class="k">Knowledge gain, measured pre and post</div></div>
+      <div><div class="lv">Level 4 &#183; Results</div><div class="v">+43<i style="font-style:normal;font-size:22px">%</i></div><div class="k">Improvement in sales performance</div></div>
+    </div>
+    <div class="att" style="margin-top:14px">Designed on ADDIE. Structured on 70:20:10. Measured against a pre-program baseline using the Kirkpatrick model.<br><span style="color:var(--cream)">Reported by Arabian Oud.</span></div>
+  </div>
+</section>
+
+<!-- HOW A CFO PRICES IT -->
+<section class="slide" data-lang="en" data-act="VII &#183; The arithmetic" data-time="1:00" data-notes="Now, some of you are thinking: that is all very well, but my board asked me for ROI. Fair. So here is the arithmetic, and it is not mine. Jack Phillips adds a fifth level on top of Kirkpatrick&#x27;s four, and it has two formulas. Benefit cost ratio is program benefits over program costs. ROI as a percentage is net program benefits over program costs, times one hundred, where net benefits are simply benefits minus costs. [pause]  But the formulas are the easy part. What makes this credible to a finance function is the discipline around them, and there are three rules I want you to see. Select the most conservative alternative for calculations. Use at least one method to isolate the effects of the program. And fully load all costs. [beat]  Look at the Arabian Oud number again with those rules in mind. We isolated. We used the confounders the client named, not ours. So the numerator on that slide is not a claim, it is a residual. The denominator is your program cost, and you already know that number better than I do. [beat]  One honest caveat. This is a method, not a proof. Anyone who tells you training ROI is proven is selling you something. What this gives you is a defensible, conservative, auditable procedure, with its assumptions printed on the page.  //  Do not put a BCR number on this slide and do not invent one for Arabian Oud. The power of this slide is that you hand the CFO the formula and let him put his own denominator in. Say the caveat out loud. It is the most credible thing in the talk.">
+  <div class="eyebrow">How a CFO prices it</div>
+  <div class="body">
+    <h2 class="title" style="font-size:42px;margin-bottom:4px;max-width:36ch">Level 5. <em>Two formulas.</em></h2>
+    <div class="dsub" style="margin-bottom:16px">Phillips adds a fifth level on top of Kirkpatrick&rsquo;s four</div>
+    <div class="eq"><b>BCR</b>      = Program Benefits &divide; Program Costs
+<b>ROI (%)</b>  = Net Program Benefits &divide; Program Costs &times; 100
+           <span style="color:#8F9497">Net Program Benefits = Program Benefits &minus; Program Costs</span></div>
+    <div class="axes" style="margin-top:6px">
+      <div class="ax"><div class="al">Principle 04</div><div class="at">&ldquo;Select the <em>most conservative alternative</em> for calculations.&rdquo;</div></div>
+      <div class="ax"><div class="al">Principle 05</div><div class="at">&ldquo;Use at least one method to <em>isolate the effects</em> of a project.&rdquo;</div></div>
+      <div class="ax"><div class="al">Principle 10</div><div class="at">&ldquo;<em>Fully load all costs</em> of a solution, project, or program when analyzing ROI.&rdquo;</div></div>
+    </div>
+    <div class="att" style="margin-top:14px">Phillips &amp; Phillips, <em>ROI Basics,</em> 2nd ed., ATD Press, 2019 &#183; The 12 Guiding Principles of the ROI Methodology, ROI Institute</div>
+  </div>
+  <div class="kicker">You saw the isolation three slides ago. The numerator is a residual, not a claim. <em>The denominator is yours.</em></div>
+</section>
+
+<!-- 17 · THE ECONOMICS -->
+<section class="slide" data-lang="en" data-act="VII &#183; The economics" data-time="1:00" data-notes="Now the part you came for. Vision 2030 already decided this was worth paying for. The Human Resources Development Fund funds the training itself under Train to Hire, and carries a fixed share of the wage through the first two years. The environment, the labs, the mockups, the coaching capacity, the expensive part, is the part the Kingdom is actively trying to fund. So the arithmetic on your side looks like this. The fund contribution, plus the recruitment cost you did not pay, plus the ramp time you did not lose, against the program cost. On the seats you were going to fill anyway, that nets out at or below zero. [pause]  And there is one condition, and it is the honest one. This only works on seats you were going to fill anyway. Hire people you do not need and the subsidy is just a discount on a mistake.  //  Say the condition out loud and do not soften it. Every CFO in the room is already thinking it, and saying it first is what makes the rest of the arithmetic credible. Do not read the equation aloud, let them read it.">
+  <div class="eyebrow">Now the part you came for</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px">Vision 2030 already decided this was <em>worth paying for.</em></h2>
+    <div class="lede" style="margin-top:18px;max-width:76ch;font-size:21px">HRDF funds the training itself under <strong>Train to Hire,</strong> and carries a fixed share of the wage through the first two years. The environment, the labs, the mockups, the coaching capacity, the expensive part, is the part the Kingdom is actively trying to fund.</div>
+    <div class="eq"><b>NET</b> = fund contribution
+      + recruitment cost you didn&rsquo;t pay
+      + ramp time you didn&rsquo;t lose
+      <b>&ge;</b> <strong>program cost</strong></div>
+    <div class="note">One condition, and it is the honest one: this only works on <strong>seats you were going to fill anyway.</strong> Hire people you don&rsquo;t need and the subsidy is just a discount on a mistake.</div>
+    <div class="att" style="margin-top:16px">HRDF (Hadaf) reported SR 8.29bn in training, empowerment and mentorship spending in 2025, reaching 2 million+ beneficiaries and 226,000+ establishments. Announced February 2026.</div>
+  </div>
+</section>
+
+<!-- 18 · THE OFFER -->
+<section class="slide" data-lang="en" data-act="VIII &#183; The ask" data-time="0:45" data-notes="Let me make this concrete, and then I will get off the stage. For Saudi based companies, Arabian Academy is delivering these programs at no fee for any cohort that begins on or before the thirty first of March next year. [pause]  No fee does not mean no cost. And before anyone asks what the catch is, there are two conditions, and both of them are in your favor. The first is that ninety percent of this happens where the work happens, so your people are not sitting in a room while the business runs without them. The second is a baseline, agreed before day one. That is not paperwork. That is the single thing that makes everything I showed you in the last ten minutes possible for you too. Without a baseline nobody can prove anything to you, including me. [beat]  But right now you have seven months to pressure test a claim of this size with no fee attached to it.  //  Say the offer once, plainly, and stop. Do not repeat the words free or no fee more than twice, or it starts to sound like a discount rather than an invitation.">
+  <div class="eyebrow">Through the end of Q1</div>
+  <div class="body">
+    <div class="offer">
+      <div class="ol">For Saudi-based companies</div>
+      <div class="ot">Arabian Academy delivers these programs at <strong>no fee</strong> for any cohort that begins on or before <strong>31 March 2027.</strong></div>
+    </div>
+    <div class="dsub" style="margin:26px 0 14px">Two conditions. Both of them work in your favor.</div>
+    <div class="cols c2">
+      <div class="card">
+        <div class="h">01 &#183; Your people stay in the business</div>
+        <div class="t"><span style="color:var(--green-lift)">90%</span> of it happens where the work happens.</div>
+        <p>Structured theory is ten percent of the design. Nobody is sitting in a room while the business runs without them.</p>
+      </div>
+      <div class="card">
+        <div class="h">02 &#183; One baseline, before day one</div>
+        <div class="t">The number is <span style="color:var(--green-lift)">yours</span> at both ends.</div>
+        <p>It is the only reason anyone can hand you a result at the end. It is why there was a case study to show you at all.</p>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">Seven months to pressure test a claim of this size, <em>with no fee attached to it.</em></div>
+</section>
+
+<!-- 19 · CLOSE -->
+<section class="slide close" data-lang="en" data-act="" data-time="0:30" data-notes="One last thing. You are already paying for this. It leaves your profit and loss either way, as a compliance filing or as a replacement invoice. The only question in front of you is whether you walk away with an employee, or a receipt. [pause, two full seconds]  If you would rather not start from scratch, I am at the Arabian Academy stand for the next two days. Booth B34. Come and argue with me about the isolation slide.  //  Stop after or a receipt and hold the silence. Do not read the box aloud. Say the booth line in your own words while the audience reads it. Then advance and leave the questions slide up.">
+  <div class="eyebrow">One last thing</div>
+  <div class="closewrap">
+    <div>
+      <div class="big">You are already paying for this. The only question is whether you walk away with an employee, <em>or a receipt.</em></div>
+      <div class="cta">
+        <div class="l">Cohorts beginning on or before 31 March 2027 carry no fee</div>
+        <div class="r">Arabian Academy &#183; booth <em>B34</em></div>
+      </div>
+      <div class="signoff">Ibrahim Elsharkawy &#183; from business needs to business results</div>
+    </div>
+    <div class="qrbox">
+      <img class="qr" alt="Arabian Academy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUQAAAFECAIAAADQiNCRAAAEuUlEQVR42u3cMa4TMRSGUYLcsB0a9l++hn1kBUhpQktpKT/X1/Y5dZTMOPPJU1z58X49vwH7+24JQMyAmAExA2IGMQNiBsQMiBnEDIgZWGnMfOjHz1/XLtCf31+R9Zn5ntR/kbrm1PqkeA7tzOA1GxAzIGZAzCBmQMyAmAExA2IGMQONjdQXVc7opnSbT05dT+WseLfrufk5tDOD12xAzICYATGDmAExA2IGxAxiBsQMLDUqf6zy3OMdz3OunPHuNr/tObQzA2IGMQNiBsQMiBnEDIgZEDMgZhAzsLlhCT5XOVM981szn6mc3z51xtvODIgZEDOIGRAzIGZAzCBmQMyAmAExA/8wm72Zm8+7xs4MYgbEDIgZEDOIGRAzIGZAzICYQcxAY6Wz2afODHc77zr1X6R+q9s8+anPoZ0ZxAyIGRAzIGYQMyBmQMyAmEHMgJiBpWKz2ak53pulZphvPlv75ufQzgxiBsQMiBkQM4gZEDMgZkDMIGZAzMBSj/fraRUKVM4Mnzp3jZ0ZxAyIGRAzIGYQMyBmQMyAmAExg5iBxqbOzT71POfUvHTqmlNrWLnO3daw271XdmFnBq/ZgJgBMQNiBjEDYgbEDIgZxAyIGVgqdm72zedCd7v3HWezK1WuYeXsup0ZvGYDYgbEDIgZxAyIGRAzIGYQMyBmYKnR7YJOPc+525nY3c4wr3x+Us9Gt/ltOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUrFzs2fsOFfcbYb51DOx/e92ZkDMIGZAzICYATGDmAExA2IGxAxiBjY3NZvdbUY3Zcf76nYeeOqaK8+X7jZTnVofOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUmPmQ91mWWd0mwdOSV3zqeuz43NoZwbEDGIGxAyIGRAziBkQMyBmQMwgZuAIU7PZ3c4rdg7zXnb8LyqvJ/Vbdmbwmg2IGRAzIGYQMyBmQMyAmEHMgJiBpR7v1/PIG0vNb3e75pTUzPCp8/apNbQzA2IGMQNiBsQMiBkQM4gZEDMgZkDMcI2p2ezKedcZO84DV87xdpup3lG3Z8zODF6zATEDYgbEDGK2BCBmQMyAmAExg5iB9o49N7vSjmc1p67Z7Hqf67Ezg9dsQMyAmAExg5gBMQNiBsQMYgbEDCw1Zj506tnIMypndHecc650873bmUHMgJgBMQNiBjFbAhAzIGZAzICYQcxAeyP1RTvOxFaeHZ26ntRvpebAdzwzvNszlrovOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUqPyx8zxfn7N3ebJd3w27MyAmAExA2IGMQNiBsQMiBkQM4gZEDPwHwxL0EflfHLqPOdu31O5zt3mye3M4DUbEDMgZkDMIGZAzICYATGDmAExA0uZzQ6oPMu6cob55v+icuY89Vt2ZvCaDYgZEDMgZhAzIGZAzICYQcyAmIGlSmezT50ZTs3o3nzv3Z6N1PVU3pedGbxmA2IGxAyIGcQMiBkQMyBmEDMgZmCp2Gz2qbPH7r3PGs7MOadmoSvnyZ2bDYgZxAyIGRAzIGYQMyBmQMyAmEHMwBEe79fTKoCdGRAzIGZAzCBmQMyAmAExg5gBMQNiBj7zF9CHhReQ/8cjAAAAAElFTkSuQmCC">
+      <div class="qcap">Arabian Academy</div>
+      <div class="qsub">arabianacademy.sa</div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 · QUESTIONS -->
+<section class="slide thanks" data-lang="en" data-act="" data-time="Q&amp;A" data-notes="Thank you. I have time for questions.  //  Leave this slide up while you take questions. If a figure gets challenged, advance one slide and the full source list is on the wall behind you. The QR goes to the academy site.">
+  <div class="eyebrow">Thank you</div>
+  <div class="body">
+    <h2 class="tq">Questions.</h2>
+    <div class="tqr">
+      <div>
+        <div class="tsub">We welcome you at <strong style="color:var(--green-lift);font-weight:400">booth B34</strong> to discuss this further. Every figure in this talk has its source printed on the slide it appeared on, and the full list is on the next slide.</div>
+        <div class="tcta">
+          <div class="l">Cohorts beginning on or before 31 March 2027 carry no fee</div>
+          <div class="r">Arabian Academy &#183; booth <em>B34</em></div>
+        </div>
+        <div class="tname">Ibrahim Elsharkawy</div>
+      </div>
+      <div class="qrbox">
+        <img class="qr" alt="Arabian Academy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUQAAAFECAIAAADQiNCRAAAEuUlEQVR42u3cMa4TMRSGUYLcsB0a9l++hn1kBUhpQktpKT/X1/Y5dZTMOPPJU1z58X49vwH7+24JQMyAmAExA2IGMQNiBsQMiBnEDIgZWGnMfOjHz1/XLtCf31+R9Zn5ntR/kbrm1PqkeA7tzOA1GxAzIGZAzCBmQMyAmAExA2IGMQONjdQXVc7opnSbT05dT+WseLfrufk5tDOD12xAzICYATGDmAExA2IGxAxiBsQMLDUqf6zy3OMdz3OunPHuNr/tObQzA2IGMQNiBsQMiBnEDIgZEDMgZhAzsLlhCT5XOVM981szn6mc3z51xtvODIgZEDOIGRAzIGZAzCBmQMyAmAExA/8wm72Zm8+7xs4MYgbEDIgZEDOIGRAzIGZAzICYQcxAY6Wz2afODHc77zr1X6R+q9s8+anPoZ0ZxAyIGRAzIGYQMyBmQMyAmEHMgJiBpWKz2ak53pulZphvPlv75ufQzgxiBsQMiBkQM4gZEDMgZkDMIGZAzMBSj/fraRUKVM4Mnzp3jZ0ZxAyIGRAzIGYQMyBmQMyAmAExg5iBxqbOzT71POfUvHTqmlNrWLnO3daw271XdmFnBq/ZgJgBMQNiBjEDYgbEDIgZxAyIGVgqdm72zedCd7v3HWezK1WuYeXsup0ZvGYDYgbEDIgZxAyIGRAzIGYQMyBmYKnR7YJOPc+525nY3c4wr3x+Us9Gt/ltOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUrFzs2fsOFfcbYb51DOx/e92ZkDMIGZAzICYATGDmAExA2IGxAxiBjY3NZvdbUY3Zcf76nYeeOqaK8+X7jZTnVofOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUmPmQ91mWWd0mwdOSV3zqeuz43NoZwbEDGIGxAyIGRAziBkQMyBmQMwgZuAIU7PZ3c4rdg7zXnb8LyqvJ/Vbdmbwmg2IGRAzIGYQMyBmQMyAmEHMgJiBpR7v1/PIG0vNb3e75pTUzPCp8/apNbQzA2IGMQNiBsQMiBkQM4gZEDMgZkDMcI2p2ezKedcZO84DV87xdpup3lG3Z8zODF6zATEDYgbEDGK2BCBmQMyAmAExg5iB9o49N7vSjmc1p67Z7Hqf67Ezg9dsQMyAmAExg5gBMQNiBsQMYgbEDCw1Zj506tnIMypndHecc650873bmUHMgJgBMQNiBjFbAhAzIGZAzICYQcxAeyP1RTvOxFaeHZ26ntRvpebAdzwzvNszlrovOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUqPyx8zxfn7N3ebJd3w27MyAmAExA2IGMQNiBsQMiBkQM4gZEDPwHwxL0EflfHLqPOdu31O5zt3mye3M4DUbEDMgZkDMIGZAzICYATGDmAExA0uZzQ6oPMu6cob55v+icuY89Vt2ZvCaDYgZEDMgZhAzIGZAzICYQcyAmIGlSmezT50ZTs3o3nzv3Z6N1PVU3pedGbxmA2IGxAyIGcQMiBkQMyBmEDMgZmCp2Gz2qbPH7r3PGs7MOadmoSvnyZ2bDYgZxAyIGRAzIGYQMyBmQMyAmEHMwBEe79fTKoCdGRAzIGZAzCBmQMyAmAExg5gBMQNiBj7zF9CHhReQ/8cjAAAAAElFTkSuQmCC">
+        <div class="qcap">Arabian Academy</div>
+        <div class="qsub">arabianacademy.sa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 · SOURCES -->
+<section class="slide" data-lang="en" data-act="Appendix" data-time="Q&amp;A" data-notes="The full source list. Leave it up if any figure is challenged.">
+  <div class="eyebrow">Sources</div>
+  <div class="body">
+    <div class="srcgrid">
+      <div><b>Saudi Labor Law, Article 43</b> &#183; Royal Decree M/46, 5/6/1436H</div>
+      <div><b>MHRSD</b> &#183; on-the-job training mandate, in force February 2026</div>
+      <div><b>MHRSD</b> &#183; training data and plan filing requirement, since 2023, Qiwa</div>
+      <div><b>MHRSD</b> &#183; <em>Progress in the Saudi Labor Market,</em> December 2025</div>
+      <div><b>Vision 2030</b> &#183; <em>Annual Report 2025,</em> Kingdom of Saudi Arabia</div>
+      <div><b>HRDF (Hadaf)</b> &#183; 2025 results, announced February 2026</div>
+      <div><b>GOSI / Growth Lab, Harvard University</b> &#183; social insurance records 2011 to 2016, median job tenure</div>
+      <div><b>US Bureau of Labor Statistics</b> &#183; median employee tenure</div>
+      <div><b>Gallup</b> &#183; <em>42% of Employee Turnover Is Preventable but Often Ignored,</em> July 2024, updated February 2026</div>
+      <div><b>Gallup</b> &#183; <em>State of the Global Workplace 2026,</em> Saudi Arabia country data, fielded 2025</div>
+      <div><b>Korn Ferry</b> &#183; <em>Workforce 2025,</em> Saudi Arabia edition, n=513, April 2025</div>
+      <div><b>Phillips &amp; Phillips</b> &#183; <em>ROI Basics,</em> 2nd ed., ATD Press, 2019 &#183; BCR and ROI formulas</div>
+      <div><b>ROI Institute</b> &#183; The 12 Guiding Principles of the ROI Methodology</div>
+      <div><b>Phillips, Phillips &amp; Toes</b> &#183; <em>Return on Investment in Training and Performance Improvement Programs,</em> 3rd ed., Routledge, 2024</div>
+      <div><b>Jasson &amp; Govender</b> &#183; <em>Acta Commercii</em> 17(1), 2017, peer reviewed</div>
+      <div><b>Kirkpatrick Partners</b> &#183; Jim and Wendy Kirkpatrick, <em>The Kirkpatrick Model,</em> Return on Expectations</div>
+      <div><b>Vision 2030</b> &#183; Human Capability Development Program</div>
+      <div><b>The Coca-Cola Bottling Company of Saudi Arabia</b> &#183; program report, 2025</div>
+      <div><b>Arabian Oud</b> &#183; program reports, 2023 and 2025</div>
+      <div><b>HRDF</b> &#183; Train to Hire program terms</div>
+    </div>
+    <div class="att" style="margin-top:22px">Replacement cost by role band is a Gallup estimate, not a measured result, and is labeled as such on the slide. Funding eligibility is confirmed per instrument, in writing, at the first session, before any commitment is made.</div>
+  </div>
+</section>
+
+
+<!-- AR 1 · COVER -->
+<section class="slide cover" data-lang="ar" data-act="" data-time="0:25" data-notes="صباح الخير. دعوني أزيح أمراً عن الطاولة قبل أن أبدأ. لست هنا لأطلب منكم ميزانية تدريب، فكل شركة في هذه القاعة تدفعها بالفعل، حتى لو لم تحمل هذا الاسم في دفاتركم. في العشرين دقيقة القادمة أريد أن أريكم ماذا يشتري لكم هذا المال اليوم، وماذا كان بإمكانه أن يشتري.  //  لا تعرّف بنفسك، البرنامج فعل ذلك. ابدأ من إعادة التأطير مباشرة.">
+  <div class="wordmark">HRSE KSA 2026 &#183; 1 سبتمبر 2026</div>
+  <h1><span class="ln">من الالتزام</span><span class="ln">إلى <em>الاستثمار</em></span></h1>
+  <div class="sub">بناء منظومة الكفاءات الوطنية التي تقوم عليها رؤية 2030، <em>دون تكلفة.</em></div>
+  <div class="rule"></div>
+  <div class="presenter"><span class="by">تقديم</span>إبراهيم الشرقاوي</div>
+  <div class="creds">المدير العام، الأكاديمية العربية &#183; مؤسس Skill House<br>تنفيذي في التعلّم والتطوير والتطوير المؤسسي</div>
+  <div class="certs">عضو منتسب CIPD &#183; PHR &#183; الحزام الأسود Six Sigma</div>
+</section>
+
+<!-- AR 2 · POSITIONING -->
+<section class="slide" data-lang="ar" data-act="التموضع" data-time="0:40" data-notes="قبل أن أبدأ، دعوني أقول ما ليست عليه هذه الجلسة. لست هنا لأحاضر في قاعة تضم قادة موارد بشرية ومالية عن كيفية تصميم التدريب. كلنا نعرف أن السلوك لا يتغيّر داخل قاعة، وهذه ليست نقطة الخلاف. الخلاف على ما يكلّفه التصرّف بناءً على ذلك، ومن يدفعه. سأريكم الاثنين. وسأقول تحيّزي مقدّماً: أنا بنيت واحدة من هذه الأكاديميات. هذا تضارب مصالح، وهو أيضاً السبب الوحيد في أن لديّ دليلاً أعرضه عليكم.  //  قل جملة التحيّز وأنت تنظر إلى القاعة لا إلى الشاشة.">
+  <div class="eyebrow">قبل أن نبدأ</div>
+  <div class="body">
+    <h2 class="title">لست هنا لأشرح لكم <em>كيف يُصمَّم التدريب.</em></h2>
+    <div class="lede">كلنا نعلم أن السلوك لا يتغيّر داخل قاعة. أنا هنا لأريكم <strong>كم يكلّف أن نتصرّف بناءً على ذلك،</strong> وكيف أن المملكة تتحمّل معظم هذه الكلفة بالفعل.</div>
+    <div class="hr"></div>
+    <div class="stamp">أنا بنيت واحدة من هذه الأكاديميات. هذا <b>تحيّزي</b>، وهو في الوقت نفسه <b>دليلي</b>.</div>
+  </div>
+</section>
+
+<!-- AR 3 · THE STAKES -->
+<section class="slide" data-lang="ar" data-act="أولاً &#183; ما هو على المحك" data-time="0:45" data-notes="أين تقف المملكة فعلياً، بأرقامها هي. البطالة بين السعوديين نزلت من خط أساس اثني عشر فاصلة ثلاثة بالمئة إلى سبعة فاصلة اثنين. مستهدف رؤية 2030 كان سبعة. تحقق فعلياً قبل خمس سنوات من موعده. مليونان وأربعمئة وثمانون ألف سعودي التحقوا بالقطاع الخاص منذ 2020. وصندوق تنمية الموارد البشرية أنفق ثمانية فاصلة تسعة وعشرين مليار ريال على التدريب والتمكين والإرشاد في عام واحد، ووصل إلى أكثر من مليوني مستفيد ومئتين وستة وعشرين ألف منشأة، أربعة وتسعون بالمئة منها منشآت صغيرة ومتوسطة. [وقفة]  اقرأوا الثلاثة معاً. أدخلنا الناس، ومولنا التدريب. ومع ذلك لا يزال كل واحد منكم يخوض النقاش نفسه مع مجلسه: هل حرّك أيٌّ من ذلك رقماً؟  //  اقرأ البطاقات بلا تعليق، واترك السطر الأخير يفعل فعله.">
+  <div class="eyebrow">أين تقف المملكة فعلياً</div>
+  <div class="body">
+    <div class="sg">
+      <div>
+        <div class="v" dir="ltr">12.3 &rarr; 7.2<i style="font-style:normal;font-size:24px">%</i></div>
+        <div class="k">البطالة بين السعوديين، من خط الأساس إلى 2025، مقابل مستهدف 7% لعام 2030.</div>
+        <div class="att" style="font-size:12px">التقرير السنوي لرؤية 2030، 2025</div>
+      </div>
+      <div>
+        <div class="v" dir="ltr">2.48<i style="font-style:normal;font-size:24px">M</i></div>
+        <div class="k">سعودي التحقوا بوظائف في القطاع الخاص منذ 2020.</div>
+        <div class="att" style="font-size:12px">وزارة الموارد البشرية والتنمية الاجتماعية، ديسمبر 2025</div>
+      </div>
+      <div>
+        <div class="v"><span dir="ltr">8.29</span><i style="font-style:normal;font-size:24px"> مليار</i></div>
+        <div class="k">ريال، الإنفاق الوطني على التدريب والتمكين والإرشاد في 2025.</div>
+        <div class="att" style="font-size:12px">صندوق تنمية الموارد البشرية (هدف)، فبراير 2026</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:26px">أكثر من <strong>مليوني</strong> مستفيد و<strong>226 ألف</strong> منشأة، 94% منها منشآت صغيرة ومتوسطة.</div>
+  </div>
+  <div class="kicker">حللنا مسألة العدد. لم نحلّ بعد <em>مسألة القدرة.</em></div>
+</section>
+
+<!-- AR 4 · THE OBLIGATION -->
+<section class="slide" data-lang="ar" data-act="أولاً &#183; ما هو على المحك" data-time="1:00" data-notes="وهو ليس خياراً. المادة الثالثة والأربعون من نظام العمل السعودي: إذا كان لديكم خمسون موظفاً فأكثر، فأنتم ملزمون بتأهيل أو تدريب ما لا يقل عن اثني عشر بالمئة من قوتكم العاملة السعودية. كل عام. لا مرة واحدة. كل عام. وانضم إليها التزام ثانٍ في فبراير الماضي: اثنان بالمئة من إجمالي القوة العاملة في التدريب على رأس العمل سنوياً، مسجَّل في قوى. ومنذ 2023 عليكم رفع بيانات التدريب وخطة العام القادم، بحد أدنى ثماني وحدات تدريبية لكل متدرب، مع غرامات مرتبطة بها. [وقفة]  فالسؤال أمام لجنتكم التنفيذية لم يكن يوماً: هل ندرّب؟  //  انطق اثني عشر بالمئة ببطء. أغلب من في القاعة يفترض رقماً أصغر بكثير.">
+  <div class="eyebrow">وهو ليس خياراً</div>
+  <div class="body">
+    <h2 class="title" style="font-size:46px;margin-bottom:26px">النظام وضع بند التدريب <em>في ميزانيتكم أصلاً.</em></h2>
+    <div class="facts tight">
+      <div class="fact">
+        <div class="fig" dir="ltr">12<small>%</small></div>
+        <div class="tx">من قوتكم العاملة السعودية يجب تأهيلها أو تدريبها <em>كل عام،</em> عند 50 موظفاً فأكثر.
+          <div class="att">نظام العمل السعودي، المادة 43 &#183; المرسوم الملكي م/46 وتاريخ 5/6/1436هـ</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig" dir="ltr">2<small>%</small></div>
+        <div class="tx">من إجمالي القوة العاملة في <em>التدريب على رأس العمل</em> سنوياً، مسجَّل في منصة قوى.
+          <div class="att">وزارة الموارد البشرية والتنمية الاجتماعية &#183; نافذ منذ فبراير 2026</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig"><span dir="ltr">8</span><small> وحدات</small></div>
+        <div class="tx">تدريبية لكل متدرب كحد أدنى، <em>تُرفع سنوياً</em> مع خطة التدريب للعام التالي.
+          <div class="att">وزارة الموارد البشرية والتنمية الاجتماعية &#183; منذ 2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">السؤال لم يكن يوماً: هل ندرّب؟ السؤال هو: هل يترك التدريب الذي أنتم ملزمون به <em>أثراً باقياً؟</em></div>
+</section>
+
+<!-- AR 5 · THE KINGDOM HAS NAMED THE GAP -->
+<section class="slide" data-lang="ar" data-act="أولاً &#183; ما هو على المحك" data-time="0:50" data-notes="ولست وحدي من يقول هذا. جملة واحدة من التقرير السنوي لرؤية 2030، صادرة عن المملكة. [اقرأها من الشاشة، ببطء]  التحدي الرئيسي هو المواءمة بين التدريب واحتياجات أصحاب العمل، والمهارات لا تتطابق دائماً مع الوظائف المتاحة. [وقفة]  هذا هو التقرير الوطني، في محور الانتقال من التعليم التقني إلى التوظيف. وانظروا إلى ما تحته. خريجو التعليم التقني والمهني الملتحقون بعمل خلال ستة أشهر: سبعة وأربعون فاصلة أربعة، مقابل مستهدف ستة وخمسين فاصلة اثنين للعام، وأقل من العام الذي سبقه. خريجو الجامعات: ثلاثة وأربعون فاصلة ثلاثة، مقابل أربعة وخمسين فاصلة واحد. وترتيبنا في مؤشر تنافسية المواهب: الحادي والثلاثون، مقابل مستهدف الخامس والعشرين. ثلاثة مؤشرات، جميعها دون المستهدف، وسبب واحد معلن: المواءمة. [وقفة]  إذن هذا ليس تشخيصي أنا لسوقكم. هذا تشخيص المملكة للسوق كله. والمواءمة لا تحدث داخل قاعة، بل قبل أن يدخلها أحد.  //  أقوى شريحة مصداقية في العرض، ولا شيء فيها رأي شخصي.">
+  <div class="eyebrow">والمملكة سمّت الفجوة بنفسها</div>
+  <div class="body">
+    <div class="pull">«التحدي الرئيسي هو <em>المواءمة بين التدريب واحتياجات أصحاب العمل.</em> المهارات لا تتطابق دائماً مع الوظائف المتاحة.»</div>
+    <div class="att" style="margin-top:14px">التقرير السنوي لرؤية 2030، 2025 &#183; في محور الانتقال من التعليم التقني إلى التوظيف</div>
+    <div class="gaps">
+      <div class="gp">
+        <div class="k">خريجو التعليم التقني والمهني الملتحقون بعمل خلال ستة أشهر</div>
+        <div class="v" dir="ltr">47.41<i style="font-style:normal;font-size:22px">%</i></div>
+        <div class="t">مستهدف 2025: <b dir="ltr">56.2%</b> &#183; دون المستهدف، وأقل من العام السابق</div>
+      </div>
+      <div class="gp">
+        <div class="k">خريجو الجامعات الملتحقون بعمل خلال ستة أشهر</div>
+        <div class="v" dir="ltr">43.34<i style="font-style:normal;font-size:22px">%</i></div>
+        <div class="t">مستهدف 2025: <b dir="ltr">54.1%</b> &#183; دون المستهدف</div>
+      </div>
+      <div class="gp">
+        <div class="k">الترتيب في مؤشر IMD العالمي لتنافسية المواهب</div>
+        <div class="v" dir="ltr">31</div>
+        <div class="t">مستهدف 2025: <b dir="ltr">25</b> &#183; تقدّم من المركز <span dir="ltr">32</span>، ولا يزال دون المستهدف</div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">ثلاثة مؤشرات. جميعها دون المستهدف. وسبب واحد معلن: <em>المواءمة.</em></div>
+</section>
+
+<!-- AR 6 · THE ROOM'S OWN WORDS -->
+<section class="slide" data-lang="ar" data-act="ثانياً &#183; التشخيص" data-time="0:55" data-stagger="300" data-notes="كل تشخيص أجريته في حياتي بدأ من المكان نفسه، بسؤالين. ما هو النجاح بالنسبة لكم، وكيف تقيسونه اليوم. والإجابة تأتي فورية، لأنهم يعرفونها. المبيعات، رضا العملاء، تجربة العميل، نقيس الثلاثة. ثم أسأل السؤال الثاني: وما الذي يؤثر في أداء موظفيكم؟ وتأتي القائمة بالسرعة نفسها. العروض، المنتجات الجديدة، الحوافز، ساعات العمل، الورديات، موقع الفرع. [وقفة طويلة]  ثم أسأل الثالث: وماذا عن التدريب؟ [وقفة، لا تقل شيئاً]  لم يجب أحد على هذا السؤال بسرعة قط.  //  اترك السطر الأخير معلّقاً. لا تملأ الصمت. العرض كله يدور حول ملاحظة الحضور أن التدريب لم يكن في قائمتهم هم.">
+  <div class="eyebrow">كل تشخيص أجريته بدأ من هنا</div>
+  <div class="body">
+    <h2 class="title" style="font-size:40px;margin-bottom:8px;max-width:40ch"><span class="qi" aria-hidden="true">&#8220;</span>الحوار نفسه، <em>في كل مرة.</em></h2>
+    <div class="dsub">تشخيص حقيقي، بكلمات العميل</div>
+    <div class="dlg">
+      <div class="ln me"><div class="who">أنا</div><div class="sp">«ما هو النجاح بالنسبة لكم، وكيف <em>تقيسونه اليوم؟</em>»</div></div>
+      <div class="ln"><div class="who">العميل</div><div class="sp">«المبيعات. رضا العملاء. تجربة العميل. نقيس الثلاثة.»</div></div>
+      <div class="ln me"><div class="who">أنا</div><div class="sp">«وما الذي يؤثر في أداء موظفيكم؟»</div></div>
+      <div class="ln"><div class="who">العميل</div><div class="sp">«العروض. المنتجات الجديدة. الحوافز. ساعات العمل. الورديات. موقع الفرع.»</div></div>
+      <div class="ln me last"><div class="who">أنا</div><div class="sp">«وماذا عن <em>التدريب؟</em>»</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AR 7 · THE ADMISSION -->
+<section class="slide" data-lang="ar" data-act="ثانياً &#183; التشخيص" data-time="0:45" data-notes="والإجابة، في كل مرة، صيغة من الجملة نفسها. نعلم أنه مهم، لكننا لا نستطيع إثباته. [وقفة]  هذه الجملة هي سبب وجودنا في هذا النقاش أصلاً. هي سبب بقاء التعلّم والتطوير بنداً في المصروفات على قائمة الدخل بدل أن يكون بنداً في الاستثمار. ليس لأن التدريب سيئ، فبعضه ممتاز، بل لأن الدليل غائب، والإدارة المالية لا تموّل ما لا تستطيع تدقيقه.  //  انطق الجملة المقتبسة كأنك تعيد ما قاله لك عميل الأسبوع الماضي، لأنك كذلك.">
+  <div class="eyebrow">والإجابة، في كل مرة</div>
+  <div class="body">
+    <div class="bigq">«نعلم أنه مهم. <em>لكننا لا نستطيع إثباته.</em>»</div>
+    <div class="said">هذه الجملة هي سبب بقاء التعلّم والتطوير <strong>بنداً في المصروفات</strong> على قائمة الدخل، بدل أن يكون <strong>بنداً في الاستثمار.</strong> ليس لأن التدريب سيئ، بل لأن الدليل غائب، والإدارة المالية لا تموّل ما لا تستطيع تدقيقه.</div>
+  </div>
+</section>
+
+<!-- AR 8 · THE THESIS -->
+<section class="slide" data-lang="ar" data-act="ثانياً &#183; التشخيص" data-time="0:55" data-notes="وهنا الجزء غير المريح، وأقوله بصفتي من يبيع التدريب. لم يتغيّر سلوك أحد لأنه جلس في قاعة. نقل المعرفة رخيص، وقابل للقياس، وبلا أثر يُذكر بمفرده. ما يحرّك مؤشراً في العمل هو الممارسة في البيئة الحقيقية. تحت الضغط الحقيقي. على النظام الحقيقي. أمام العميل الحقيقي. [وقفة]  وهذا يكلّف مالاً. بناء تلك البيئة مكلف، ولهذا لا تبنيها أغلب البرامج، ولهذا بالضبط قرّرت المملكة أن تموّلها.  //  هذه نقطة الارتكاز في العرض. كل ما قبلها تشخيص، وكل ما بعدها كلفة ومن يدفعها.">
+  <div class="eyebrow">الجزء غير المريح</div>
+  <div class="body">
+    <h2 class="title">لم يتغيّر سلوك أحد لأنه <em>جلس في قاعة.</em></h2>
+    <div class="lede">نقل المعرفة رخيص، وقابل للقياس، وبلا أثر يُذكر بمفرده. ما يحرّك مؤشراً في العمل هو <strong>الممارسة في البيئة الحقيقية.</strong> تحت الضغط الحقيقي. على النظام الحقيقي. أمام العميل الحقيقي.</div>
+    <div class="lede" style="margin-top:18px">وهذا يكلّف مالاً. ولهذا بالضبط تموّله المملكة، ولهذا لا تتجاوز القاعة <strong>عشرة بالمئة</strong> مما نصمّمه أصلاً.</div>
+  </div>
+</section>
+
+<!-- AR 9 · SIX MONTHS -->
+<section class="slide" data-lang="ar" data-act="ثالثاً &#183; البند غير المدرج" data-time="1:00" data-notes="[اترك الرقم على الشاشة ثانيتين كاملتين قبل أن تتكلم]  ستة أشهر. هذا هو وسيط مدة بقاء السعودي في الوظيفة في هذا السوق. وقبل أن يستبعد أحد الرقم كطرفة من طرائف الموارد البشرية في الخليج: هذه بيانات التأمينات الاجتماعية نفسها، تسع سنوات منها، بتحليل من مختبر النمو في جامعة هارفارد، تغطي من 2011 إلى 2016. الوافدون في السوق نفسه: ثمانية عشر شهراً. وفي الولايات المتحدة الوسيط ثلاث سنوات وتسعة أعشار. [وقفة]  بهذه الأرقام، أنتم لا تبنون قوة عاملة. أنتم تستأجرونها، مراراً، وبالسعر الكامل في كل مرة.  //  أكثر لحظة قابلة للاقتباس في العرض. اترك جملة تستأجرونها مراراً معلّقة، واذكر المصدر بصوت عالٍ.">
+  <div class="eyebrow">البند غير المدرج في الميزانية</div>
+  <div class="body">
+    <div class="hero">
+      <div class="num"><span dir="ltr">6</span><i>أشهر</i></div>
+      <div style="flex:1">
+        <div class="bars">
+          <div class="bar"><div class="lb">السعوديون</div><div class="tr"><div class="fl" style="width:13%"></div></div><div class="vl">6 أشهر</div></div>
+          <div class="bar mut"><div class="lb">الوافدون في<br>السوق نفسه</div><div class="tr"><div class="fl" style="width:38%"></div></div><div class="vl">18 شهراً</div></div>
+          <div class="bar mut"><div class="lb">الولايات المتحدة</div><div class="tr"><div class="fl" style="width:100%"></div></div><div class="vl">3.9 سنوات</div></div>
+        </div>
+        <div class="att" style="margin-top:16px">وسيط مدة البقاء في الوظيفة. سجلات التأمينات الاجتماعية 2011 إلى 2016، بتحليل من مختبر النمو في جامعة هارفارد. الوسيط الأمريكي من مكتب إحصاءات العمل.</div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">أنتم لا تبنون قوة عاملة. أنتم <em>تستأجرونها،</em> مراراً، وبالسعر الكامل في كل مرة.</div>
+</section>
+
+<!-- AR 10 · EVERY EXIT IS AN INVOICE -->
+<section class="slide" data-lang="ar" data-act="ثالثاً &#183; البند غير المدرج" data-time="1:00" data-notes="فكم تكلّفكم الاستقالة الواحدة فعلاً؟ تقدّر Gallup كلفة الاستبدال بنحو مئتي بالمئة من الراتب لقيادي أو مدير، وثمانين بالمئة لمتخصص تقني، وأربعين بالمئة لموظف في الخط الأمامي. وأريد أن أكون دقيقاً: هذا تقدير من Gallup، وليس نتيجة مقاسة، وأقول لكم ذلك لأنكم ستكتشفونه على أي حال. أما الرقم الذي ينبغي أن يقلقكم أكثر: اثنان وأربعون بالمئة ممن استقالوا طوعاً خلال العام الماضي يقولون إن مديرهم أو منشأتهم كان بإمكانها فعل شيء يمنع ذلك. وهذا رقم مقاس، على عينة من سبعمئة وسبعة عشر شخصاً، جُمعت في نوفمبر 2023. [وقفة]  وهذا هو الطقس المحلي: ثمانون بالمئة من الموظفين في السعودية مستعدون لتغيير وظائفهم مقابل أجر أفضل، بارتفاع خمسة وعشرين بالمئة عن العام السابق. وسبعة وسبعون بالمئة يرون أن الوقت مناسب لإيجاد وظيفة، مقابل اثنين وخمسين بالمئة عالمياً. [وقفة]  قوة عاملة عالية الحركة، في سوق خروج مفتوح بشكل غير معتاد، وقرابة نصف حالات المغادرة كان يمكن منعها. هذه ليست حالة سوق، هذه ثغرة إدارية، والثغرات تُعالج بكلفة معلومة.  //  قولك إن المئتين بالمئة تقدير يساوي أكثر من الرقم نفسه.">
+  <div class="eyebrow">وكم يكلّفكم ذلك</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:22px">كل استقالة <em>فاتورة.</em></h2>
+    <div class="facts tight">
+      <div class="fact">
+        <div class="fig" dir="ltr">200<small>%</small></div>
+        <div class="tx">من الراتب <em>لاستبدال قيادي أو مدير.</em> و80% للمتخصص التقني، و40% لموظف الخط الأمامي.
+          <div class="att">تقدير Gallup &#183; 42% of Employee Turnover Is Preventable but Often Ignored، يوليو 2024، محدّث فبراير 2026</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig" dir="ltr">42<small>%</small></div>
+        <div class="tx">ممن استقالوا طوعاً خلال العام الماضي يقولون إن مديرهم أو منشأتهم <em>كان بإمكانها منع ذلك.</em>
+          <div class="att">Gallup، الدراسة نفسها &#183; عينة 717 ممن غادروا طوعاً خلال 12 شهراً، نوفمبر 2023</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig" dir="ltr">80<small>%</small></div>
+        <div class="tx">من الموظفين في السعودية <em>مستعدون لتغيير وظائفهم</em> مقابل أجر أفضل، بارتفاع 25% عن العام السابق.
+          <div class="att">Korn Ferry, Workforce 2025، النسخة السعودية &#183; عينة 513، أبريل 2025</div>
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fig" dir="ltr">77<small>%</small></div>
+        <div class="tx">من الموظفين في السعودية يرون أن <em>الوقت مناسب لإيجاد وظيفة،</em> مقابل 52% عالمياً.
+          <div class="att">Gallup, State of the Global Workplace 2026، بيانات السعودية، 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AR 11 · CATALOG VS SYSTEM -->
+<section class="slide" data-lang="ar" data-act="رابعاً &#183; كيف نُشغّله" data-time="0:50" data-notes="في هذه اللحظة يفكّر أحدكم: جرّبنا التدريب، ولم يتغيّر شيء. وأنتم محقون. أغلب التدريب لا يعيد شيئاً، وكنتم محقين في شكّكم بالبرنامج الذي مولتموه. انظروا إلى العمود الأول. يبدأ من كتالوج. يوم واحد في قاعة. مستويات معرفة متفاوتة. الحضور هو المخرج المسجَّل. لا خط أساس، فلا يمكن إثبات أي تغيّر. ولا شيء يحدث بعد أن تفرغ القاعة. العمود الثاني هو كيف تعمل الأكاديمية العربية. يبدأ من استراتيجيتكم وأرقامكم. يفصل فجوة المهارة عن فجوة العملية. يهيّئ قبل، ويمارس أثناء، ويطبّق بعد. ثم يعيد القياس مقابل خط الأساس الذي انطلق منه. [وقفة]  الفرق بين العمودين ليس في جودة المحتوى، بل في نقطة البداية، وفي من يغلق الدائرة.  //  الاعتراف أولاً هو ما يكسبك الدقائق الست التالية. قل إنهم كانوا محقين، وكن صادقاً.">
+  <div class="eyebrow">لماذا كان شكّكم في محلّه</div>
+  <div class="body">
+    <div class="vs">
+      <div class="a">
+        <div class="vh">يُشترى من كتالوج</div>
+        <h3>مصروف.</h3>
+        <ul>
+          <li>يبدأ من كتالوج</li>
+          <li>يوم واحد في قاعة</li>
+          <li>مستويات معرفة متفاوتة</li>
+          <li>الحضور هو المخرج المسجَّل</li>
+          <li>لا خط أساس، فلا يمكن إثبات أي تغيّر</li>
+          <li>ولا شيء يحدث بعد أن تفرغ القاعة</li>
+        </ul>
+      </div>
+      <div class="b">
+        <div class="vh">يُبنى كمنظومة</div>
+        <h3>استثمار.</h3>
+        <ul>
+          <li>يبدأ من <strong>استراتيجيتكم وأرقامكم</strong></li>
+          <li>يفصل فجوة المهارة عن فجوة العملية</li>
+          <li>يهيّئ قبل، ويمارس أثناء، ويطبّق بعد</li>
+          <li>يعيد القياس مقابل <strong>خط الأساس الذي انطلق منه</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">الفرق ليس في جودة المحتوى. الفرق في نقطة البداية، وفي <em>من يغلق الدائرة.</em></div>
+</section>
+
+<!-- AR 12 · THE FIVE STAGES -->
+<section class="slide" data-lang="ar" data-act="رابعاً &#183; كيف نُشغّله" data-time="1:25" data-stagger="200" data-notes="هذا هو نموذج الأكاديمية العربية، وهو الشريحة الوحيدة التي أطلب منكم تصويرها. ثلاث مراحل كبرى: نبدأ من احتياج في العمل، نبني القدرة، ونعود إلى نتيجة في العمل. كل ما نفعله يقع داخل هذا القوس. وتحته خمس مراحل. التوجّه الاستراتيجي: نقرأ استراتيجيتكم ونفهم ما تسعون إليه فعلاً. أداء الأعمال: نحلّل ما تقوله أرقامكم اليوم. فجوات الأداء: نجد المسافة بين ما أنتم عليه وما تقصدون الوصول إليه. احتياجات التعلّم والتطوير: الآن فقط نحدّد التدريب المطلوب. تقييم الأداء: نقيس ما إذا كان قد تحرّك. [أشر إلى الشريط تحت]  لاحظوا أين يقع الخط. المراحل الأولى والثانية والثالثة تحدث قبل تسجيل أي متدرب. هذا هو التشخيص. وأغلب المزوّدين يبدؤون من المرحلة الرابعة، لأنها الجزء الذي يمكن بيعه من كتالوج. [وقفة]  والآن لاحظوا المرحلة الأخيرة. المرحلة الخامسة تعود إلى الأرقام التي أسّستها المرحلة الثانية. المؤشرات نفسها، الوحدات نفسها، بعد الدورة. هذه الدائرة هي السبب الوحيد في أن برنامج تدريب يمكن أن يُدقَّق مالياً أصلاً.  //  قلب العرض. لديك دقيقة ونصف هنا فاستخدمها. جملتان تهمان أكثر من غيرهما: التشخيص يحدث قبل تسجيل أحد، والمرحلة الخامسة تعود إلى الثانية.">
+  <div class="eyebrow">النموذج</div>
+  <div class="body">
+    <div class="arc">
+      <div class="pill">احتياج في العمل</div><div class="ar">&larr;</div>
+      <div class="pill mid">بناء القدرة</div><div class="ar">&larr;</div>
+      <div class="pill">نتيجة في العمل</div>
+    </div>
+    <div class="rail5">
+      <div class="st"><div class="node">01</div><div class="nm">التوجّه الاستراتيجي</div><div class="ds">نقرأ استراتيجيتكم ونفهم ما تسعون إليه فعلاً</div></div>
+      <div class="st"><div class="node">02</div><div class="nm">أداء الأعمال</div><div class="ds">نحلّل ما تقوله أرقامكم اليوم</div></div>
+      <div class="st"><div class="node">03</div><div class="nm">فجوات الأداء</div><div class="ds">المسافة بين ما أنتم عليه وما تقصدون الوصول إليه</div></div>
+      <div class="st"><div class="node">04</div><div class="nm">احتياجات التعلّم</div><div class="ds">الآن فقط نحدّد التدريب المطلوب</div></div>
+      <div class="st hi"><div class="node">05</div><div class="nm">تقييم الأداء</div><div class="ds">نقيس ما إذا كان قد تحرّك، مقابل المرحلة 02</div></div>
+    </div>
+    <div class="phase"><div>التشخيص، قبل تسجيل أي متدرب</div><div>التنفيذ</div><div>التقييم</div></div>
+  </div>
+  <div class="kicker">المرحلة الخامسة تعود إلى الأرقام التي أسّستها المرحلة الثانية. <em>هذه الدائرة</em> هي ما يجعل البرنامج قابلاً للتدقيق.</div>
+</section>
+
+<!-- AR 13 · WHO WE TRAIN -->
+<section class="slide" data-lang="ar" data-act="رابعاً &#183; كيف نُشغّله" data-time="0:55" data-stagger="175" data-notes="والآن دعوني أصحّح افتراضاً، لأن أغلب الناس حين يسمعون كلمة تدريب يتخيّلون قاعة لموظفي الخط الأمامي. نحن نشتغل على كل مستوى. الموظفون التنفيذيون في الخط الأمامي. المشرفون المباشرون، وهي أصعب نقلة يمرّ بها أحد في أي شركة، لأنك يوم الاثنين كنت أفضل بائع، ويوم الثلاثاء صرت مسؤولاً عن خمسة منهم. المديرون ومديرو الإدارات، الذين يقودون وحدة أعمال ويحملون أرقامها. ثم نواب الرئيس والإدارة التنفيذية العليا، الذين يملكون قائمة أرباح وخسائر ويضعون الاستراتيجية التي يُطلب من الجميع تنفيذها. [وقفة]  الخط الأمامي، والإشراف، والإدارة، والقيادة التنفيذية. بنية واحدة، وكل المستويات. المحتوى يتغيّر كلياً في كل واحد منها. والمراحل الخمس التي رأيتموها قبل قليل لا تتغيّر إطلاقاً. [انظر إلى القاعة]  وهنا الجزء غير المريح: من يعتمدون هذه البرامج موجودون على هذا السلّم أيضاً. والتطوير يتوقف عن كونه شيئاً نفعله بصغار الموظفين في اللحظة التي نقبل فيها ذلك.  //  انطق جملة من يعتمدون هذه البرامج وأنت تنظر إلى الحضور. يجب أن تصل كدعوة لا كاتهام.">
+  <div class="eyebrow">والأمر لا يقتصر على الخط الأمامي</div>
+  <div class="body">
+    <h2 class="title" style="font-size:42px;margin-bottom:22px;max-width:38ch">بنية واحدة. <em>كل المستويات.</em></h2>
+    <div class="ladder">
+      <div class="rung r1"><div class="lv">01 &#183; الخط الأمامي</div><div class="nm">الموظفون التنفيذيون</div><div class="ds">المعايير، والسلامة، وحديث العميل</div></div>
+      <div class="rung r2"><div class="lv">02 &#183; الإشراف</div><div class="nm">المشرفون المباشرون</div><div class="ds">أصعب نقلة في أي شركة: من إنجاز العمل إلى تحمّل مسؤولية عمل الآخرين</div></div>
+      <div class="rung r3"><div class="lv">03 &#183; الإدارة</div><div class="nm">المديرون ومديرو الإدارات</div><div class="ds">مسؤولون عن وحدة أعمال وعن أرقامها، ثم عن المديرين الذين يديرونها</div></div>
+      <div class="rung r4"><div class="lv">04 &#183; القيادة التنفيذية</div><div class="nm">نواب الرئيس والإدارة العليا</div><div class="ds">قائمة أرباح وخسائر والميزانية التي خلفها، والاستراتيجية التي يُطلب من الثلاثة الآخرين تنفيذها</div></div>
+    </div>
+  </div>
+  <div class="kicker">المحتوى يتغيّر كلياً في كل مستوى. <em>والمراحل الخمس لا تتغيّر إطلاقاً.</em></div>
+</section>
+
+<!-- AR 14 · 70:20:10 -->
+<section class="slide" data-lang="ar" data-act="رابعاً &#183; كيف نُشغّله" data-time="0:50" data-notes="قلت لكم قبل قليل إن سلوك أحد لا يتغيّر في قاعة. فهذا ما نفعله حياله، وهو نسبة التصميم كاملة. سبعون، عشرون، عشرة. سبعون بالمئة من التعلّم يُبنى بالممارسة والتطبيق: خبرة ميدانية، وعمل حقيقي، ومهارة وجاهزية. وعشرون بالمئة بالتوجيه والتفاعل: إرشاد وتبادل خبرات، مرتبط بمواقف حقيقية في بيئة العمل. وعشرة بالمئة تعلّم نظري منظّم، وهو المحتوى الذي يمنح المتدرب المفاهيم الأساسية ليطبّقها. [وقفة]  وهذا ليس شعاراً. في برنامج كوكاكولا: مئتا ساعة برنامج لكل مجموعة، ثلاثون منها فقط داخل قاعة. خمسة عشر بالمئة. [وقفة قصيرة]  عشرة بالمئة من التصميم نظري. هذا ليس اختصاراً، بل هو السبب في أن التسعين بالمئة الأخرى تجد أرضاً تقف عليها.  //  أشر إلى حلقة العشرة، لا إلى السبعين. الرقم المفاجئ هو ما يبقى في الذاكرة.">
+  <div class="eyebrow">ولذلك نبنيه بالاتجاه المعاكس</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:6px;max-width:32ch">إن كانت القاعة لا تغيّر السلوك، <em>فتوقّفوا عن الإنفاق هناك.</em></h2>
+    <div class="dsub" style="margin-bottom:20px">نسبة التصميم في الأكاديمية العربية</div>
+    <div class="rings">
+      <div class="rc">
+        <svg class="ring" viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="56"></circle><circle class="arc" cx="66" cy="66" r="56" style="stroke-dasharray:246 352"></circle></svg>
+        <div class="rpc" dir="ltr">70<i>%</i></div>
+        <div class="rt">الممارسة والتطبيق</div>
+        <div class="rd">خبرة ميدانية، وعمل حقيقي، ومهارة وجاهزية</div>
+      </div>
+      <div class="rc">
+        <svg class="ring" viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="56"></circle><circle class="arc" cx="66" cy="66" r="56" style="stroke-dasharray:70 352"></circle></svg>
+        <div class="rpc" dir="ltr">20<i>%</i></div>
+        <div class="rt">التوجيه والتفاعل</div>
+        <div class="rd">إرشاد وتبادل خبرات، مرتبط بمواقف حقيقية في بيئة العمل</div>
+      </div>
+      <div class="rc">
+        <svg class="ring" viewBox="0 0 132 132"><circle class="trk" cx="66" cy="66" r="56"></circle><circle class="arc" cx="66" cy="66" r="56" style="stroke-dasharray:35 352"></circle></svg>
+        <div class="rpc" dir="ltr">10<i>%</i></div>
+        <div class="rt">التعلّم النظري</div>
+        <div class="rd">محتوى منظّم يمنح المتدرب المفاهيم الأساسية للتطبيق</div>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">عشرة بالمئة فقط من التصميم نظري. هذا ليس اختصاراً، بل هو السبب في أن <em>التسعين بالمئة الأخرى</em> تجد أرضاً تقف عليها.</div>
+</section>
+
+<!-- AR 15 · AN ACADEMY, NOT A TRAINING ROOM -->
+<section class="slide" data-lang="ar" data-act="رابعاً &#183; كيف نُشغّله" data-time="0:55" data-notes="فإذا كان سبعون بالمئة ممارسة وتطبيقاً، فالسؤال البديهي: ممارسة على ماذا؟ وهنا نحن مبنيون بشكل مختلف عن شركة تدريب، لأن شركة التدريب تحتاج قاعة وجهاز عرض، ونحن نحتاج صالة. في جانب الخط الأمامي يذهب الاستثمار إلى البيئة. نماذج متاجر بتجهيزات حقيقية وعرض بضاعة حقيقي. أجهزة نقاط بيع فعلية داخل صالة التدريب. محاكاة للمستودع وإعادة التزويد. معامل حاسب لإتقان الأنظمة والمنتجات. ومدرّبون وقفوا على تلك الصالة بأنفسهم، لأن المدرّب الذي لم يقف عليها ينكشف خلال تسعين ثانية. وفي جانب القيادة يذهب إلى المتابعة، لا إلى ورشة العمل. مساندة ميدانية أثناء ساعات العمل الفعلية. إرشاد منظّم مقابل سلوك ملحوظ. دورات إرشاد مرتبطة بمؤشر أعمال محدّد. وتأهيل المديرين المباشرين ليكونوا هم المقيّمين، لا نحن. ومدرّبون ميدانيون بطاقة محمية ومدرجة في الميزانية، وهو أول بند يُقتطع عادة، ثم يتساءل الجميع لماذا لم ينتقل شيء إلى الميدان. [وقفة]  لا يمكنكم شراء السبعين بالمئة من كتالوج. عليكم أن تبنوها.  //  لا تقرأ كل نقطة. خذ ثلاثاً من كل عمود. هذه شريحة التمايز، فتمهّل فيها.">
+  <div class="eyebrow">فأين يذهب الاستثمار فعلاً؟</div>
+  <div class="body">
+    <h2 class="title" style="font-size:42px;margin-bottom:18px;max-width:36ch">أكاديمية، <em>لا قاعة تدريب.</em></h2>
+    <div class="vs">
+      <div class="a">
+        <div class="vh">الخط الأمامي</div>
+        <h3>ابنِ البيئة، لا العرض التقديمي.</h3>
+        <ul>
+          <li>نماذج متاجر <strong>بتجهيزات حقيقية وعرض بضاعة حقيقي</strong></li>
+          <li>أجهزة نقاط بيع فعلية داخل صالة التدريب</li>
+          <li>محاكاة للمستودع وإعادة التزويد</li>
+          <li>معامل حاسب لإتقان الأنظمة والمنتجات</li>
+          <li>مدرّبون وقفوا على تلك الصالة بأنفسهم</li>
+        </ul>
+      </div>
+      <div class="b">
+        <div class="vh">القيادة</div>
+        <h3>ابنِ المتابعة، لا ورشة العمل.</h3>
+        <ul>
+          <li>مساندة ميدانية أثناء <strong>ساعات التشغيل الفعلية</strong></li>
+          <li>إرشاد منظّم مقابل سلوك ملحوظ</li>
+          <li>دورات إرشاد مرتبطة بمؤشر أعمال محدّد</li>
+          <li>تأهيل المديرين المباشرين ليكونوا هم المقيّمين</li>
+          <li>مدرّبون ميدانيون بطاقة محمية ومدرجة في الميزانية</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">لا يمكنكم شراء السبعين بالمئة من كتالوج. <em>عليكم أن تبنوها.</em></div>
+</section>
+
+<!-- AR 16 · THE PERFORMANCE DIAGNOSTIC -->
+<section class="slide" data-lang="ar" data-act="خامساً &#183; كيف نُثبته" data-time="1:00" data-notes="والآن الجزء الذي يحوّل برنامج تدريب إلى شيء تستطيع إدارتكم المالية تدقيقه. محوران، المجموعة نفسها، الفترة نفسها. المحور الأفقي هو تغيّر السلوك، يقيّمه مدير الموظف المباشر مقابل جدارة محدّدة. لا المدرّب. المدرّب آخر من ينبغي أن يصحّح ورقته بنفسه. والمحور الرأسي هو مؤشر الأعمال الذي يملكه العميل أصلاً، مقسّماً بالساعة وبالوردية وبالمنتج. والاثنان مرسومان قبل وبعد، فيتحرّك السلوك والعمل على رسم واحد. مصمَّم على ADDIE، مبني على سبعين عشرين عشرة، ومقيَّم بنموذج كيركباتريك من المستوى الأول إلى الرابع. [وقفة]  وهناك مصطلح للمستوى الرابع أريد أن أعطيكم إياه، لأنه الأكثر لبساً. ليس العائد على الاستثمار. مصطلح كيركباتريك نفسه هو العائد على التوقعات. المستوى الرابع ليس نسبة نخترعها لاحقاً لتبرير الإنفاق، بل يُحدَّد مسبقاً، منكم أنتم، بكلماتكم، بوصفه ما تعتبرونه نجاحاً. ولهذا يبدأ كل تعاقد بالسؤالين اللذين رأيتموهما في تلك الشريحة.  //  هذه شريحة المصداقية أمام أهل المالية. العائد على التوقعات هو المصطلح الذي يجب أن يصل.">
+  <div class="eyebrow">تشخيص الأداء</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:22px;max-width:34ch">محوران. المجموعة نفسها. <em>الفترة نفسها.</em></h2>
+    <div class="dgwrap">
+      <div class="dgrid">
+        <div class="dg">
+          <div></div><div class="g1"></div><div class="g2 mk aft"><span>بعد</span></div>
+          <div></div><div></div><div class="g1"></div>
+          <div class="mk bef"><span>قبل</span></div><div></div><div></div>
+        </div>
+        <div class="ylab">مؤشر الأعمال &#8593;</div>
+        <div class="xlab">السلوك الملحوظ &#8592;</div>
+      </div>
+      <div class="axes">
+        <div class="ax"><div class="al">الأفقي</div><div class="at">تغيّر السلوك، يقيّمه <b>مدير الموظف المباشر</b> مقابل جدارة محدّدة، <em>لا المدرّب</em></div></div>
+        <div class="ax"><div class="al">الرأسي</div><div class="at"><b>مؤشر الأعمال الذي يملكه العميل أصلاً،</b> مقسّماً بالساعة وبالوردية وبالمنتج</div></div>
+      </div>
+    </div>
+    <div class="roe">
+      <div class="rl">المستوى الرابع، بمصطلح كيركباتريك نفسه</div>
+      <div class="rt"><em>العائد على التوقعات.</em> ما يقدّمه البرنامج لمن حدّدوا معنى النجاح، بكلماتهم هم، ومسبقاً. <em>ثم</em> نسعّره.</div>
+      <div class="att" style="margin-top:9px">Kirkpatrick Partners &#183; المبدأ التأسيسي الثاني. العائد على التوقعات لا يعزل أثر التدريب. الخطوة التالية هي التي تفعل.</div>
+    </div>
+  </div>
+</section>
+
+<!-- AR 17 · PROOF 01 · COCA-COLA -->
+<section class="slide" data-lang="ar" data-act="سادساً &#183; الدليل" data-time="0:55" data-notes="دعوني أريكم واحداً. شركة كوكاكولا للمرطبات في السعودية. برنامج قيادي باسم People Manager، للمدراء وقادة الفرق والمشرفين. مئة وواحد مشارك مقابل مستهدف مئة وواحد، على سبع مجموعات. مئتا ساعة برنامج لكل مجموعة، ثلاثون منها داخل قاعة. مصمَّم على ADDIE، مبني على سبعين عشرين عشرة، ومقاس مقابل خط أساس سابق للبرنامج بنموذج كيركباتريك. [وقفة]  الرضا سبعة وتسعون بالمئة. المكتسب المعرفي مقابل خط الأساس ثمانية وعشرون بالمئة. وتغيّر السلوك عبر ست ممارسات قيادية أساسية بمتوسط تسعة وسبعين بالمئة. وهذا مرفوع من العميل نفسه. هذه مستويات كيركباتريك الأول والثاني والثالث. وأريد أن أكون دقيقاً، لأن التقرير دقيق: المستوى الرابع هو نتائج الأعمال، وهذا التقرير لا يرفعها. [وقفة قصيرة]  فدعوني أريكم اثنين يرفعانها.  //  الانتهاء بجملة دعوني أريكم اثنين يرفعانها يحوّل حدود دليلك إلى تمهيد للشريحة التالية.">
+  <div class="eyebrow">الدليل &#183; 01 &#183; القيادة</div>
+  <div class="body">
+    <div class="client">
+      <div class="cn">شركة كوكاكولا للمرطبات &#183; السعودية</div>
+      <div class="cm">People Manager &#183; برنامج قيادي<br>2025</div>
+    </div>
+    <div class="runfacts">
+      <div><div class="v" dir="ltr">101</div><div class="k">مشارك، مقابل مستهدف 101</div></div>
+      <div><div class="v" dir="ltr">7</div><div class="k">مجموعات تدريبية</div></div>
+      <div><div class="v" dir="ltr">200</div><div class="k">ساعة برنامج لكل مجموعة</div></div>
+      <div><div class="v" dir="ltr">30</div><div class="k">ساعة داخل قاعة، 15% من الإجمالي</div></div>
+    </div>
+    <div class="kp">
+      <div><div class="lv">المستوى 1 &#183; التفاعل</div><div class="v" dir="ltr">97<i style="font-style:normal;font-size:22px">%</i></div><div class="k">الرضا العام</div></div>
+      <div><div class="lv">المستوى 2 &#183; التعلّم</div><div class="v" dir="ltr">+28<i style="font-style:normal;font-size:22px">%</i></div><div class="k">المكتسب المعرفي مقابل خط الأساس</div></div>
+      <div><div class="lv">المستوى 3 &#183; السلوك</div><div class="v" dir="ltr">79<i style="font-style:normal;font-size:22px">%</i></div><div class="k">تغيّر السلوك عبر ست ممارسات قيادية أساسية</div></div>
+    </div>
+    <div class="att" style="margin-top:14px">مصمَّم على ADDIE. مبني على 70:20:10. مقاس مقابل خط أساس سابق للبرنامج بنموذج كيركباتريك.<br><span style="color:var(--cream)">مرفوع من شركة كوكاكولا للمرطبات في السعودية (CCBCSA).</span></div>
+  </div>
+</section>
+
+<!-- AR 18 · ISOLATION -->
+<section class="slide" data-lang="ar" data-act="سادساً &#183; الدليل" data-time="0:45" data-notes="وقبل أن ندّعي ريالاً واحداً من ذلك، نخرج كل ما عداه. في برنامج العربية للعود، طلبنا من الشركة أن تسمّي كل عامل تعتقد أنه يؤثر في أداء الفروع. قائمتهم هم، بكلماتهم هم، لا كلماتنا. افتتاح فروع جديدة. إطلاق منتجات. العروض والتخفيضات. تغيّر الحوافز. مكة والمدينة. موسمية المنطقة الغربية. ثم أزلنا ذلك كله. [وقفة]  ما يتبقى قابل للعزو. وهذه هي الحجة كلها. ليس أن التدريب ينفع، فالكل يقول إن التدريب ينفع. بل أننا نستطيع أن نُظهر ما حرّكه بعد إخراج كل شيء آخر.  //  قل قائمتهم هم بكلماتهم هم مرتين إن لزم. هذا ما يمنع الشريحة من أن تُقرأ كادعاء بائع.">
+  <div class="eyebrow">قبل أن ندّعي ريالاً واحداً &#183; العربية للعود، 2023</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px;margin-bottom:24px">أزلنا كل ما قالوا لنا <em>إنه يؤثر في الأداء.</em></h2>
+    <div class="chips">
+      <div class="chip">افتتاح فروع جديدة</div>
+      <div class="chip">إطلاق منتجات</div>
+      <div class="chip">العروض والتخفيضات</div>
+      <div class="chip">تغيّر الحوافز</div>
+      <div class="chip">مكة والمدينة</div>
+      <div class="chip">موسمية المنطقة الغربية</div>
+    </div>
+    <div class="note gold" style="margin-top:26px">قائمتهم هم، <strong>بكلماتهم هم.</strong> ما يتبقى قابل للعزو. وهذه هي الحجة كلها: ليس أن التدريب ينفع، بل أننا نستطيع أن نُظهر ما حرّكه بعد إخراج كل شيء آخر.</div>
+  </div>
+</section>
+
+<!-- AR 19 · PROOF 02 · ARABIAN OUD 2023 -->
+<section class="slide" data-lang="ar" data-act="سادساً &#183; الدليل" data-time="0:55" data-notes="وهذا هو الأول. العربية للعود، 2023. برنامج مدته أربعة أشهر. عشرة بالمئة ارتفاع في أداء المبيعات الإجمالي، وأكثر من ثمانين مليون ريال قيمة قابلة للعزو، من نشاط التدريب والأداء وحده. [وقفة]  والرقم ليس هو المقصود. المقصود هو كلمة معزول. هذا الرقم مقاس لكل موظف، وهو ما تبقّى بعد أن أزلنا كل عامل سمّته الشركة في الشريحة السابقة. افتتاح فروع. إطلاق منتجات. عروض. حوافز. مكة والمدينة. موسمية المنطقة الغربية. كلها أُخرجت أولاً، وأُخرجت بقائمتهم هم لا بقائمتنا. [وقفة قصيرة]  هذا هو المستوى الرابع من كيركباتريك مع إنجاز خطوة العزو فعلياً. أغلب من في هذا المجال يرفع المستوى الرابع بالإشارة إلى رقم ارتفع في الربع نفسه الذي جرى فيه التدريب. وهذا ليس الشيء نفسه، وكل من يعتمد دراسات جدوى في هذه القاعة يعرف ذلك.  //  ركّز على كلمة معزول لا على الثمانين مليوناً. إن بدأت بالريالات خصمها المدير المالي فوراً، وإن بدأت بما أخرجته قبل أن تعدّ، أصغى إليك.">
+  <div class="eyebrow">الدليل &#183; 02</div>
+  <div class="body">
+    <div class="client">
+      <div class="cn">العربية للعود</div>
+      <div class="cm">برنامج على أربعة أشهر<br>2023</div>
+    </div>
+    <div class="hero1">
+      <div>
+        <div class="hn" dir="ltr">10<i>%</i></div>
+        <div class="hk">ارتفاع في أداء المبيعات الإجمالي، <em style="color:var(--green-lift)">معزولاً</em></div>
+        <div class="hl">المستوى الرابع من كيركباتريك &#183; النتائج</div>
+      </div>
+      <div class="sub2">
+        <div>
+          <div class="v"><span dir="ltr">80+</span><i> مليون ريال</i></div>
+          <div class="k">قيمة قابلة للعزو، من نشاط التدريب والأداء وحده</div>
+        </div>
+        <div>
+          <div class="v"><span dir="ltr">4</span><i> أشهر</i></div>
+          <div class="k">مقاسة لكل موظف، قبل وبعد، على المؤشرات التي تملكها الشركة أصلاً</div>
+        </div>
+      </div>
+    </div>
+    <div class="note gold" style="margin-top:26px">بعد ضبط <strong>كل عامل سمّته الشركة.</strong> ما ترونه هو ما تبقّى بعد إخراج ذلك كله.</div>
+    <div class="att" style="margin-top:14px">مصمَّم على ADDIE. مبني على 70:20:10. مقاس مقابل خط أساس سابق للبرنامج بنموذج كيركباتريك.<br><span style="color:var(--cream)">مرفوع من العربية للعود.</span></div>
+  </div>
+</section>
+
+<!-- AR 20 · PROOF 03 · ARABIAN OUD 2025 -->
+<section class="slide" data-lang="ar" data-act="سادساً &#183; الدليل" data-time="0:55" data-notes="والآن النظير في الخط الأمامي، والعميل نفسه بعد سنتين. العربية للعود. ألف ومئتا فرع في سبع وثلاثين دولة. في 2025 صمّمنا ونفّذنا ستة برامج عبر شبكة فروعهم. ألف وتسعمئة وسبعة وستون متدرباً. سبعة عشر ألفاً وخمسمئة وستة وسبعون ساعة تدريبية. في عام واحد. [وقفة]  الرضا سبعة وتسعون بالمئة. المكتسب المعرفي اثنان وعشرون بالمئة، مقاساً قبل وبعد. وتحسّن في أداء المبيعات بثلاثة وأربعين بالمئة. [تمهّل في الأخير]  وأريد أن أكون دقيقاً في الفعل، لأن العميل دقيق فيه: البرامج أسهمت في ذلك. لا أحد يستطيع أن يدّعي أن التدريب كان السبب الوحيد لحركة مبيعات في شركة بهذا الحجم، ولهذا بالضبط أزلنا العوامل التي سمّوها قبل أن نقول شيئاً. هذا هو المستوى الرابع. نتائج أعمال، مرفوعة لا مدّعاة. [وقفة]  والأهم من الرقم: هذا عميل عاد بعد سنتين، وضاعف الحجم.  //  لا تحوّل أسهمت إلى تسبّبت. هذا التحفّظ هو ما يجعل الرقم يصل في قاعة مالية.">
+  <div class="eyebrow">الدليل &#183; 03 &#183; العميل نفسه، بعد سنتين</div>
+  <div class="body">
+    <div class="client">
+      <div class="cn">العربية للعود</div>
+      <div class="cm">1,200 فرع &#183; 37 دولة<br>2025</div>
+    </div>
+    <div class="runfacts">
+      <div><div class="v" dir="ltr">6</div><div class="k">برامج عبر شبكة الفروع</div></div>
+      <div><div class="v" dir="ltr">1,967</div><div class="k">متدرباً</div></div>
+      <div><div class="v" dir="ltr">17,576</div><div class="k">ساعة تدريبية</div></div>
+      <div><div class="v" dir="ltr">1</div><div class="k">عام واحد</div></div>
+    </div>
+    <div class="kp">
+      <div><div class="lv">المستوى 1 &#183; التفاعل</div><div class="v" dir="ltr">97<i style="font-style:normal;font-size:22px">%</i></div><div class="k">الرضا العام</div></div>
+      <div><div class="lv">المستوى 2 &#183; التعلّم</div><div class="v" dir="ltr">+22<i style="font-style:normal;font-size:22px">%</i></div><div class="k">المكتسب المعرفي، مقاساً قبل وبعد</div></div>
+      <div><div class="lv">المستوى 4 &#183; النتائج</div><div class="v" dir="ltr">+43<i style="font-style:normal;font-size:22px">%</i></div><div class="k">تحسّن في أداء المبيعات</div></div>
+    </div>
+    <div class="att" style="margin-top:14px">مصمَّم على ADDIE. مبني على 70:20:10. مقاس مقابل خط أساس سابق للبرنامج بنموذج كيركباتريك.<br><span style="color:var(--cream)">مرفوع من العربية للعود.</span></div>
+  </div>
+</section>
+
+<!-- AR 21 · HOW A CFO PRICES IT -->
+<section class="slide" data-lang="ar" data-act="سابعاً &#183; الحساب" data-time="1:00" data-notes="والآن، بعضكم يفكّر: هذا كله جميل، لكن مجلسي طلب مني عائداً على الاستثمار. وهذا حقّكم. فإليكم الحساب، وهو ليس حسابي أنا. جاك فيليبس يضيف مستوى خامساً فوق مستويات كيركباتريك الأربعة، وله معادلتان. نسبة المنفعة إلى التكلفة هي منافع البرنامج على تكاليف البرنامج. والعائد على الاستثمار كنسبة مئوية هو صافي منافع البرنامج على تكاليف البرنامج في مئة، حيث صافي المنافع هو المنافع ناقص التكاليف. [وقفة]  لكن المعادلات هي الجزء السهل. ما يجعل هذا مقبولاً لدى إدارة مالية هو الانضباط المحيط بها، وهناك ثلاث قواعد أريدكم أن تروها. اختر البديل الأكثر تحفّظاً في الحساب. استخدم طريقة واحدة على الأقل لعزل أثر البرنامج. وحمّل كل التكاليف كاملة. [وقفة قصيرة]  والآن انظروا إلى رقم العربية للعود بهذه القواعد. عزلنا، واستخدمنا العوامل التي سمّاها العميل لا نحن. فالبسط في تلك الشريحة ليس ادعاءً، بل ما تبقّى. والمقام هو تكلفة برنامجكم، وأنتم تعرفونها أكثر مني. [وقفة]  وتحفّظ واحد صادق: هذه منهجية، لا برهان. ومن يقول لكم إن عائد التدريب مُثبت فهو يبيعكم شيئاً. ما تعطيكم إياه هذه المنهجية هو إجراء متحفّظ وقابل للدفاع والتدقيق، بفرضياته مطبوعة على الورقة.  //  لا تضع رقم نسبة على هذه الشريحة ولا تخترع واحداً للعربية للعود. قوة الشريحة أنك تسلّم المدير المالي المعادلة ويضع هو المقام.">
+  <div class="eyebrow">وهكذا يسعّرها المدير المالي</div>
+  <div class="body">
+    <h2 class="title" style="font-size:42px;margin-bottom:4px;max-width:36ch">المستوى الخامس. <em>معادلتان.</em></h2>
+    <div class="dsub" style="margin-bottom:16px">فيليبس يضيف مستوى خامساً فوق مستويات كيركباتريك الأربعة</div>
+    <div class="eq" dir="ltr"><b>BCR</b>      = Program Benefits &divide; Program Costs
+<b>ROI (%)</b>  = Net Program Benefits &divide; Program Costs &times; 100
+           <span style="color:#8F9497">Net Program Benefits = Program Benefits &minus; Program Costs</span></div>
+    <div class="axes" style="margin-top:6px">
+      <div class="ax"><div class="al">القاعدة 04</div><div class="at">«اختر <em>البديل الأكثر تحفّظاً</em> في الحساب.»</div></div>
+      <div class="ax"><div class="al">القاعدة 05</div><div class="at">«استخدم طريقة واحدة على الأقل <em>لعزل أثر</em> البرنامج.»</div></div>
+      <div class="ax"><div class="al">القاعدة 10</div><div class="at">«<em>حمّل كل التكاليف كاملة</em> عند تحليل العائد على الاستثمار.»</div></div>
+    </div>
+    <div class="att" style="margin-top:14px">Phillips &amp; Phillips, <em>ROI Basics,</em> 2nd ed., ATD Press, 2019 &#183; القواعد الاثنتا عشرة الموجّهة لمنهجية العائد على الاستثمار، ROI Institute</div>
+  </div>
+  <div class="kicker">رأيتم العزل قبل ثلاث شرائح. البسط ما تبقّى، لا ادعاء. <em>والمقام لكم.</em></div>
+</section>
+
+<!-- AR 22 · THE ECONOMICS -->
+<section class="slide" data-lang="ar" data-act="سابعاً &#183; الحساب" data-time="1:00" data-notes="والآن الجزء الذي حضرتم لأجله. رؤية 2030 قرّرت أصلاً أن هذا يستحق أن يُدفع مقابله. صندوق تنمية الموارد البشرية يموّل التدريب نفسه ضمن برنامج التدريب المنتهي بالتوظيف، ويتحمّل نسبة ثابتة من الأجر خلال السنتين الأوليين. البيئة، والمعامل، ونماذج المتاجر، وطاقة الإرشاد، أي الجزء المكلف، هو تحديداً الجزء الذي تسعى المملكة إلى تمويله. فالحساب من جهتكم يصبح هكذا: مساهمة الصندوق، زائد تكلفة استقطاب لم تدفعوها، زائد وقت تهيئة لم تخسروه، مقابل تكلفة البرنامج. وعلى المقاعد التي كنتم ستشغلونها أصلاً، يصل الصافي إلى الصفر أو دونه. [وقفة]  وهناك شرط واحد، وهو الشرط الصادق: هذا لا ينجح إلا على مقاعد كنتم ستشغلونها على أي حال. وظّفوا من لا تحتاجونهم، ويصبح الدعم مجرد خصم على خطأ.  //  قل الشرط بصوت واضح ولا تلطّفه. كل مدير مالي في القاعة يفكّر فيه أصلاً، وسبقك إليه هو ما يجعل بقية الحساب مقنعاً.">
+  <div class="eyebrow">والآن الجزء الذي حضرتم لأجله</div>
+  <div class="body">
+    <h2 class="title" style="font-size:44px">رؤية 2030 قرّرت أصلاً <em>أن هذا يستحق أن يُدفع مقابله.</em></h2>
+    <div class="lede" style="margin-top:18px;max-width:76ch;font-size:21px">صندوق تنمية الموارد البشرية يموّل التدريب نفسه ضمن <strong>التدريب المنتهي بالتوظيف،</strong> ويتحمّل نسبة ثابتة من الأجر خلال السنتين الأوليين. أما البيئة والمعامل ونماذج المتاجر وطاقة الإرشاد، أي الجزء المكلف، فهو تحديداً ما تسعى المملكة إلى تمويله.</div>
+    <div class="eq"><b>الصافي</b> = مساهمة الصندوق
+      + تكلفة استقطاب لم تدفعوها
+      + وقت تهيئة لم تخسروه
+      <b>&ge;</b> <strong>تكلفة البرنامج</strong></div>
+    <div class="note">شرط واحد، وهو الشرط الصادق: هذا لا ينجح إلا على <strong>مقاعد كنتم ستشغلونها أصلاً.</strong> وظّفوا من لا تحتاجونهم، ويصبح الدعم مجرد خصم على خطأ.</div>
+    <div class="att" style="margin-top:16px">أعلن صندوق تنمية الموارد البشرية (هدف) إنفاق 8.29 مليار ريال على التدريب والتمكين والإرشاد في 2025، بأكثر من مليوني مستفيد و226 ألف منشأة. فبراير 2026.</div>
+  </div>
+</section>
+
+<!-- AR 23 · THE OFFER -->
+<section class="slide" data-lang="ar" data-act="ثامناً &#183; الطلب" data-time="0:45" data-notes="دعوني أجعل هذا ملموساً، ثم أنزل عن المسرح. للشركات العاملة في السعودية، الأكاديمية العربية تقدّم هذه البرامج بلا رسوم لأي مجموعة تبدأ في أو قبل الحادي والثلاثين من مارس القادم. [وقفة]  وقبل أن يسأل أحد أين المقابل، هناك شرطان، وكلاهما في صالحكم. الأول أن تسعين بالمئة من هذا يحدث حيث يحدث العمل، فموظفوكم ليسوا جالسين في قاعة بينما تدور الشركة بدونهم. والثاني خط أساس، متفق عليه قبل اليوم الأول. وهذا ليس إجراءً ورقياً، بل هو الشيء الوحيد الذي يجعل كل ما عرضته عليكم في العشر دقائق الماضية ممكناً لكم أنتم أيضاً. فبدون خط أساس لا يستطيع أحد أن يثبت لكم شيئاً، وأنا منهم. [وقفة قصيرة]  أمامكم سبعة أشهر لاختبار ادعاء بهذا الحجم دون رسوم.  //  قل العرض مرة واحدة بوضوح ثم توقّف. لا تكرر كلمة مجاني أكثر من مرتين وإلا بدا خصماً لا دعوة.">
+  <div class="eyebrow">وحتى نهاية الربع الأول</div>
+  <div class="body">
+    <div class="offer">
+      <div class="ol">للشركات العاملة في السعودية</div>
+      <div class="ot">الأكاديمية العربية تقدّم هذه البرامج <strong>بلا رسوم</strong> لأي مجموعة تبدأ في أو قبل <strong>31 مارس 2027.</strong></div>
+    </div>
+    <div class="dsub" style="margin:26px 0 14px">شرطان. وكلاهما في صالحكم.</div>
+    <div class="cols c2">
+      <div class="card">
+        <div class="h">01 &#183; موظفوكم يبقون في العمل</div>
+        <div class="t"><span dir="ltr" style="color:var(--green-lift)">90%</span> منه يحدث حيث يحدث العمل.</div>
+        <p>التعلّم النظري عشرة بالمئة من التصميم. لا أحد يجلس في قاعة بينما تدور الشركة بدونه.</p>
+      </div>
+      <div class="card">
+        <div class="h">02 &#183; خط أساس واحد، قبل اليوم الأول</div>
+        <div class="t">الرقم <span style="color:var(--green-lift)">رقمكم</span> في الطرفين.</div>
+        <p>وهو السبب الوحيد في أن أحداً يستطيع أن يسلّمكم نتيجة في النهاية. وهو سبب وجود دراسة حالة نعرضها عليكم أصلاً.</p>
+      </div>
+    </div>
+  </div>
+  <div class="kicker">سبعة أشهر لاختبار ادعاء بهذا الحجم، <em>دون رسوم.</em></div>
+</section>
+
+<!-- AR 24 · CLOSE -->
+<section class="slide close" data-lang="ar" data-act="" data-time="0:30" data-notes="أمر أخير. أنتم تدفعون ثمن هذا أصلاً. سيخرج من قائمة دخلكم في الحالتين: إما كإقرار امتثال، أو كفاتورة استبدال. والسؤال الوحيد أمامكم هو: هل تخرجون بموظف، أم بإيصال؟ [وقفة، ثانيتان كاملتان]  وإن كنتم تفضّلون ألا تبدؤوا من الصفر، فأنا في جناح الأكاديمية العربية على مدى اليومين القادمين. الجناح B34. تعالوا وجادلوني في شريحة العزل.  //  توقّف بعد أم بإيصال واحتفظ بالصمت. لا تقرأ الصندوق، قل جملة الجناح بكلماتك بينما يقرؤه الحضور.">
+  <div class="eyebrow">أمر أخير</div>
+  <div class="closewrap">
+    <div>
+      <div class="big">أنتم تدفعون ثمن هذا أصلاً. والسؤال الوحيد هو: هل تخرجون بموظف، <em>أم بإيصال؟</em></div>
+      <div class="cta">
+        <div class="l">المجموعات التي تبدأ في أو قبل 31 مارس 2027 بلا رسوم</div>
+        <div class="r">الأكاديمية العربية &#183; جناح <em>B34</em></div>
+      </div>
+      <div class="signoff">إبراهيم الشرقاوي &#183; من احتياج العمل إلى نتيجة في العمل</div>
+    </div>
+    <div class="qrbox">
+      <img class="qr" alt="الأكاديمية العربية" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUQAAAFECAIAAADQiNCRAAAEuUlEQVR42u3cMa4TMRSGUYLcsB0a9l++hn1kBUhpQktpKT/X1/Y5dZTMOPPJU1z58X49vwH7+24JQMyAmAExA2IGMQNiBsQMiBnEDIgZWGnMfOjHz1/XLtCf31+R9Zn5ntR/kbrm1PqkeA7tzOA1GxAzIGZAzCBmQMyAmAExA2IGMQONjdQXVc7opnSbT05dT+WseLfrufk5tDOD12xAzICYATGDmAExA2IGxAxiBsQMLDUqf6zy3OMdz3OunPHuNr/tObQzA2IGMQNiBsQMiBnEDIgZEDMgZhAzsLlhCT5XOVM981szn6mc3z51xtvODIgZEDOIGRAzIGZAzCBmQMyAmAExA/8wm72Zm8+7xs4MYgbEDIgZEDOIGRAzIGZAzICYQcxAY6Wz2afODHc77zr1X6R+q9s8+anPoZ0ZxAyIGRAzIGYQMyBmQMyAmEHMgJiBpWKz2ak53pulZphvPlv75ufQzgxiBsQMiBkQM4gZEDMgZkDMIGZAzMBSj/fraRUKVM4Mnzp3jZ0ZxAyIGRAzIGYQMyBmQMyAmAExg5iBxqbOzT71POfUvHTqmlNrWLnO3daw271XdmFnBq/ZgJgBMQNiBjEDYgbEDIgZxAyIGVgqdm72zedCd7v3HWezK1WuYeXsup0ZvGYDYgbEDIgZxAyIGRAzIGYQMyBmYKnR7YJOPc+525nY3c4wr3x+Us9Gt/ltOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUrFzs2fsOFfcbYb51DOx/e92ZkDMIGZAzICYATGDmAExA2IGxAxiBjY3NZvdbUY3Zcf76nYeeOqaK8+X7jZTnVofOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUmPmQ91mWWd0mwdOSV3zqeuz43NoZwbEDGIGxAyIGRAziBkQMyBmQMwgZuAIU7PZ3c4rdg7zXnb8LyqvJ/Vbdmbwmg2IGRAzIGYQMyBmQMyAmEHMgJiBpR7v1/PIG0vNb3e75pTUzPCp8/apNbQzA2IGMQNiBsQMiBkQM4gZEDMgZkDMcI2p2ezKedcZO84DV87xdpup3lG3Z8zODF6zATEDYgbEDGK2BCBmQMyAmAExg5iB9o49N7vSjmc1p67Z7Hqf67Ezg9dsQMyAmAExg5gBMQNiBsQMYgbEDCw1Zj506tnIMypndHecc650873bmUHMgJgBMQNiBjFbAhAzIGZAzICYQcxAeyP1RTvOxFaeHZ26ntRvpebAdzwzvNszlrovOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUqPyx8zxfn7N3ebJd3w27MyAmAExA2IGMQNiBsQMiBkQM4gZEDPwHwxL0EflfHLqPOdu31O5zt3mye3M4DUbEDMgZkDMIGZAzICYATGDmAExA0uZzQ6oPMu6cob55v+icuY89Vt2ZvCaDYgZEDMgZhAzIGZAzICYQcyAmIGlSmezT50ZTs3o3nzv3Z6N1PVU3pedGbxmA2IGxAyIGcQMiBkQMyBmEDMgZmCp2Gz2qbPH7r3PGs7MOadmoSvnyZ2bDYgZxAyIGRAzIGYQMyBmQMyAmEHMwBEe79fTKoCdGRAzIGZAzCBmQMyAmAExg5gBMQNiBj7zF9CHhReQ/8cjAAAAAElFTkSuQmCC">
+      <div class="qcap">الأكاديمية العربية</div>
+      <div class="qsub">arabianacademy.sa</div>
+    </div>
+  </div>
+</section>
+
+<!-- AR 25 · QUESTIONS -->
+<section class="slide thanks" data-lang="ar" data-act="" data-time="Q&amp;A" data-notes="شكراً لكم. لديّ وقت للأسئلة.  //  اترك هذه الشريحة معروضة أثناء الأسئلة. إن جرى اعتراض على رقم، تقدّم شريحة واحدة وقائمة المصادر كاملة خلفك.">
+  <div class="eyebrow">شكراً لكم</div>
+  <div class="body">
+    <h2 class="tq">أسئلتكم.</h2>
+    <div class="tqr">
+      <div>
+        <div class="tsub">نرحّب بكم في <strong style="color:var(--green-lift);font-weight:400">الجناح B34</strong> لمواصلة النقاش. كل رقم في هذا العرض مطبوع بمصدره على الشريحة التي ورد فيها، والقائمة الكاملة في الشريحة التالية.</div>
+        <div class="tcta">
+          <div class="l">المجموعات التي تبدأ في أو قبل 31 مارس 2027 بلا رسوم</div>
+          <div class="r">الأكاديمية العربية &#183; جناح <em>B34</em></div>
+        </div>
+        <div class="tname">إبراهيم الشرقاوي</div>
+      </div>
+      <div class="qrbox">
+        <img class="qr" alt="الأكاديمية العربية" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUQAAAFECAIAAADQiNCRAAAEuUlEQVR42u3cMa4TMRSGUYLcsB0a9l++hn1kBUhpQktpKT/X1/Y5dZTMOPPJU1z58X49vwH7+24JQMyAmAExA2IGMQNiBsQMiBnEDIgZWGnMfOjHz1/XLtCf31+R9Zn5ntR/kbrm1PqkeA7tzOA1GxAzIGZAzCBmQMyAmAExA2IGMQONjdQXVc7opnSbT05dT+WseLfrufk5tDOD12xAzICYATGDmAExA2IGxAxiBsQMLDUqf6zy3OMdz3OunPHuNr/tObQzA2IGMQNiBsQMiBnEDIgZEDMgZhAzsLlhCT5XOVM981szn6mc3z51xtvODIgZEDOIGRAzIGZAzCBmQMyAmAExA/8wm72Zm8+7xs4MYgbEDIgZEDOIGRAzIGZAzICYQcxAY6Wz2afODHc77zr1X6R+q9s8+anPoZ0ZxAyIGRAzIGYQMyBmQMyAmEHMgJiBpWKz2ak53pulZphvPlv75ufQzgxiBsQMiBkQM4gZEDMgZkDMIGZAzMBSj/fraRUKVM4Mnzp3jZ0ZxAyIGRAzIGYQMyBmQMyAmAExg5iBxqbOzT71POfUvHTqmlNrWLnO3daw271XdmFnBq/ZgJgBMQNiBjEDYgbEDIgZxAyIGVgqdm72zedCd7v3HWezK1WuYeXsup0ZvGYDYgbEDIgZxAyIGRAzIGYQMyBmYKnR7YJOPc+525nY3c4wr3x+Us9Gt/ltOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUrFzs2fsOFfcbYb51DOx/e92ZkDMIGZAzICYATGDmAExA2IGxAxiBjY3NZvdbUY3Zcf76nYeeOqaK8+X7jZTnVofOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUmPmQ91mWWd0mwdOSV3zqeuz43NoZwbEDGIGxAyIGRAziBkQMyBmQMwgZuAIU7PZ3c4rdg7zXnb8LyqvJ/Vbdmbwmg2IGRAzIGYQMyBmQMyAmEHMgJiBpR7v1/PIG0vNb3e75pTUzPCp8/apNbQzA2IGMQNiBsQMiBkQM4gZEDMgZkDMcI2p2ezKedcZO84DV87xdpup3lG3Z8zODF6zATEDYgbEDGK2BCBmQMyAmAExg5iB9o49N7vSjmc1p67Z7Hqf67Ezg9dsQMyAmAExg5gBMQNiBsQMYgbEDCw1Zj506tnIMypndHecc650873bmUHMgJgBMQNiBjFbAhAzIGZAzICYQcxAeyP1RTvOxFaeHZ26ntRvpebAdzwzvNszlrovOzN4zQbEDIgZEDOIGRAzIGZAzCBmQMzAUqPyx8zxfn7N3ebJd3w27MyAmAExA2IGMQNiBsQMiBkQM4gZEDPwHwxL0EflfHLqPOdu31O5zt3mye3M4DUbEDMgZkDMIGZAzICYATGDmAExA0uZzQ6oPMu6cob55v+icuY89Vt2ZvCaDYgZEDMgZhAzIGZAzICYQcyAmIGlSmezT50ZTs3o3nzv3Z6N1PVU3pedGbxmA2IGxAyIGcQMiBkQMyBmEDMgZmCp2Gz2qbPH7r3PGs7MOadmoSvnyZ2bDYgZxAyIGRAzIGYQMyBmQMyAmEHMwBEe79fTKoCdGRAzIGZAzCBmQMyAmAExg5gBMQNiBj7zF9CHhReQ/8cjAAAAAElFTkSuQmCC">
+        <div class="qcap">الأكاديمية العربية</div>
+        <div class="qsub">arabianacademy.sa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AR 26 · SOURCES -->
+<section class="slide" data-lang="ar" data-act="ملحق" data-time="Q&amp;A" data-notes="قائمة المصادر الكاملة. اتركها معروضة إن جرى اعتراض على أي رقم.">
+  <div class="eyebrow">المصادر</div>
+  <div class="body">
+    <div class="srcgrid">
+      <div><b>نظام العمل السعودي، المادة 43</b> &#183; المرسوم الملكي م/46 وتاريخ 5/6/1436هـ</div>
+      <div><b>وزارة الموارد البشرية</b> &#183; التدريب على رأس العمل، نافذ منذ فبراير 2026</div>
+      <div><b>وزارة الموارد البشرية</b> &#183; رفع بيانات التدريب والخطة، منذ 2023، منصة قوى</div>
+      <div><b>وزارة الموارد البشرية</b> &#183; تقدّم سوق العمل السعودي، ديسمبر 2025</div>
+      <div><b>رؤية 2030</b> &#183; التقرير السنوي 2025، المملكة العربية السعودية</div>
+      <div><b>صندوق تنمية الموارد البشرية (هدف)</b> &#183; نتائج 2025، فبراير 2026</div>
+      <div><b>التأمينات الاجتماعية / مختبر النمو، هارفارد</b> &#183; سجلات 2011 إلى 2016، وسيط مدة البقاء</div>
+      <div><b>مكتب إحصاءات العمل الأمريكي</b> &#183; وسيط مدة البقاء في الوظيفة</div>
+      <div><b>Gallup</b> &#183; <em>42% of Employee Turnover Is Preventable but Often Ignored,</em> يوليو 2024، محدّث فبراير 2026</div>
+      <div><b>Gallup</b> &#183; <em>State of the Global Workplace 2026,</em> بيانات السعودية، 2025</div>
+      <div><b>Korn Ferry</b> &#183; <em>Workforce 2025,</em> النسخة السعودية، عينة 513، أبريل 2025</div>
+      <div><b>Kirkpatrick Partners</b> &#183; نموذج كيركباتريك، العائد على التوقعات</div>
+      <div><b>Phillips &amp; Phillips</b> &#183; <em>ROI Basics,</em> 2nd ed., ATD Press, 2019</div>
+      <div><b>ROI Institute</b> &#183; القواعد الاثنتا عشرة الموجّهة لمنهجية العائد على الاستثمار</div>
+      <div><b>شركة كوكاكولا للمرطبات في السعودية</b> &#183; تقرير البرنامج، 2025</div>
+      <div><b>العربية للعود</b> &#183; تقارير البرامج، 2023 و2025</div>
+    </div>
+    <div class="att" style="margin-top:22px">كلفة الاستبدال بحسب الفئة الوظيفية تقدير من Gallup، لا نتيجة مقاسة، وهي موسومة كذلك على الشريحة. أهلية التمويل تُؤكَّد لكل أداة تمويل، كتابةً، في الجلسة الأولى، قبل أي التزام.</div>
+  </div>
+</section>
+
+  </div>
+</div>
+
+<div id="rail"><div></div></div>
+<div id="bar">
+  <button id="timer" aria-label="Presentation timer: click to start or pause">
+    <span class="clk">20:00</span><span class="st">Ready</span>
+  </button>
+  <button id="lang" aria-label="Switch language">العربية</button>
+  <div id="help"><b>← →</b> navigate &nbsp;·&nbsp; <b>T</b> timer &nbsp;·&nbsp; <b>R</b> reset &nbsp;·&nbsp; <b>N</b> notes &nbsp;·&nbsp; <b>O</b> slide index &nbsp;·&nbsp; <b>B</b> blackout &nbsp;·&nbsp; <b>F</b> full screen &nbsp;·&nbsp; <b>H</b> hide timer &nbsp;·&nbsp; <b>L</b> language</div>
+</div>
+<div id="black"></div>
+<div id="grid"><h3>Jump to a slide &#183; press O to close</h3><div id="gwrap"></div></div>
+<div id="rotate">Rotate your device for a larger view</div>
+<button id="hitL" aria-label="Previous slide"></button>
+<button id="hitR" aria-label="Next slide"></button>
+<div id="notes"><h4>Speaker notes <span class="time"></span></h4><p></p></div>
+
+<script>
+(function(){
+  var LANG = 'en';
+  var stage  = document.getElementById('stage');
+  function setOf(lang){
+    return Array.prototype.slice.call(
+      document.querySelectorAll('.slide[data-lang="' + lang + '"]'));
+  }
+  var slides = setOf(LANG);
+  var rail   = document.querySelector('#rail>div');
+  var notes  = document.getElementById('notes');
+  var i = 0;
+
+  var MARK = {en:'From Obligation to Investment', ar:'\u0645\u0646 \u0627\u0644\u0627\u0644\u062a\u0632\u0627\u0645 \u0625\u0644\u0649 \u0627\u0644\u0627\u0633\u062a\u062b\u0645\u0627\u0631'};
+  ['en','ar'].forEach(function(lg){
+    var set = setOf(lg);
+    set.forEach(function(s, n){
+      var act = s.getAttribute('data-act');
+      if(act){
+        var a = document.createElement('div'); a.className='act'; a.textContent=act; s.appendChild(a);
+      }
+      if(!s.classList.contains('cover')){
+        var m = document.createElement('div'); m.className='mark';
+        m.textContent = MARK[lg];
+        s.appendChild(m);
+        var p = document.createElement('div'); p.className='pageno';
+        p.textContent = String(n+1).padStart(2,'0') + ' / ' + String(set.length).padStart(2,'0');
+        s.appendChild(p);
+      }
+    });
+  });
+
+  function fit(){
+    var pad = window.innerWidth < 760 ? 0.995 : 0.94;
+    var s = Math.min(window.innerWidth/1280, window.innerHeight/720) * pad;
+    stage.style.transform = 'scale(' + s + ')';
+  }
+
+  var FOCAL = '.eyebrow, h2.title, .arc .pill, .st, .phase>div, .claim, .fact, .card, '
+            + '.sg>div, .kp>div, .gp, .runfacts>div, .leg, .rung, .bar, .pull, .client, '
+            + '.hero1>div, .pcase, .offer, .tl .row, .vs>div, .big, .cta, .srcgrid>div, '
+            + '.rc, .hero, .presenter, .creds, .certs, .qrbox, .closewrap>div, .tq, .tsub, .tcta, .tname, .cover .sub, .cover .meta, .cover .rule, .signoff, .dlg .ln, .dsub, .chip, .roe, .ax, .eq, .bigq, .said, .lede, .stamp, .note, .hr';
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function countUp(el, ms){
+    var node = null;
+    for(var k=0;k<el.childNodes.length;k++){
+      if(el.childNodes[k].nodeType===3 && el.childNodes[k].nodeValue.trim()){ node=el.childNodes[k]; break; }
+    }
+    if(!node) return;
+    var raw = node.nodeValue.trim();
+    var m = raw.match(/^([+\u2212-]?)([\d,]+(?:\.\d+)?)$/);
+    if(!m) return;
+    var sign = m[1], target = parseFloat(m[2].replace(/,/g,''));
+    if(!isFinite(target) || target === 0) return;
+    var dec = (m[2].split('.')[1]||'').length;
+    var grouped = m[2].indexOf(',') > -1;
+    var t0 = null;
+    function fmt(v){
+      var out = dec ? v.toFixed(dec) : String(Math.round(v));
+      if(grouped) out = out.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return sign + out;
+    }
+    function step(ts){
+      if(t0===null) t0=ts;
+      var p = Math.min(1,(ts-t0)/ms);
+      var e = 1 - Math.pow(1-p, 3);
+      node.nodeValue = fmt(target*e);
+      if(p<1) requestAnimationFrame(step); else node.nodeValue = raw;
+    }
+    node.nodeValue = fmt(0);
+    requestAnimationFrame(step);
+  }
+
+  function animate(sl){
+    var bars = sl.querySelectorAll('.bar .fl');
+    Array.prototype.forEach.call(bars, function(b){
+      if(!b.dataset.w) b.dataset.w = b.style.width || '0%';
+      b.style.width = '0%';
+    });
+
+    var EFFECT = [
+      ['.bigq',            'fx-wipe'],   /* the admission reveals as if spoken */
+      ['.said',            'fx'],
+      ['.hr',              'fx-wipe'],
+      ['.dlg .ln.me',      'fx-left'],   /* the conversation ping-pongs */
+      ['.dlg .ln',         'fx-right'],
+      ['.chip',            'fx-pop'],
+      ['.roe',             'fx-pop'],
+      ['.ax',              'fx-wipe'],
+      ['.eq',              'fx-left'],
+      ['.rung',            'fx-grow'],   /* the ladder rises out of the floor */
+      ['.st',              'fx-pop'],    /* five-stage nodes pop in sequence */
+      ['.arc .pill',       'fx-drop'],   /* the three phase pills drop in */
+      ['.rc',              'fx-pop'],    /* 70:20:10 rings */
+      ['.pull',            'fx-wipe'],   /* the Vision 2030 quote wipes in */
+      ['.tl .row',         'fx-wipe'],
+      ['.vs>div:first-child',  'fx-left'],
+      ['.vs>div:last-child',   'fx-right'],
+      ['.kp>div',          'fx-left'],
+      ['.client',          'fx-wipe'],
+      ['.offer',           'fx-pop'],
+      ['.cta',             'fx-pop'],
+      ['.tcta',            'fx-pop'],
+      ['.tq',              'fx-zoom'],   /* the word Questions scales in */
+      ['.hero',            'fx-zoom'],   /* the 6 months hero */
+      ['.big',             'fx-wipe'],
+      ['.cover h1',        'fx-zoom'],
+      ['.srcgrid>div',     'fx-drop'],
+      ['.fact',            'fx-left'],
+      ['.claim',           'fx-left'],
+      ['.gp',              'fx-grow'],
+      ['.runfacts>div',    'fx-drop'],
+      ['.sg>div',          'fx-pop']
+    ];
+    function effectFor(el){
+      for(var e=0;e<EFFECT.length;e++){ if(el.matches(EFFECT[e][0])) return EFFECT[e][1]; }
+      return 'fx';
+    }
+
+    var step = parseInt(sl.getAttribute('data-stagger') || '58', 10);
+    var cap  = step > 120 ? 4000 : 780;
+
+    var els = sl.querySelectorAll(FOCAL);
+    var delays = [];
+    Array.prototype.forEach.call(els, function(el, k){
+      el.className = el.className.replace(/\bfx(-\w+)?\b/g,'').trim();
+      void el.offsetWidth;
+      el.classList.add(effectFor(el));
+      var d = Math.min(k*step, cap);
+      delays.push(d);
+      el.style.animationDelay = d + 'ms';
+
+      /* items inside this block arrive one at a time */
+      var inner = el.querySelectorAll('.vs li, .srcgrid>div, .sub2>div');
+      Array.prototype.forEach.call(inner, function(li, j){
+        li.classList.remove('fxi'); void li.offsetWidth; li.classList.add('fxi');
+        li.style.animationDelay = (d + 200 + j*85) + 'ms';
+      });
+
+      /* the differentiating word blooms once its line has landed */
+      var em = el.querySelectorAll('em, b, strong');
+      Array.prototype.forEach.call(em, function(w){
+        if(!w.textContent.trim()) return;
+        w.classList.remove('spark'); void w.offsetWidth; w.classList.add('spark');
+        w.style.animationDelay = (d + 340) + 'ms';
+      });
+    });
+
+    var rail = sl.querySelector('.rail5');
+    if(rail){ rail.classList.remove('go'); void rail.offsetWidth; rail.classList.add('go'); }
+
+    var last = delays.length ? delays[delays.length-1] : 0;
+    var kick = sl.querySelector('.kicker');
+    if(kick){ kick.style.animationDelay = (last + 420) + 'ms'; }
+
+    if(reduce){
+      Array.prototype.forEach.call(bars, function(b){ b.style.width = b.dataset.w; });
+      Array.prototype.forEach.call(sl.querySelectorAll('.ring .arc'), function(r){
+        if(r.dataset.d) r.style.strokeDasharray = r.dataset.d;
+      });
+      if(rail) rail.classList.add('go');
+      return;
+    }
+
+    setTimeout(function(){
+      Array.prototype.forEach.call(bars, function(b, k){
+        setTimeout(function(){ b.style.width = b.dataset.w; }, k*90);
+      });
+    }, 260);
+
+    var rings = sl.querySelectorAll('.ring .arc');
+    Array.prototype.forEach.call(rings, function(r, k){
+      var d = r.style.strokeDasharray;
+      if(!r.dataset.d) r.dataset.d = d;
+      r.style.strokeDasharray = '0 999';
+      setTimeout(function(){ r.style.strokeDasharray = r.dataset.d; }, 280 + k*140);
+    });
+
+    Array.prototype.forEach.call(sl.querySelectorAll('.rpc'), function(el, k){
+      setTimeout(function(){ countUp(el, 850); }, 300 + k*140);
+    });
+
+    /* the two-axis grid: cells climb from BEFORE to AFTER, then AFTER radiates */
+    var dg = sl.querySelector('.dg');
+    if(dg){
+      var cells = Array.prototype.slice.call(dg.children);
+      var marks = Array.prototype.slice.call(dg.querySelectorAll('.mk span'));
+      cells.forEach(function(c){ c.classList.remove('in','live'); });
+      marks.forEach(function(m){ m.classList.remove('go'); });
+      void dg.offsetWidth;
+      if(reduce){
+        cells.forEach(function(c){ c.classList.add('in'); });
+        marks.forEach(function(m){ m.classList.add('go'); });
+      } else {
+        [6,7,8,3,4,5,0,1,2].forEach(function(idx, k){
+          setTimeout(function(){ cells[idx].classList.add('in'); }, 300 + k*88);
+        });
+        var bef = dg.querySelector('.bef span'), aft = dg.querySelector('.aft span');
+        setTimeout(function(){ if(bef) bef.classList.add('go'); }, 620);
+        setTimeout(function(){ cells[5].classList.add('live'); }, 1200);
+        setTimeout(function(){ cells[1].classList.add('live'); }, 1480);
+        setTimeout(function(){ cells[2].classList.add('live'); if(aft) aft.classList.add('go'); }, 1560);
+      }
+    }
+
+    var nums = sl.querySelectorAll('.hero .num, .runfacts .v, .kp .v');
+    Array.prototype.forEach.call(nums, function(el, k){
+      setTimeout(function(){ countUp(el, 900); }, 240 + k*80);
+    });
+  }
+
+  function show(n){
+    n = Math.max(0, Math.min(slides.length-1, n));
+    if(slides[i]) slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    if(!reduce){
+      stage.classList.remove('sweep'); void stage.offsetWidth; stage.classList.add('sweep');
+    }
+    animate(slides[i]);
+    rail.style.width = ((i+1)/slides.length*100) + '%';
+    notes.querySelector('p').textContent = slides[i].getAttribute('data-notes') || '';
+    notes.querySelector('.time').textContent = slides[i].getAttribute('data-time') || '';
+    try{ history.replaceState(null,'','#'+(i+1)); }catch(e){}
+    if(typeof markGrid === 'function') markGrid();
+  }
+
+  var langBtn = document.getElementById('lang');
+  function setLang(lg){
+    var keep = i;
+    slides.forEach(function(s){ s.classList.remove('on'); });
+    LANG = lg;
+    slides = setOf(LANG);
+    stage.setAttribute('dir', LANG === 'ar' ? 'rtl' : 'ltr');
+    stage.setAttribute('lang', LANG);
+    document.documentElement.setAttribute('lang', LANG);
+    langBtn.textContent = LANG === 'en' ? '\u0627\u0644\u0639\u0631\u0628\u064a\u0629' : 'English';
+    buildGrid();
+    i = 0;
+    show(Math.min(keep, slides.length - 1));
+  }
+  langBtn.addEventListener('click', function(){ setLang(LANG === 'en' ? 'ar' : 'en'); });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'){ e.preventDefault(); show(i+1); }
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){ e.preventDefault(); show(i-1); }
+    else if(k==='Home'){ show(0); }
+    else if(k==='End'){ show(slides.length-1); }
+    else if(k==='n'||k==='N'){ notes.classList.toggle('on'); }
+    else if(k==='t'||k==='T'){ toggle(); }
+    else if(k==='r'||k==='R'){ reset(); }
+    else if(k==='h'||k==='H'){ timer.classList.toggle('hid'); }
+    else if(k==='l'||k==='L'){ setLang(LANG === 'en' ? 'ar' : 'en'); }
+    else if(k==='o'||k==='O'){ e.preventDefault(); grid.classList.toggle('on'); markGrid(); }
+    else if(k==='b'||k==='B'||k==='.'){ e.preventDefault(); black.classList.toggle('on'); }
+    else if(k==='Escape'){ grid.classList.remove('on'); black.classList.remove('on'); }
+    else if(k==='f'||k==='F'){
+      if(document.fullscreenElement){ document.exitFullscreen(); }
+      else if(document.documentElement.requestFullscreen){ document.documentElement.requestFullscreen(); }
+    }
+  });
+
+  /* ---------- 20-minute countdown ---------- */
+  var TOTAL = 20*60, left = TOTAL, running = false, tick = null;
+  var timer = document.getElementById('timer');
+  var clk = timer.querySelector('.clk'), stt = timer.querySelector('.st');
+
+  function fmt(sec){
+    var over = sec < 0, a = Math.abs(sec);
+    return (over?'+':'') + Math.floor(a/60) + ':' + String(a%60).padStart(2,'0');
+  }
+  function paint(){
+    clk.textContent = fmt(left);
+    timer.classList.toggle('run', running);
+    timer.classList.toggle('warn', left <= 180 && left > 0);
+    timer.classList.toggle('over', left <= 0);
+    stt.textContent = left <= 0 ? 'Over' : (running ? 'Running' : (left === TOTAL ? 'Ready' : 'Paused'));
+  }
+  function toggle(){
+    running = !running;
+    if(running){ tick = setInterval(function(){ left--; paint(); }, 1000); }
+    else { clearInterval(tick); tick = null; }
+    paint();
+  }
+  function reset(){
+    running = false; clearInterval(tick); tick = null; left = TOTAL; paint();
+  }
+  timer.addEventListener('click', toggle);
+  paint();
+
+  /* ---------- slide index, blackout, cursor ---------- */
+  var grid = document.getElementById('grid'), gwrap = document.getElementById('gwrap');
+  var black = document.getElementById('black');
+
+  function buildGrid(){
+    gwrap.innerHTML = '';
+    gwrap.setAttribute('dir', LANG === 'ar' ? 'rtl' : 'ltr');
+    slides.forEach(function(sl, n){
+      var t = sl.querySelector('h2.title') || sl.querySelector('.client .cn')
+           || sl.querySelector('.tq') || sl.querySelector('.cover h1')
+           || sl.querySelector('.close .big') || sl.querySelector('.bigq')
+           || sl.querySelector('.eyebrow');
+      var label = t ? t.textContent.trim().replace(/\s+/g,' ') : ('Slide ' + (n+1));
+      var btn = document.createElement('button');
+      var gn = document.createElement('span'); gn.className='gn';
+      gn.textContent = String(n+1).padStart(2,'0');
+      var gt = document.createElement('span'); gt.className='gt';
+      gt.textContent = label.slice(0,58);
+      btn.appendChild(gn); btn.appendChild(gt);
+      btn.addEventListener('click', function(){ grid.classList.remove('on'); show(n); });
+      gwrap.appendChild(btn);
+    });
+  }
+  buildGrid();
+
+  function markGrid(){
+    Array.prototype.forEach.call(gwrap.children, function(b, n){
+      b.classList.toggle('cur', n === i);
+    });
+  }
+
+  var curT;
+  function wake(){
+    document.body.classList.remove('hidecur');
+    clearTimeout(curT);
+    curT = setTimeout(function(){ document.body.classList.add('hidecur'); }, 2600);
+  }
+  document.addEventListener('mousemove', wake);
+  wake();
+
+  document.getElementById('hitL').addEventListener('click', function(){ show(i-1); });
+  document.getElementById('hitR').addEventListener('click', function(){ show(i+1); });
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', function(){ setTimeout(fit, 120); });
+
+  /* swipe to navigate on touch devices */
+  var tx = 0, ty = 0;
+  document.addEventListener('touchstart', function(e){
+    tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)*1.6){ show(dx < 0 ? i+1 : i-1); }
+  }, {passive:true});
+
+  fit();
+  var h = parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h) ? 0 : h-1);
+})();
+</script>
+
+</body>
+</html>
